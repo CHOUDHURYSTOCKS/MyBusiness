@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Business Plan</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg,#0f172a,#111827,#1e3a8a);
+      color:white;
+      overflow-x:hidden;
+    }
+
+    /* Animated Background */
+    body::before{
+      content:'';
+      position:fixed;
+      width:200%;
+      height:200%;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.08), transparent 25%),
+        radial-gradient(circle at bottom right, rgba(0,255,255,0.08), transparent 25%);
+      animation: moveBg 15s linear infinite;
+      z-index:-1;
+    }
+
+    @keyframes moveBg{
+      0%{
+        transform:translate(0,0);
+      }
+      50%{
+        transform:translate(-5%,-5%);
+      }
+      100%{
+        transform:translate(0,0);
+      }
+    }
+
+    .container{
+      width:90%;
+      max-width:1200px;
+      margin:auto;
+      padding:40px 0;
+    }
+
+    .hero{
+      text-align:center;
+      padding:80px 20px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    .hero h1{
+      font-size:4rem;
+      background: linear-gradient(to right,#00f5ff,#7c3aed,#ff00cc);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      margin-bottom:20px;
+      font-weight:700;
+    }
+
+    .hero p{
+      font-size:1.2rem;
+      color:#d1d5db;
+      max-width:850px;
+      margin:auto;
+      line-height:1.8;
+    }
+
+    .card{
+      background: rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border-radius:20px;
+      padding:30px;
+      margin-top:40px;
+      transition:0.4s ease;
+      animation: slideUp 1s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-10px) scale(1.01);
+      box-shadow:0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    h2{
+      font-size:2rem;
+      margin-bottom:20px;
+      color:#00f5ff;
+    }
+
+    .formula{
+      text-align:center;
+      font-size:2rem;
+      font-weight:bold;
+      margin:30px 0;
+      color:#facc15;
+      animation:pulse 2s infinite;
+    }
+
+    .highlight{
+      color:#22c55e;
+      font-weight:bold;
+      font-size:1.3rem;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:20px;
+      overflow:hidden;
+      border-radius:15px;
+    }
+
+    table th{
+      background:linear-gradient(90deg,#7c3aed,#2563eb);
+      padding:15px;
+      font-size:1.1rem;
+    }
+
+    table td{
+      padding:15px;
+      text-align:center;
+      background:rgba(255,255,255,0.05);
+      transition:0.3s;
+    }
+
+    table tr:hover td{
+      background:rgba(0,255,255,0.12);
+      transform:scale(1.01);
+    }
+
+    ul{
+      margin-top:20px;
+      padding-left:20px;
+    }
+
+    ul li{
+      margin-bottom:20px;
+      line-height:1.8;
+      background:rgba(255,255,255,0.05);
+      padding:15px;
+      border-left:4px solid #00f5ff;
+      border-radius:10px;
+      transition:0.3s ease;
+    }
+
+    ul li:hover{
+      transform:translateX(10px);
+      background:rgba(255,255,255,0.12);
+    }
+
+    .step{
+      color:#00f5ff;
+      font-weight:bold;
+      font-size:1.1rem;
+    }
+
+    footer{
+      text-align:center;
+      padding:40px;
+      color:#cbd5e1;
+      margin-top:50px;
+    }
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:translateY(-30px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @keyframes slideUp{
+      from{
+        opacity:0;
+        transform:translateY(40px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @keyframes pulse{
+      0%{
+        transform:scale(1);
+      }
+      50%{
+        transform:scale(1.05);
+      }
+      100%{
+        transform:scale(1);
+      }
+    }
+
+    .glow{
+      color:#fff;
+      text-shadow:0 0 10px #00f5ff,
+                  0 0 20px #00f5ff,
+                  0 0 40px #00f5ff;
+    }
+
+    @media(max-width:768px){
+
+      .hero h1{
+        font-size:2.5rem;
+      }
+
+      .formula{
+        font-size:1.4rem;
+      }
+
+      table th,
+      table td{
+        padding:10px;
+        font-size:0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+      <h1>MY BUSINESS PLAN</h1>
+
+      <p>
+        A strategic compounding growth model combined with a disciplined
+        <span class="glow">Day Trading (Option Index Trading)</span>
+        setup designed for consistent execution and exponential growth.
+      </p>
+    </section>
+
+    <!-- BUSINESS GROWTH -->
+    <section class="card">
+      <h2>Business Growth Formula</h2>
+ <h2>Start with ₹10,000 and the amount doubles every month.</h2>
+ <h2>Then the growth follows</h2>
+      <div class="formula">
+        A = P × 2<sup>n</sup>
+      </div>
+
+      <p><strong>Where:</strong></p>
+      <br>
+
+      <p>• P = ₹10,000</p>
+      <p>• n = 12 months</p>
+
+      <br>
+
+      <p>
+        A = 10,000 × 2<sup>12</sup>
+      </p>
+
+      <p>
+        2<sup>12</sup> = 4096
+      </p>
+
+      <br>
+
+      <p>
+        A = 10,000 × 4096 = ₹40,960,000
+      </p>
+
+      <br>
+
+      <p class="highlight">
+        Final Amount After 12 Months :
+        ₹4,09,60,000 (Approximately ₹4.096 Crore)
+      </p>
+    </section>
+
+    <!-- TABLE -->
+    <section class="card">
+      <h2>Month-wise Growth</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Amount (₹)</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr><td>Start</td><td>10,000</td></tr>
+          <tr><td>1</td><td>20,000</td></tr>
+          <tr><td>2</td><td>40,000</td></tr>
+          <tr><td>3</td><td>80,000</td></tr>
+          <tr><td>4</td><td>1,60,000</td></tr>
+          <tr><td>5</td><td>3,20,000</td></tr>
+          <tr><td>6</td><td>6,40,000</td></tr>
+          <tr><td>7</td><td>12,80,000</td></tr>
+          <tr><td>8</td><td>25,60,000</td></tr>
+          <tr><td>9</td><td>51,20,000</td></tr>
+          <tr><td>10</td><td>1,02,40,000</td></tr>
+          <tr><td>11</td><td>2,04,80,000</td></tr>
+          <tr><td>12</td><td>4,09,60,000</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- TRADING PLAN -->
+    <section class="card">
+      <h2>Day Trading (Option Index Trading) Plan Setup</h2>
+
+      <ul>
+
+        <li>
+          <span class="step">Step 1:</span>
+          Check VWAP line status for bullish or bearish trend
+          on the Dhan Platform index chart.
+        </li>
+
+        <li>
+          <span class="step">Step 2:</span>
+          Check ALMA (5,20) crossover for bearish or bullish
+          confirmation before executing trade.
+        </li>
+
+        <li>
+          <span class="step">Step 3:</span>
+          Check MACD status to confirm crossover movement
+          above or below the mid-line.
+        </li>
+
+        <li>
+          <span class="step">Step 4:</span>
+          Verify RSI levels:
+          Bullish above 60,
+          Bearish below 40,
+          while also monitoring the 50 mid-line.
+        </li>
+
+        <li>
+          <span class="step">Step 5:</span>
+          Check VWAP on option premium chart along with
+          crossover, MACD, and RSI confirmation.
+        </li>
+
+        <li>
+          <span class="step">Step 6:</span>
+          Use Heikin Ashi & Renko charts while trading
+          for stronger buy and sell confirmation.
+        </li>
+
+      </ul>
+    </section>
+
+    <footer>
+      Designed with Gradient UI • Glassmorphism • Smooth Animations
+    </footer>
+
+  </div>
+
+</body>
+</html>
