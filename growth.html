@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Final Amount Calculator</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:linear-gradient(135deg,#141e30,#243b55);
+        }
+
+        .container{
+            width:400px;
+            background:rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            border-radius:20px;
+            padding:35px;
+            box-shadow:0 0 25px rgba(0,0,0,0.4);
+            color:white;
+            text-align:center;
+            animation:fadeIn 1s ease;
+        }
+
+        h1{
+            margin-bottom:25px;
+            font-size:30px;
+            color:#00e5ff;
+            text-shadow:0 0 10px #00e5ff;
+        }
+
+        input{
+            width:100%;
+            padding:14px;
+            margin:12px 0;
+            border:none;
+            border-radius:10px;
+            outline:none;
+            font-size:16px;
+            background:rgba(255,255,255,0.15);
+            color:white;
+        }
+
+        input::placeholder{
+            color:#ddd;
+        }
+
+        button{
+            width:100%;
+            padding:14px;
+            margin-top:15px;
+            border:none;
+            border-radius:10px;
+            background:#00e5ff;
+            color:#111;
+            font-size:18px;
+            font-weight:bold;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        button:hover{
+            background:#00bcd4;
+            transform:scale(1.05);
+            box-shadow:0 0 15px #00e5ff;
+        }
+
+        .result{
+            margin-top:25px;
+            padding:18px;
+            border-radius:12px;
+            background:rgba(255,255,255,0.1);
+            text-align:left;
+            line-height:1.8;
+            font-size:17px;
+        }
+
+        .highlight{
+            color:#00ffcc;
+            font-weight:bold;
+        }
+
+        @keyframes fadeIn{
+            from{
+                opacity:0;
+                transform:translateY(-20px);
+            }
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Final Amount Calculator</h1>
+
+        <input type="number" id="base" placeholder="Growth Multiplier Per Month">
+        
+        <input type="number" id="expnt" placeholder="Number of Months">
+        
+        <input type="number" id="amount" placeholder="Initial Amount">
+
+        <button onclick="calculateAmount()">Calculate</button>
+
+        <div class="result" id="output">
+            Enter values and click Calculate.
+        </div>
+    </div>
+
+    <script>
+        function calculateAmount(){
+
+            var base = parseFloat(document.getElementById("base").value);
+            var expnt = parseFloat(document.getElementById("expnt").value);
+            var A = parseFloat(document.getElementById("amount").value);
+
+            var Final_Amount = A * Math.pow(base, expnt);
+
+            document.getElementById("output").innerHTML = `
+                <p>Initial Amount : <span class="highlight">₹${A}</span></p>
+                <p>Growth Multiplier : <span class="highlight">${base}x</span></p>
+                <p>Number of Months : <span class="highlight">${expnt}</span></p>
+                <hr style="margin:10px 0; border:1px solid rgba(255,255,255,0.2);">
+                <p>The Final Amount : <span class="highlight">₹${Final_Amount.toLocaleString()}</span></p>
+            `;
+        }
+    </script>
+
+</body>
+</html>
