@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Heikin Ashi vs Renko vs Line Break vs Kagi vs Point & Figure</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    :root{
+      --bg:#07111f;
+      --card:#111c2e;
+      --primary:#00d4ff;
+      --secondary:#7b61ff;
+      --accent:#00ffa3;
+      --text:#f4f7ff;
+      --muted:#9eb3d1;
+      --danger:#ff5f7a;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(135deg,#06111f,#0c1f38,#091526);
+      color:var(--text);
+      overflow-x:hidden;
+      line-height:1.7;
+    }
+
+    /* Animated Background */
+    body::before{
+      content:'';
+      position:fixed;
+      width:700px;
+      height:700px;
+      background:radial-gradient(circle,var(--secondary),transparent 70%);
+      top:-250px;
+      right:-200px;
+      opacity:.15;
+      animation:float 8s ease-in-out infinite alternate;
+      z-index:-1;
+    }
+
+    body::after{
+      content:'';
+      position:fixed;
+      width:600px;
+      height:600px;
+      background:radial-gradient(circle,var(--primary),transparent 70%);
+      bottom:-250px;
+      left:-150px;
+      opacity:.15;
+      animation:float2 10s ease-in-out infinite alternate;
+      z-index:-1;
+    }
+
+    @keyframes float{
+      from{transform:translateY(0px);}
+      to{transform:translateY(40px);}
+    }
+
+    @keyframes float2{
+      from{transform:translateX(0px);}
+      to{transform:translateX(50px);}
+    }
+
+    header{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:40px;
+      position:relative;
+    }
+
+    .hero{
+      max-width:1000px;
+      animation:fadeUp 1s ease;
+    }
+
+    .hero h1{
+      font-size:4rem;
+      line-height:1.2;
+      margin-bottom:25px;
+      background:linear-gradient(to right,#00d4ff,#7b61ff,#00ffa3);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      font-weight:700;
+    }
+
+    .hero p{
+      color:var(--muted);
+      font-size:1.2rem;
+      max-width:800px;
+      margin:auto;
+    }
+
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(50px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .container{
+      width:90%;
+      max-width:1300px;
+      margin:auto;
+      padding:80px 0;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title h2{
+      font-size:2.8rem;
+      margin-bottom:15px;
+      background:linear-gradient(to right,#00d4ff,#00ffa3);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:35px;
+    }
+
+    .card{
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(12px);
+      border-radius:24px;
+      padding:30px;
+      position:relative;
+      overflow:hidden;
+      transition:.4s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-12px) scale(1.02);
+      box-shadow:0 25px 50px rgba(0,0,0,0.35);
+      border-color:rgba(0,212,255,0.4);
+    }
+
+    .card::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:-100%;
+      width:100%;
+      height:100%;
+      background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.08),
+        transparent
+      );
+      transition:.8s;
+    }
+
+    .card:hover::before{
+      left:100%;
+    }
+
+    .card h3{
+      font-size:1.8rem;
+      margin-bottom:18px;
+      color:var(--primary);
+    }
+
+    .tag{
+      display:inline-block;
+      padding:6px 14px;
+      background:linear-gradient(to right,var(--secondary),var(--primary));
+      border-radius:30px;
+      font-size:.8rem;
+      margin-bottom:20px;
+      font-weight:600;
+    }
+
+    .card ul{
+      margin-top:10px;
+      padding-left:20px;
+    }
+
+    .card ul li{
+      margin-bottom:10px;
+      color:#d9e5ff;
+    }
+
+    .label{
+      color:var(--accent);
+      font-weight:600;
+      margin-top:18px;
+      display:block;
+    }
+
+    /* Comparison Table */
+    .table-wrapper{
+      overflow-x:auto;
+      margin-top:60px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      background:rgba(255,255,255,0.05);
+      border-radius:20px;
+      overflow:hidden;
+      backdrop-filter:blur(10px);
+    }
+
+    th{
+      background:linear-gradient(to right,#00d4ff,#7b61ff);
+      padding:18px;
+      color:white;
+      font-size:1rem;
+    }
+
+    td{
+      padding:18px;
+      text-align:center;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      color:#dce8ff;
+      transition:.3s;
+    }
+
+    tr:hover td{
+      background:rgba(255,255,255,0.05);
+    }
+
+    /* Recommendation Section */
+    .recommend{
+      margin-top:100px;
+    }
+
+    .recommend-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:25px;
+      margin-top:40px;
+    }
+
+    .recommend-box{
+      background:linear-gradient(
+        145deg,
+        rgba(0,212,255,0.12),
+        rgba(123,97,255,0.12)
+      );
+      border:1px solid rgba(255,255,255,0.08);
+      padding:25px;
+      border-radius:20px;
+      transition:.4s;
+    }
+
+    .recommend-box:hover{
+      transform:translateY(-10px);
+      box-shadow:0 15px 35px rgba(0,0,0,0.35);
+    }
+
+    .recommend-box h4{
+      margin-bottom:15px;
+      color:var(--primary);
+      font-size:1.3rem;
+    }
+
+    /* Popular Ranking */
+    .ranking{
+      margin-top:100px;
+      text-align:center;
+    }
+
+    .rank-list{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:25px;
+      margin-top:40px;
+    }
+
+    .rank-item{
+      width:220px;
+      padding:25px;
+      border-radius:22px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      transition:.4s;
+    }
+
+    .rank-item:hover{
+      transform:scale(1.05);
+      background:linear-gradient(
+        135deg,
+        rgba(0,212,255,0.15),
+        rgba(123,97,255,0.15)
+      );
+    }
+
+    .rank-number{
+      font-size:3rem;
+      font-weight:700;
+      color:var(--accent);
+    }
+
+    footer{
+      text-align:center;
+      padding:60px 20px;
+      color:var(--muted);
+      margin-top:80px;
+      border-top:1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Scroll Animation */
+    .hidden{
+      opacity:0;
+      transform:translateY(50px);
+      transition:all 1s;
+    }
+
+    .show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media(max-width:768px){
+
+      .hero h1{
+        font-size:2.5rem;
+      }
+
+      .section-title h2{
+        font-size:2rem;
+      }
+
+      .card{
+        padding:24px;
+      }
+
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="hero">
+      <h1>
+        Heikin Ashi vs Renko vs Line Break vs Kagi vs Point & Figure
+      </h1>
+      <p>
+        Discover the most powerful alternative charting techniques used by professional traders
+        for trend analysis, breakout detection, noise reduction, and market psychology.
+      </p>
+    </div>
+  </header>
+
+  <section class="container">
+
+    <div class="section-title hidden">
+      <h2>Charting Techniques</h2>
+      <p>Understand how each chart works and where it performs best.</p>
+    </div>
+
+    <div class="cards">
+
+      <!-- Heikin Ashi -->
+      <div class="card hidden">
+        <span class="tag">1. Heikin Ashi</span>
+        <h3>Smooth Candlestick Trends</h3>
+
+        <span class="label">What it is</span>
+        <p>A modified candlestick chart using averaged values to smooth price action.</p>
+
+        <span class="label">How it works</span>
+        <ul>
+          <li>Uses averaged OHLC values</li>
+          <li>Reduces market noise</li>
+          <li>Makes trends easier to identify</li>
+        </ul>
+
+        <span class="label">Best for</span>
+        <ul>
+          <li>Trend following</li>
+          <li>Swing trading</li>
+          <li>Trend strength analysis</li>
+        </ul>
+
+        <span class="label">Advantages</span>
+        <ul>
+          <li>Smooth trend visualization</li>
+          <li>Fewer false signals</li>
+          <li>Easy to understand</li>
+        </ul>
+
+        <span class="label">Disadvantages</span>
+        <ul>
+          <li>Lagging nature</li>
+          <li>Actual price not exact</li>
+          <li>Not ideal for precise entries</li>
+        </ul>
+
+        <span class="label">Visual Style</span>
+        <p>Looks like regular candlesticks but smoother.</p>
+      </div>
+
+      <!-- Renko -->
+      <div class="card hidden">
+        <span class="tag">2. Renko</span>
+        <h3>Brick-Based Trend Charts</h3>
+
+        <span class="label">What it is</span>
+        <p>A chart made of bricks that ignores time completely.</p>
+
+        <span class="label">How it works</span>
+        <ul>
+          <li>New brick forms after fixed price movement</li>
+          <li>Time is ignored entirely</li>
+          <li>Example: ₹10 movement = 1 brick</li>
+        </ul>
+
+        <span class="label">Best for</span>
+        <ul>
+          <li>Trend identification</li>
+          <li>Breakout trading</li>
+          <li>Noise reduction</li>
+        </ul>
+
+        <span class="label">Advantages</span>
+        <ul>
+          <li>Very clean charts</li>
+          <li>Excellent trend clarity</li>
+          <li>Filters small fluctuations</li>
+        </ul>
+
+        <span class="label">Disadvantages</span>
+        <ul>
+          <li>Delayed reversals</li>
+          <li>Brick size is critical</li>
+          <li>No time information</li>
+        </ul>
+
+        <span class="label">Visual Style</span>
+        <p>Looks like stacked blocks or bricks.</p>
+      </div>
+
+      <!-- Line Break -->
+      <div class="card hidden">
+        <span class="tag">3. Line Break</span>
+        <h3>Breakout Confirmation Lines</h3>
+
+        <span class="label">What it is</span>
+        <p>A chart that creates new lines only when price breaks previous highs/lows.</p>
+
+        <span class="label">How it works</span>
+        <ul>
+          <li>Most popular: 3-Line Break Chart</li>
+          <li>Reversal only if price exceeds previous 3 lines</li>
+        </ul>
+
+        <span class="label">Best for</span>
+        <ul>
+          <li>Trend reversal detection</li>
+          <li>Medium-term trading</li>
+        </ul>
+
+        <span class="label">Advantages</span>
+        <ul>
+          <li>Less market noise</li>
+          <li>Strong reversal visibility</li>
+          <li>Simpler than Renko</li>
+        </ul>
+
+        <span class="label">Disadvantages</span>
+        <ul>
+          <li>Can lag</li>
+          <li>Limited platform support</li>
+        </ul>
+
+        <span class="label">Visual Style</span>
+        <p>Vertical blocks and directional lines.</p>
+      </div>
+
+      <!-- Kagi -->
+      <div class="card hidden">
+        <span class="tag">4. Kagi</span>
+        <h3>Supply & Demand Psychology</h3>
+
+        <span class="label">What it is</span>
+        <p>A Japanese charting method focused on supply and demand.</p>
+
+        <span class="label">How it works</span>
+        <ul>
+          <li>Line thickness changes on reversal</li>
+          <li>Thick line = stronger demand</li>
+          <li>Thin line = stronger supply</li>
+        </ul>
+
+        <span class="label">Best for</span>
+        <ul>
+          <li>Trend reversals</li>
+          <li>Support & resistance</li>
+        </ul>
+
+        <span class="label">Advantages</span>
+        <ul>
+          <li>Excellent trend change detection</li>
+          <li>Removes noise</li>
+          <li>Shows market psychology</li>
+        </ul>
+
+        <span class="label">Disadvantages</span>
+        <ul>
+          <li>Harder to learn</li>
+          <li>Less commonly used</li>
+        </ul>
+
+        <span class="label">Visual Style</span>
+        <p>Vertical lines with thickness changes.</p>
+      </div>
+
+      <!-- Point & Figure -->
+      <div class="card hidden">
+        <span class="tag">5. Point & Figure</span>
+        <h3>X’s and O’s Price Action</h3>
+
+        <span class="label">What it is</span>
+        <p>A chart using X’s and O’s to represent price movement.</p>
+
+        <span class="label">How it works</span>
+        <ul>
+          <li>X = rising prices</li>
+          <li>O = falling prices</li>
+          <li>Uses box size & reversal amount</li>
+          <li>Ignores time completely</li>
+        </ul>
+
+        <span class="label">Best for</span>
+        <ul>
+          <li>Long-term trend analysis</li>
+          <li>Breakout trading</li>
+          <li>Support & resistance</li>
+        </ul>
+
+        <span class="label">Advantages</span>
+        <ul>
+          <li>Very little noise</li>
+          <li>Excellent pattern clarity</li>
+          <li>Strong breakout signals</li>
+        </ul>
+
+        <span class="label">Disadvantages</span>
+        <ul>
+          <li>Learning curve</li>
+          <li>Less intuitive initially</li>
+        </ul>
+
+        <span class="label">Visual Style</span>
+        <p>Columns of X’s and O’s.</p>
+      </div>
+
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="section-title hidden" style="margin-top:120px;">
+      <h2>Quick Comparison Table</h2>
+    </div>
+
+    <div class="table-wrapper hidden">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Heikin Ashi</th>
+            <th>Renko</th>
+            <th>Line Break</th>
+            <th>Kagi</th>
+            <th>Point & Figure</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Uses Time</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>Partial</td>
+            <td>No</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>Noise Reduction</td>
+            <td>Medium</td>
+            <td>High</td>
+            <td>High</td>
+            <td>High</td>
+            <td>Very High</td>
+          </tr>
+          <tr>
+            <td>Trend Clarity</td>
+            <td>High</td>
+            <td>Very High</td>
+            <td>High</td>
+            <td>High</td>
+            <td>Very High</td>
+          </tr>
+          <tr>
+            <td>Reversal Signals</td>
+            <td>Medium</td>
+            <td>Medium</td>
+            <td>Good</td>
+            <td>Excellent</td>
+            <td>Excellent</td>
+          </tr>
+          <tr>
+            <td>Easy to Learn</td>
+            <td>Easy</td>
+            <td>Easy</td>
+            <td>Medium</td>
+            <td>Hard</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td>Best For</td>
+            <td>Smooth trends</td>
+            <td>Trend trading</td>
+            <td>Reversals</td>
+            <td>Supply/Demand</td>
+            <td>Breakouts</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Recommendation -->
+    <div class="recommend">
+
+      <div class="section-title hidden">
+        <h2>Which One Should You Use?</h2>
+      </div>
+
+      <div class="recommend-grid">
+
+        <div class="recommend-box hidden">
+          <h4>Use Heikin Ashi if:</h4>
+          <ul>
+            <li>You prefer candlestick-style charts</li>
+            <li>You are a beginner</li>
+            <li>You trade trends</li>
+          </ul>
+        </div>
+
+        <div class="recommend-box hidden">
+          <h4>Use Renko if:</h4>
+          <ul>
+            <li>You want clean trend signals</li>
+            <li>You dislike market noise</li>
+            <li>You trade breakouts</li>
+          </ul>
+        </div>
+
+        <div class="recommend-box hidden">
+          <h4>Use Line Break if:</h4>
+          <ul>
+            <li>You want reversal confirmation</li>
+            <li>You prefer simple trend logic</li>
+          </ul>
+        </div>
+
+        <div class="recommend-box hidden">
+          <h4>Use Kagi if:</h4>
+          <ul>
+            <li>You focus on market psychology</li>
+            <li>You want strong reversal analysis</li>
+          </ul>
+        </div>
+
+        <div class="recommend-box hidden">
+          <h4>Use Point & Figure if:</h4>
+          <ul>
+            <li>You love breakout trading</li>
+            <li>You want long-term clarity</li>
+            <li>You analyze support/resistance deeply</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Ranking -->
+    <div class="ranking hidden">
+
+      <div class="section-title">
+        <h2>Most Popular Among Traders</h2>
+      </div>
+
+      <div class="rank-list">
+
+        <div class="rank-item">
+          <div class="rank-number">1</div>
+          <h3>Renko</h3>
+        </div>
+
+        <div class="rank-item">
+          <div class="rank-number">2</div>
+          <h3>Heikin Ashi</h3>
+        </div>
+
+        <div class="rank-item">
+          <div class="rank-number">3</div>
+          <h3>Point & Figure</h3>
+        </div>
+
+        <div class="rank-item">
+          <div class="rank-number">4</div>
+          <h3>Kagi</h3>
+        </div>
+
+        <div class="rank-item">
+          <div class="rank-number">5</div>
+          <h3>Line Break</h3>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Practical Suggestion -->
+    <div class="section-title hidden" style="margin-top:120px;">
+      <h2>Practical Suggestion</h2>
+      <p>
+        Many professional traders combine multiple chart types together:
+      </p>
+    </div>
+
+    <div class="recommend-grid">
+      <div class="recommend-box hidden">
+        <h4>Normal Candlesticks</h4>
+        <p>Used for precise entries and exits.</p>
+      </div>
+
+      <div class="recommend-box hidden">
+        <h4>Heikin Ashi / Renko</h4>
+        <p>Used for confirming overall trend direction.</p>
+      </div>
+
+      <div class="recommend-box hidden">
+        <h4>Point & Figure</h4>
+        <p>Used for identifying major breakout levels.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>
+    © 2026 Trading Visualization Guide • Designed with Modern UI, Gradients & Smooth Animations
+  </footer>
+
+  <script>
+
+    // Scroll Reveal Animation
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+        }
+      });
+    });
+
+    const hiddenElements = document.querySelectorAll('.hidden');
+
+    hiddenElements.forEach((el)=>observer.observe(el));
+
+  </script>
+
+</body>
+</html>
