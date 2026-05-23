@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Moving Average Comparison</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#0f172a;
+    color:white;
+    overflow-x:hidden;
+    line-height:1.7;
+}
+
+/* Animated Background */
+
+body::before{
+    content:'';
+    position:fixed;
+    width:200%;
+    height:200%;
+    background:
+    radial-gradient(circle at 20% 20%, rgba(0,255,255,0.12), transparent 25%),
+    radial-gradient(circle at 80% 30%, rgba(255,0,255,0.12), transparent 25%),
+    radial-gradient(circle at 50% 80%, rgba(0,150,255,0.15), transparent 30%);
+    animation: bgMove 18s linear infinite;
+    z-index:-1;
+}
+
+@keyframes bgMove{
+    0%{transform:translate(0,0);}
+    50%{transform:translate(-10%,-10%);}
+    100%{transform:translate(0,0);}
+}
+
+.container{
+    width:92%;
+    max-width:1300px;
+    margin:auto;
+    padding:40px 0;
+}
+
+/* HERO */
+
+.hero{
+    text-align:center;
+    padding:80px 20px;
+    margin-bottom:50px;
+    border-radius:30px;
+    background:linear-gradient(135deg,#1e293b,#111827);
+    box-shadow:0 0 40px rgba(0,255,255,0.1);
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.06),transparent);
+    transform:translateX(-100%);
+    animation:shine 6s infinite;
+}
+
+@keyframes shine{
+    100%{
+        transform:translateX(100%);
+    }
+}
+
+.hero h1{
+    font-size:4rem;
+    font-weight:700;
+    background:linear-gradient(to right,#38bdf8,#a78bfa,#f472b6);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom:20px;
+}
+
+.hero p{
+    max-width:900px;
+    margin:auto;
+    color:#cbd5e1;
+    font-size:1.15rem;
+}
+
+/* SECTION */
+
+.section{
+    margin:80px 0;
+}
+
+.section-title{
+    font-size:2.3rem;
+    margin-bottom:30px;
+    font-weight:700;
+    background:linear-gradient(to right,#00e5ff,#8b5cf6);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* TABLE */
+
+.table-wrapper{
+    overflow-x:auto;
+    border-radius:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.1);
+}
+
+th,td{
+    padding:20px;
+    text-align:left;
+}
+
+th{
+    background:linear-gradient(to right,#0ea5e9,#8b5cf6);
+    color:white;
+    font-weight:600;
+}
+
+tr{
+    transition:0.4s;
+}
+
+tr:hover{
+    background:rgba(255,255,255,0.08);
+    transform:scale(1.01);
+}
+
+/* CARDS */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:25px;
+    padding:30px;
+    position:relative;
+    overflow:hidden;
+    transition:0.5s;
+    backdrop-filter:blur(10px);
+}
+
+.card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg,rgba(0,255,255,0.08),transparent);
+    opacity:0;
+    transition:0.5s;
+}
+
+.card:hover::before{
+    opacity:1;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 15px 35px rgba(0,255,255,0.15);
+}
+
+.card h3{
+    font-size:1.6rem;
+    margin-bottom:15px;
+    color:#38bdf8;
+}
+
+.card h4{
+    margin-top:20px;
+    margin-bottom:10px;
+    color:#f472b6;
+}
+
+.card ul{
+    padding-left:20px;
+}
+
+.card li{
+    margin-bottom:8px;
+    color:#dbeafe;
+}
+
+/* RECOMMENDATION BOX */
+
+.recommendation{
+    margin-top:50px;
+    padding:40px;
+    border-radius:25px;
+    background:linear-gradient(135deg,#111827,#1e3a8a);
+    box-shadow:0 0 40px rgba(59,130,246,0.2);
+}
+
+.recommendation h2{
+    margin-bottom:20px;
+    font-size:2rem;
+    color:#38bdf8;
+}
+
+.highlight{
+    color:#facc15;
+    font-weight:600;
+}
+
+/* USE CASE */
+
+.use-cases{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.use-box{
+    background:rgba(255,255,255,0.05);
+    padding:25px;
+    border-radius:20px;
+    transition:0.4s;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.use-box:hover{
+    transform:translateY(-8px);
+    background:rgba(255,255,255,0.08);
+}
+
+.use-box h4{
+    margin-bottom:12px;
+    color:#22d3ee;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    margin-top:80px;
+    padding:30px;
+    color:#94a3b8;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+.hero h1{
+    font-size:2.3rem;
+}
+
+.section-title{
+    font-size:1.8rem;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Explore the different Moving Averages</h1>
+        <h1> SMA vs EMA vs WMA vs ALMA vs MA Channel vs Hamming MA</h1>
+        <p>
+            Explore the differences between the most popular moving averages used in trading and technical analysis.
+            Understand speed, smoothness, volatility response, and which indicator fits your strategy best.
+        </p>
+    </section>
+
+    <!-- COMPARISON TABLE -->
+    <section class="section">
+        <h2 class="section-title">Speed vs Smoothness Comparison</h2>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Indicator</th>
+                        <th>Speed</th>
+                        <th>Smoothness</th>
+                        <th>Noise Resistance</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>SMA</td>
+                        <td>Slow</td>
+                        <td>High</td>
+                        <td>High</td>
+                    </tr>
+
+                    <tr>
+                        <td>EMA</td>
+                        <td>Fast</td>
+                        <td>Medium</td>
+                        <td>Medium</td>
+                    </tr>
+
+                    <tr>
+                        <td>WMA</td>
+                        <td>Very Fast</td>
+                        <td>Medium-Low</td>
+                        <td>Low</td>
+                    </tr>
+
+                    <tr>
+                        <td>MA Channel</td>
+                        <td>Depends on MA</td>
+                        <td>Depends</td>
+                        <td>Depends</td>
+                    </tr>
+
+                    <tr>
+                        <td>Hamming MA</td>
+                        <td>Medium-Slow</td>
+                        <td>Very High</td>
+                        <td>Very High</td>
+                    </tr>
+
+                    <tr>
+                        <td>ALMA</td>
+                        <td>Fast-Medium</td>
+                        <td>Very High</td>
+                        <td>High</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- USE CASES -->
+    <section class="section">
+        <h2 class="section-title">Which One Should You Use?</h2>
+
+        <div class="use-cases">
+
+            <div class="use-box">
+                <h4>For Beginners</h4>
+                <p>• SMA<br>• EMA</p>
+            </div>
+
+            <div class="use-box">
+                <h4>For Scalping / Day Trading</h4>
+                <p>• EMA<br>• WMA</p>
+            </div>
+
+            <div class="use-box">
+                <h4>For Swing Trading</h4>
+                <p>• EMA<br>• ALMA</p>
+            </div>
+
+            <div class="use-box">
+                <h4>Reducing Fake Signals</h4>
+                <p>• ALMA<br>• Hamming MA</p>
+            </div>
+
+            <div class="use-box">
+                <h4>Volatility & Trend Structure</h4>
+                <p>• Moving Average Channels</p>
+            </div>
+
+        </div>
+
+        <div class="recommendation">
+            <h2>Practical Recommendation</h2>
+
+            <p>
+                A very effective modern setup is:
+            </p>
+
+            <br>
+
+            <p>
+                <span class="highlight">• 200 SMA</span> → macro trend<br>
+                <span class="highlight">• 20 EMA</span> → momentum<br>
+                <span class="highlight">• ALMA</span> → clean confirmation filter
+            </p>
+
+            <br>
+
+            <p>
+                This combination balances:
+            </p>
+
+            <br>
+
+            <p>
+                • Stability<br>
+                • Responsiveness<br>
+                • Noise Reduction
+            </p>
+        </div>
+    </section>
+
+    <!-- INDICATOR CARDS -->
+    <section class="section">
+        <h2 class="section-title">Detailed Breakdown</h2>
+
+        <div class="grid">
+
+            <!-- SMA -->
+            <div class="card">
+                <h3>1. Simple Moving Average (SMA)</h3>
+
+                <h4>What it does</h4>
+                <ul>
+                    <li>Takes the average closing price over a fixed period.</li>
+                    <li>Every candle has equal weight.</li>
+                </ul>
+
+                <h4>Characteristics</h4>
+                <ul>
+                    <li>Smooth and stable</li>
+                    <li>Slowest to react</li>
+                    <li>Filters noise well</li>
+                    <li>More lagging</li>
+                </ul>
+
+                <h4>Best For</h4>
+                <ul>
+                    <li>Long-term trend analysis</li>
+                    <li>Support/resistance zones</li>
+                    <li>Swing trading</li>
+                    <li>Macro trend direction</li>
+                </ul>
+
+                <h4>Common Settings</h4>
+                <ul>
+                    <li>20 SMA</li>
+                    <li>50 SMA</li>
+                    <li>100 SMA</li>
+                    <li>200 SMA</li>
+                </ul>
+
+                <h4>Weakness</h4>
+                <p>Late entries and exits during fast market moves.</p>
+            </div>
+
+            <!-- EMA -->
+            <div class="card">
+                <h3>2. Exponential Moving Average (EMA)</h3>
+
+                <h4>What it does</h4>
+                <ul>
+                    <li>Gives more weight to recent prices.</li>
+                    <li>Reacts faster than SMA.</li>
+                </ul>
+
+                <h4>Characteristics</h4>
+                <ul>
+                    <li>Faster response</li>
+                    <li>Less lag</li>
+                    <li>More sensitive to volatility</li>
+                    <li>More false signals in choppy markets</li>
+                </ul>
+
+                <h4>Best For</h4>
+                <ul>
+                    <li>Intraday trading</li>
+                    <li>Momentum trading</li>
+                    <li>Crypto/forex scalping</li>
+                    <li>Trend continuation entries</li>
+                </ul>
+
+                <h4>Common Settings</h4>
+                <ul>
+                    <li>9 EMA</li>
+                    <li>20 EMA</li>
+                    <li>50 EMA</li>
+                </ul>
+
+                <h4>Why Traders Like It</h4>
+                <p>EMAs catch trend changes earlier than SMAs.</p>
+            </div>
+
+            <!-- WMA -->
+            <div class="card">
+                <h3>3. Weighted Moving Average (WMA)</h3>
+
+                <h4>What it does</h4>
+                <ul>
+                    <li>Assigns increasing weight to recent prices.</li>
+                    <li>More aggressive than EMA in some implementations.</li>
+                </ul>
+
+                <h4>Characteristics</h4>
+                <ul>
+                    <li>Faster than SMA</li>
+                    <li>Sharper than EMA</li>
+                    <li>Very responsive</li>
+                </ul>
+
+                <h4>Best For</h4>
+                <ul>
+                    <li>Short-term systems</li>
+                    <li>Fast trend detection</li>
+                    <li>Mean reversion systems</li>
+                </ul>
+
+                <h4>Weakness</h4>
+                <p>Can become noisy during volatile market conditions.</p>
+            </div>
+
+            <!-- MA CHANNEL -->
+            <div class="card">
+                <h3>4. Moving Average Channel</h3>
+
+                <h4>What it is</h4>
+                <p>
+                    A channel built around a moving average:
+                </p>
+
+                <ul>
+                    <li>Upper Band = MA + Offset</li>
+                    <li>Lower Band = MA − Offset</li>
+                </ul>
+
+                <h4>Offsets May Use</h4>
+                <ul>
+                    <li>Percentage</li>
+                    <li>ATR</li>
+                    <li>Standard deviation</li>
+                </ul>
+
+                <h4>Characteristics</h4>
+                <ul>
+                    <li>Shows trend + volatility together</li>
+                    <li>Identifies overextension</li>
+                </ul>
+
+                <h4>Typical Use</h4>
+                <ul>
+                    <li>Upper band → bullish momentum</li>
+                    <li>Lower band → bearish momentum</li>
+                    <li>Midline → trend equilibrium</li>
+                </ul>
+
+                <h4>Similar To</h4>
+                <p>Bollinger Bands & Keltner Channels.</p>
+            </div>
+
+            <!-- HAMMING -->
+            <div class="card">
+                <h3>5. Moving Average Hamming</h3>
+
+                <h4>What it is</h4>
+                <p>
+                    A moving average using a Hamming window from digital signal processing.
+                </p>
+
+                <h4>Characteristics</h4>
+                <ul>
+                    <li>Very smooth</li>
+                    <li>Reduces noise significantly</li>
+                    <li>Less whipsaw</li>
+                    <li>More computational</li>
+                </ul>
+
+                <h4>Best For</h4>
+                <ul>
+                    <li>Advanced technical analysis</li>
+                    <li>Algorithmic trading</li>
+                    <li>Signal filtering</li>
+                    <li>Low-noise trend detection</li>
+                </ul>
+
+                <h4>Weakness</h4>
+                <ul>
+                    <li>More lag than EMA/WMA</li>
+                    <li>Less common on retail platforms</li>
+                </ul>
+
+                <h4>Important Note</h4>
+                <p>
+                    Hamming averages come from DSP (Digital Signal Processing), not classical trading indicators.
+                </p>
+            </div>
+
+            <!-- ALMA -->
+            <div class="card">
+                <h3>6. ALMA (Arnaud Legoux Moving Average)</h3>
+
+                <h4>What it does</h4>
+                <ul>
+                    <li>Uses Gaussian smoothing</li>
+                    <li>Uses adjustable offset</li>
+                    <li>Uses adjustable sigma</li>
+                </ul>
+
+                <h4>Designed To</h4>
+                <ul>
+                    <li>Reduce lag</li>
+                    <li>Keep smoothness</li>
+                </ul>
+
+                <h4>Characteristics</h4>
+                <ul>
+                    <li>Very smooth</li>
+                    <li>Faster than SMA</li>
+                    <li>Less noisy than EMA</li>
+                    <li>Excellent trend clarity</li>
+                </ul>
+
+                <h4>Why Traders Love It</h4>
+                <ul>
+                    <li>Cleaner trends</li>
+                    <li>Fewer fake reversals</li>
+                    <li>Better visual structure</li>
+                </ul>
+
+                <h4>Best For</h4>
+                <ul>
+                    <li>Trend-following</li>
+                    <li>Swing trading</li>
+                    <li>Crypto markets</li>
+                    <li>Automated systems</li>
+                </ul>
+
+                <h4>Typical Settings</h4>
+                <ul>
+                    <li>Length: 9–21</li>
+                    <li>Offset: 0.85</li>
+                    <li>Sigma: 6</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="footer">
+        © 2026 Moving Average Guide - By _ Debabrata Choudhury 
+    </div>
+
+</div>
+
+</body>
+</html>
