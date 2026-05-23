@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Technical Indicators Comparison</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#050816;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* Animated Background */
+
+body::before{
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:
+    radial-gradient(circle at 20% 20%, rgba(168,85,247,0.25), transparent 25%),
+    radial-gradient(circle at 80% 70%, rgba(6,182,212,0.2), transparent 25%),
+    radial-gradient(circle at 50% 50%, rgba(236,72,153,0.15), transparent 35%);
+    z-index:-1;
+    animation:bgMove 10s infinite alternate ease-in-out;
+}
+
+@keyframes bgMove{
+    from{
+        transform:scale(1);
+    }
+    to{
+        transform:scale(1.1);
+    }
+}
+
+.container{
+    width:90%;
+    max-width:1300px;
+    margin:auto;
+    padding:50px 0;
+}
+
+/* Hero */
+
+.hero{
+    text-align:center;
+    padding:80px 20px;
+    animation:fadeUp 1s ease;
+}
+
+.hero h1{
+    font-size:4rem;
+    line-height:1.2;
+    margin-bottom:20px;
+    background:linear-gradient(to right,#a855f7,#06b6d4,#ec4899);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+    color:#cbd5e1;
+    max-width:900px;
+    margin:auto;
+    font-size:1.1rem;
+}
+
+/* Table */
+
+.table-wrapper{
+    margin-top:60px;
+    overflow-x:auto;
+    border-radius:20px;
+    backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,0.1);
+    background:rgba(255,255,255,0.05);
+    animation:fadeUp 1.2s ease;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:900px;
+}
+
+th,td{
+    padding:22px;
+    text-align:left;
+}
+
+th{
+    background:rgba(255,255,255,0.08);
+    color:white;
+}
+
+td{
+    color:#dbe4f0;
+    border-top:1px solid rgba(255,255,255,0.08);
+}
+
+tr:hover{
+    background:rgba(255,255,255,0.05);
+    transition:0.3s;
+}
+
+/* Cards */
+
+.section-title{
+    margin-top:100px;
+    margin-bottom:40px;
+    text-align:center;
+    font-size:3rem;
+    background:linear-gradient(to right,#06b6d4,#a855f7);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:24px;
+    padding:30px;
+    position:relative;
+    overflow:hidden;
+    backdrop-filter:blur(16px);
+    transition:0.5s ease;
+    animation:fadeUp 1s ease;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    width:200%;
+    height:200%;
+    background:linear-gradient(45deg,transparent,rgba(255,255,255,0.06),transparent);
+    top:-50%;
+    left:-50%;
+    transform:rotate(25deg);
+    transition:0.6s;
+}
+
+.card:hover::before{
+    left:100%;
+}
+
+.card:hover{
+    transform:translateY(-10px) scale(1.02);
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
+}
+
+.card h2{
+    margin-bottom:14px;
+    font-size:2rem;
+    background:linear-gradient(to right,#fff,#c084fc);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.card p{
+    color:#cbd5e1;
+    margin-bottom:20px;
+}
+
+.card ul{
+    padding-left:18px;
+}
+
+.card li{
+    margin-bottom:10px;
+    color:#dbe4f0;
+}
+
+/* Combination Section */
+
+.combo-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.combo{
+    padding:25px;
+    border-radius:20px;
+    background:linear-gradient(135deg,
+    rgba(168,85,247,0.15),
+    rgba(6,182,212,0.12));
+    border:1px solid rgba(255,255,255,0.1);
+    transition:0.4s;
+}
+
+.combo:hover{
+    transform:scale(1.04);
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.combo h3{
+    margin-bottom:12px;
+}
+
+/* Recommendation */
+
+.recommend{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:20px;
+}
+
+.rec-box{
+    padding:24px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    transition:0.4s;
+}
+
+.rec-box:hover{
+    transform:translateY(-8px);
+    background:rgba(168,85,247,0.15);
+}
+
+.rec-box h4{
+    margin-bottom:10px;
+    color:#fff;
+}
+
+.warning{
+    margin-top:50px;
+    padding:30px;
+    border-radius:24px;
+    background:linear-gradient(135deg,
+    rgba(239,68,68,0.15),
+    rgba(251,191,36,0.12));
+    border:1px solid rgba(255,255,255,0.1);
+}
+
+.warning h3{
+    margin-bottom:16px;
+    color:#fff;
+}
+
+.warning ul{
+    padding-left:20px;
+}
+
+.warning li{
+    margin-bottom:12px;
+    color:#e2e8f0;
+}
+
+/* Footer */
+
+footer{
+    text-align:center;
+    margin-top:80px;
+    color:#94a3b8;
+    padding-bottom:40px;
+}
+
+/* Animation */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.hero h1{
+    font-size:2.5rem;
+}
+
+.section-title{
+    font-size:2rem;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Hero -->
+
+    <section class="hero">
+        <h1>Technical Indicators</h1>
+        <p>
+            Compare Ichimoku Cloud, Bollinger Bands, MACD, and RSI —
+            four of the most powerful technical indicators used by traders
+            for momentum, trend analysis, volatility measurement, and reversal detection.
+        </p>
+    </section>
+
+    <!-- Table -->
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Indicator</th>
+                    <th>Best For</th>
+                    <th>Type</th>
+                    <th>Main Strength</th>
+                    <th>Main Weakness</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Ichimoku Cloud</td>
+                    <td>Trend + Support/Resistance</td>
+                    <td>Trend-following System</td>
+                    <td>All-in-one market structure</td>
+                    <td>Complex for beginners</td>
+                </tr>
+
+                <tr>
+                    <td>Bollinger Bands</td>
+                    <td>Volatility + Mean Reversion</td>
+                    <td>Volatility Indicator</td>
+                    <td>Excellent for range markets</td>
+                    <td>Weak during strong trends</td>
+                </tr>
+
+                <tr>
+                    <td>MACD</td>
+                    <td>Trend Momentum</td>
+                    <td>Momentum / Trend</td>
+                    <td>Great for confirming trend shifts</td>
+                    <td>Lagging indicator</td>
+                </tr>
+
+                <tr>
+                    <td>RSI</td>
+                    <td>Overbought/Oversold</td>
+                    <td>Oscillator</td>
+                    <td>Simple and fast signals</td>
+                    <td>False signals in trends</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Cards -->
+
+    <h2 class="section-title">Detailed Indicator Guide</h2>
+
+    <div class="cards">
+
+        <!-- Ichimoku -->
+
+        <div class="card">
+            <h2>1. Ichimoku Cloud</h2>
+
+            <p>
+                A complete trading system combining trend direction,
+                support/resistance, momentum, and future projection.
+            </p>
+
+            <ul>
+                <li>Price above cloud → Bullish</li>
+                <li>Price below cloud → Bearish</li>
+                <li>Cloud thickness → Strength / volatility</li>
+                <li>Tenkan/Kijun crossover → Entry signal</li>
+                <li>Best in trending markets</li>
+                <li>Excellent for swing traders</li>
+            </ul>
+        </div>
+
+        <!-- Bollinger -->
+
+        <div class="card">
+            <h2>2. Bollinger Bands</h2>
+
+            <p>
+                Measures market volatility around a moving average.
+                Bands expand during volatility and contract during quiet markets.
+            </p>
+
+            <ul>
+                <li>Upper band touch → Potential overbought</li>
+                <li>Lower band touch → Potential oversold</li>
+                <li>Band squeeze → Possible breakout</li>
+                <li>Best for ranging markets</li>
+                <li>Popular for mean reversion trading</li>
+            </ul>
+        </div>
+
+        <!-- MACD -->
+
+        <div class="card">
+            <h2>3. MACD</h2>
+
+            <p>
+                Momentum indicator based on moving averages that helps traders identify trend shifts.
+            </p>
+
+            <ul>
+                <li>Signal crossover → Trend change</li>
+                <li>Histogram growth → Momentum strengthening</li>
+                <li>Divergence → Possible reversal</li>
+                <li>Best in medium-to-strong trends</li>
+                <li>Excellent for confirmation trading</li>
+            </ul>
+        </div>
+
+        <!-- RSI -->
+
+        <div class="card">
+            <h2>4. RSI</h2>
+
+            <p>
+                Measures the speed and strength of price movement to identify overbought and oversold conditions.
+            </p>
+
+            <ul>
+                <li>Above 70 → Overbought</li>
+                <li>Below 30 → Oversold</li>
+                <li>Divergence → Reversal warning</li>
+                <li>Works well in sideways markets</li>
+                <li>Great for beginners & day traders</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Best -->
+
+    <h2 class="section-title">Which Indicator is Best?</h2>
+
+    <div class="combo-grid">
+
+        <div class="combo">
+            <h3>Catch Strong Trends</h3>
+            <p>Ichimoku Cloud or MACD</p>
+        </div>
+
+        <div class="combo">
+            <h3>Trade Reversals</h3>
+            <p>RSI or Bollinger Bands</p>
+        </div>
+
+        <div class="combo">
+            <h3>Simple Beginner Signals</h3>
+            <p>RSI</p>
+        </div>
+
+        <div class="combo">
+            <h3>Complete Trading System</h3>
+            <p>Ichimoku Cloud</p>
+        </div>
+
+        <div class="combo">
+            <h3>Momentum Confirmation</h3>
+            <p>MACD</p>
+        </div>
+
+        <div class="combo">
+            <h3>Measure Volatility</h3>
+            <p>Bollinger Bands</p>
+        </div>
+
+    </div>
+
+    <!-- Combination -->
+
+    <h2 class="section-title">Most Effective Combinations</h2>
+
+    <div class="combo-grid">
+
+        <div class="combo">
+            <h3>Ichimoku + RSI</h3>
+            <p>
+                Trend direction from Ichimoku and entry timing from RSI.
+            </p>
+        </div>
+
+        <div class="combo">
+            <h3>Bollinger Bands + RSI</h3>
+            <p>
+                Very popular for range trading and reversal confirmation.
+            </p>
+        </div>
+
+        <div class="combo">
+            <h3>MACD + RSI</h3>
+            <p>
+                MACD confirms the trend while RSI improves entries.
+            </p>
+        </div>
+
+        <div class="combo">
+            <h3>Ichimoku + MACD</h3>
+            <p>
+                Strong setup for trend confirmation and momentum filtering.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Recommendations -->
+
+    <h2 class="section-title">Practical Recommendation</h2>
+
+    <div class="recommend">
+
+        <div class="rec-box">
+            <h4>Beginner</h4>
+            <p>RSI + Bollinger Bands</p>
+        </div>
+
+        <div class="rec-box">
+            <h4>Intermediate</h4>
+            <p>MACD + RSI</p>
+        </div>
+
+        <div class="rec-box">
+            <h4>Advanced Trend Trader</h4>
+            <p>Ichimoku Cloud</p>
+        </div>
+
+        <div class="rec-box">
+            <h4>Crypto Swing Trading</h4>
+            <p>Ichimoku + MACD</p>
+        </div>
+
+        <div class="rec-box">
+            <h4>Intraday Trading</h4>
+            <p>Bollinger Bands + RSI</p>
+        </div>
+
+    </div>
+
+    <!-- Warning -->
+
+    <div class="warning">
+        <h3>Common Mistake</h3>
+
+        <ul>
+            <li>MACD + Moving Averages + Ichimoku = Mostly trend duplication</li>
+            <li>RSI + Stochastic = Mostly momentum duplication</li>
+            <li>A cleaner setup usually works better</li>
+        </ul>
+    </div>
+
+    <footer>
+        Designed with modern gradients, glassmorphism, animations & responsive effects ✨
+    </footer>
+
+</div>
+
+</body>
+</html>
