@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Behavioural Finance</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#07111f;
+      color:white;
+      overflow-x:hidden;
+      line-height:1.7;
+    }
+
+    /* Animated Background */
+
+    body::before{
+      content:"";
+      position:fixed;
+      width:200%;
+      height:200%;
+      top:-50%;
+      left:-50%;
+      background:
+      radial-gradient(circle at top left,#00c6ff33,transparent 25%),
+      radial-gradient(circle at bottom right,#9333ea44,transparent 25%),
+      radial-gradient(circle at center,#2563eb22,transparent 30%);
+      animation:bgMove 15s linear infinite;
+      z-index:-2;
+    }
+
+    @keyframes bgMove{
+      0%{transform:rotate(0deg);}
+      100%{transform:rotate(360deg);}
+    }
+
+    .navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      backdrop-filter:blur(14px);
+      background:rgba(255,255,255,0.05);
+      padding:18px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo{
+      font-size:1.6rem;
+      font-weight:700;
+      background:linear-gradient(to right,#00c6ff,#9333ea);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .nav-links a{
+      color:white;
+      text-decoration:none;
+      margin-left:20px;
+      transition:0.3s;
+      font-size:0.95rem;
+    }
+
+    .nav-links a:hover{
+      color:#00c6ff;
+    }
+
+    /* Hero */
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:40px;
+      position:relative;
+    }
+
+    .hero-content{
+      max-width:900px;
+      animation:fadeIn 1.2s ease;
+    }
+
+    .hero h1{
+      font-size:4rem;
+      line-height:1.2;
+      margin-bottom:20px;
+      background:linear-gradient(to right,#00c6ff,#9333ea,#ff4ecd);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .hero p{
+      font-size:1.2rem;
+      color:#d1d5db;
+      margin-bottom:35px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:14px 32px;
+      border-radius:40px;
+      text-decoration:none;
+      color:white;
+      background:linear-gradient(135deg,#00c6ff,#9333ea);
+      transition:0.4s;
+      box-shadow:0 0 20px rgba(0,198,255,0.3);
+    }
+
+    .btn:hover{
+      transform:translateY(-5px) scale(1.03);
+      box-shadow:0 0 30px rgba(147,51,234,0.5);
+    }
+
+    section{
+      padding:90px 8%;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title h2{
+      font-size:2.8rem;
+      margin-bottom:10px;
+      background:linear-gradient(to right,#00c6ff,#9333ea);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:30px;
+    }
+
+    .card{
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:25px;
+      padding:30px;
+      transition:0.5s;
+      backdrop-filter:blur(10px);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      width:120%;
+      height:120%;
+      background:linear-gradient(
+      135deg,
+      transparent,
+      rgba(255,255,255,0.08),
+      transparent);
+      top:-100%;
+      left:-100%;
+      transition:0.7s;
+    }
+
+    .card:hover::before{
+      top:100%;
+      left:100%;
+    }
+
+    .card:hover{
+      transform:translateY(-12px);
+      box-shadow:0 15px 35px rgba(0,0,0,0.4);
+      border-color:#00c6ff;
+    }
+
+    .card h3{
+      font-size:1.5rem;
+      margin-bottom:18px;
+      color:#00c6ff;
+    }
+
+    .card ul{
+      margin-left:20px;
+      margin-top:12px;
+    }
+
+    .card li{
+      margin-bottom:8px;
+      color:#dbeafe;
+    }
+
+    .example{
+      margin-top:15px;
+      padding:15px;
+      border-left:4px solid #9333ea;
+      background:rgba(147,51,234,0.1);
+      border-radius:10px;
+      color:#e5e7eb;
+    }
+
+    /* Summary Table */
+
+    .table-section{
+      margin-top:60px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      overflow:hidden;
+      border-radius:20px;
+      background:rgba(255,255,255,0.06);
+      backdrop-filter:blur(10px);
+    }
+
+    th,td{
+      padding:18px;
+      text-align:left;
+    }
+
+    th{
+      background:linear-gradient(to right,#00c6ff,#9333ea);
+      color:white;
+    }
+
+    tr{
+      transition:0.3s;
+    }
+
+    tr:hover{
+      background:rgba(255,255,255,0.08);
+    }
+
+    td{
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      color:#dbeafe;
+    }
+
+    /* Footer */
+
+    footer{
+      padding:40px;
+      text-align:center;
+      color:#94a3b8;
+      background:rgba(255,255,255,0.04);
+      margin-top:60px;
+    }
+
+    /* Animation */
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:translateY(40px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .card{
+      animation:fadeIn 1s ease forwards;
+    }
+
+    /* Responsive */
+
+    @media(max-width:768px){
+
+      .hero h1{
+        font-size:2.6rem;
+      }
+
+      .hero p{
+        font-size:1rem;
+      }
+
+      .navbar{
+        flex-direction:column;
+        gap:10px;
+      }
+
+      .nav-links{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+
+  <nav class="navbar">
+    <div class="logo">Behavioural Finance</div>
+
+    <div class="nav-links">
+      <a href="#types">Types</a>
+      <a href="#examples">Examples</a>
+      <a href="#summary">Summary</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+
+  <section class="hero">
+
+    <div class="hero-content">
+      <h1>Understanding Behavioural Finance</h1>
+
+      <p>
+        Behavioural Finance studies how emotions, cognitive errors,
+        social influence, and psychological biases affect financial decisions.
+      </p>
+
+      <a href="#types" class="btn">Explore Types</a>
+    </div>
+
+  </section>
+
+  <!-- Types Section -->
+
+  <section id="types">
+
+    <div class="section-title">
+      <h2>Main Types of Behavioural Finance</h2>
+      <p>Psychology + Finance + Human Behaviour</p>
+    </div>
+
+    <div class="cards">
+
+      <!-- Card 1 -->
+
+      <div class="card">
+        <h3>1. Cognitive Behavioural Finance</h3>
+
+        <p>
+          Focuses on mental errors and thinking mistakes that affect decisions.
+        </p>
+
+        <ul>
+          <li>Overconfidence Bias</li>
+          <li>Anchoring Bias</li>
+          <li>Confirmation Bias</li>
+          <li>Hindsight Bias</li>
+        </ul>
+
+        <div class="example">
+          Example: An investor keeps buying a falling stock because they are anchored to its old high price.
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+
+      <div class="card">
+        <h3>2. Emotional Behavioural Finance</h3>
+
+        <p>
+          Studies decisions driven by fear, greed, regret, and emotions.
+        </p>
+
+        <ul>
+          <li>Fear & Greed</li>
+          <li>Loss Aversion</li>
+          <li>Regret Aversion</li>
+          <li>Endowment Effect</li>
+        </ul>
+
+        <div class="example">
+          Example: Ravi refuses to sell a stock at ₹700 because he fears realizing the loss.
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+
+      <div class="card">
+        <h3>3. Social Behavioural Finance</h3>
+
+        <p>
+          Examines how society and group behaviour influence investments.
+        </p>
+
+        <ul>
+          <li>Herd Behaviour</li>
+          <li>Market Bubbles</li>
+          <li>Social Influence</li>
+          <li>Peer Pressure</li>
+        </ul>
+
+        <div class="example">
+          Example: People buy cryptocurrency simply because everyone else is investing.
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+
+      <div class="card">
+        <h3>4. Heuristic-Driven Behaviour</h3>
+
+        <p>
+          Heuristics are mental shortcuts used for quick decisions.
+        </p>
+
+        <ul>
+          <li>Availability Heuristic</li>
+          <li>Representativeness</li>
+          <li>Rule-of-thumb Investing</li>
+        </ul>
+
+        <div class="example">
+          Example: Investing in a company because it is popular in the news.
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+
+      <div class="card">
+        <h3>5. Prospect Theory</h3>
+
+        <p>
+          Developed by Daniel Kahneman and Amos Tversky.
+        </p>
+
+        <ul>
+          <li>Losses hurt more than gains</li>
+          <li>Risk-averse in gains</li>
+          <li>Risk-seeking in losses</li>
+        </ul>
+
+        <div class="example">
+          Example: Choosing guaranteed ₹5,000 profit instead of a risky ₹10,000 opportunity.
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+
+      <div class="card">
+        <h3>6. Market Behavioural Finance</h3>
+
+        <p>
+          Studies how collective investor behaviour affects financial markets.
+        </p>
+
+        <ul>
+          <li>Stock Market Bubbles</li>
+          <li>Crashes</li>
+          <li>Excess Volatility</li>
+          <li>Market Anomalies</li>
+        </ul>
+
+        <div class="example">
+          Example: Panic selling during financial crises causing market crashes.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Examples Section -->
+
+  <section id="examples">
+
+    <div class="section-title">
+      <h2>Real-Life Examples</h2>
+      <p>Understanding behavioural finance through simple situations.</p>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>Overconfidence Bias</h3>
+        <p>
+          A trader earns profit twice and believes they can never fail.
+          They invest all their savings in risky stocks and later lose heavily.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Loss Aversion</h3>
+        <p>
+          Investors hold losing stocks too long because accepting losses feels painful emotionally.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Herd Mentality</h3>
+        <p>
+          People invest in trending assets because everyone on social media appears to be making money.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Availability Heuristic</h3>
+        <p>
+          Investors trust companies constantly mentioned in the news without doing proper research.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Risk Behaviour</h3>
+        <p>
+          People usually prefer guaranteed profits but take risky decisions when facing losses.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Market Bubble</h3>
+        <p>
+          Excess optimism drives prices unrealistically high until panic selling causes a crash.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Summary Table -->
+
+  <section id="summary" class="table-section">
+
+    <div class="section-title">
+      <h2>Simple Summary Table</h2>
+      <p>Quick overview of all behavioural finance types.</p>
+    </div>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Main Idea</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr>
+          <td>Cognitive</td>
+          <td>Thinking mistakes</td>
+          <td>Overconfidence in trading</td>
+        </tr>
+
+        <tr>
+          <td>Emotional</td>
+          <td>Feelings affect decisions</td>
+          <td>Fear of selling at loss</td>
+        </tr>
+
+        <tr>
+          <td>Social</td>
+          <td>Influence of others</td>
+          <td>Following crowd investing</td>
+        </tr>
+
+        <tr>
+          <td>Heuristic</td>
+          <td>Mental shortcuts</td>
+          <td>Buying famous company stock</td>
+        </tr>
+
+        <tr>
+          <td>Prospect Theory</td>
+          <td>Different reaction to gain/loss</td>
+          <td>Taking risks to avoid losses</td>
+        </tr>
+
+        <tr>
+          <td>Market Behavioural</td>
+          <td>Group psychology affects markets</td>
+          <td>Stock market bubbles</td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </section>
+
+  <!-- Footer -->
+
+  <footer>
+    © 2026 Behavioural Finance | Designed with Glassmorphism, Gradients & Animations
+  </footer>
+
+</body>
+</html>

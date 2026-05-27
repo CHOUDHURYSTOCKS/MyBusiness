@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Financial Biases</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#071120,#0f172a,#111827);
+    color:white;
+    overflow-x:hidden;
+}
+
+/* Animated background */
+
+body::before{
+    content:"";
+    position:fixed;
+    width:200%;
+    height:200%;
+    background:
+    radial-gradient(circle at top left,#38bdf8 0%,transparent 25%),
+    radial-gradient(circle at bottom right,#9333ea 0%,transparent 25%),
+    radial-gradient(circle at center,#14b8a6 0%,transparent 30%);
+    animation:bgMove 15s infinite linear;
+    z-index:-1;
+    opacity:0.25;
+}
+
+@keyframes bgMove{
+    0%{transform:translate(0,0);}
+    50%{transform:translate(-10%,-10%);}
+    100%{transform:translate(0,0);}
+}
+
+header{
+    text-align:center;
+    padding:90px 20px 60px;
+}
+
+header h1{
+    font-size:4rem;
+    background:linear-gradient(to right,#38bdf8,#22c55e,#e879f9);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:glow 3s infinite alternate;
+}
+
+@keyframes glow{
+    from{
+        text-shadow:0 0 10px rgba(255,255,255,0.2);
+    }
+    to{
+        text-shadow:0 0 25px rgba(56,189,248,0.8);
+    }
+}
+
+header p{
+    max-width:1000px;
+    margin:30px auto;
+    font-size:1.1rem;
+    line-height:1.9;
+    color:#d1d5db;
+}
+
+.container{
+    width:90%;
+    max-width:1400px;
+    margin:auto;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:30px;
+    margin-bottom:60px;
+}
+
+.card{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:22px;
+    padding:30px;
+    transition:0.4s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:-100%;
+    left:0;
+    background:linear-gradient(
+    transparent,
+    rgba(255,255,255,0.08),
+    transparent);
+    transition:0.6s;
+}
+
+.card:hover::before{
+    top:100%;
+}
+
+.card:hover{
+    transform:translateY(-12px) scale(1.02);
+    box-shadow:0 15px 40px rgba(0,0,0,0.45);
+    border-color:#38bdf8;
+}
+
+.card h2{
+    font-size:1.4rem;
+    margin-bottom:15px;
+    color:#7dd3fc;
+}
+
+.card p{
+    line-height:1.8;
+    color:#e5e7eb;
+    margin-bottom:15px;
+}
+
+.highlight{
+    color:#22c55e;
+    font-weight:600;
+}
+
+.section-title{
+    text-align:center;
+    margin:80px 0 40px;
+    font-size:2.5rem;
+    color:#f9fafb;
+}
+
+.methods{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+    margin-bottom:80px;
+}
+
+.method{
+    background:linear-gradient(145deg,#1e293b,#111827);
+    padding:25px;
+    border-radius:20px;
+    transition:0.4s;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.method:hover{
+    transform:scale(1.05);
+    background:linear-gradient(145deg,#0f172a,#1e293b);
+}
+
+.method h3{
+    color:#38bdf8;
+    margin-bottom:10px;
+}
+
+.summary-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:80px;
+    overflow:hidden;
+    border-radius:18px;
+}
+
+.summary-table th{
+    background:#0ea5e9;
+    padding:18px;
+    text-align:left;
+}
+
+.summary-table td{
+    padding:16px;
+    background:rgba(255,255,255,0.05);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.summary-table tr:hover td{
+    background:rgba(56,189,248,0.1);
+}
+
+footer{
+    text-align:center;
+    padding:50px 20px;
+    color:#cbd5e1;
+    font-size:0.95rem;
+}
+
+.fade-in{
+    animation:fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:768px){
+
+    header h1{
+        font-size:2.5rem;
+    }
+
+    .card{
+        padding:22px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="fade-in">
+    <h1>Financial Biases</h1>
+
+    <p>
+        Financial biases are systematic thinking errors and emotional tendencies
+        that affect how people make money decisions. These psychological patterns
+        often lead investors and consumers to act irrationally — even when they
+        believe they are making logical choices.
+    </p>
+</header>
+
+<div class="container">
+
+    <h2 class="section-title">Major Financial Biases</h2>
+
+    <div class="grid">
+
+        <div class="card fade-in">
+            <h2>1. Overconfidence Bias</h2>
+            <p>
+                People believe they know more than they actually do.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Rahul earns profit from a few stock trades and assumes he can
+                “beat the market,” eventually risking all his savings.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>2. Loss Aversion</h2>
+            <p>
+                Losses hurt more emotionally than gains feel rewarding.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Priya refuses to sell falling shares because she doesn’t want
+                to “accept” the loss.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>3. Anchoring Bias</h2>
+            <p>
+                People rely heavily on the first information they see.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                A ₹80,000 phone discounted to ₹55,000 appears cheap even when
+                it is still expensive.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>4. Herd Mentality</h2>
+            <p>
+                People follow the crowd instead of thinking independently.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Arjun invests in crypto because “everyone is doing it.”
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>5. Confirmation Bias</h2>
+            <p>
+                People search only for information supporting their beliefs.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Neha ignores negative news about a company she loves.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>6. Recency Bias</h2>
+            <p>
+                People assume recent trends will continue forever.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Investors think markets only go up after a long bull run.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>7. Availability Bias</h2>
+            <p>
+                People judge probability using easily remembered information.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Someone avoids flying after hearing about airplane accidents.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>8. Status Quo Bias</h2>
+            <p>
+                People prefer things to remain unchanged.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Keeping money in a low-interest account for years.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>9. Mental Accounting</h2>
+            <p>
+                People treat money differently depending on its source.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Spending bonus money carelessly but protecting salary income.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>10. Sunk Cost Fallacy</h2>
+            <p>
+                Continuing because too much has already been invested.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Funding a failing business because ₹10 lakh was already spent.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>11. Endowment Effect</h2>
+            <p>
+                People overvalue things simply because they own them.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Emotional attachment increases the perceived value of a car.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>12. Framing Bias</h2>
+            <p>
+                Decisions change depending on how information is presented.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                “90% success rate” sounds better than “10% failure rate.”
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>13. Present Bias</h2>
+            <p>
+                People prefer instant rewards over future benefits.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Spending on shopping instead of long-term investing.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>14. Optimism Bias</h2>
+            <p>
+                People underestimate risks to themselves.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Ignoring health insurance because “nothing bad will happen.”
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>15. Regret Aversion</h2>
+            <p>
+                Fear of future regret blocks decision-making.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Avoiding stocks forever after one bad investment experience.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>16. Self-Attribution Bias</h2>
+            <p>
+                Success is credited to skill while failures are blamed externally.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>17. Gambler’s Fallacy</h2>
+            <p>
+                Believing past random events influence future outcomes.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Assuming a falling stock must recover soon.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>18. Home Bias</h2>
+            <p>
+                Investors prefer familiar local markets.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Investing only in Indian stocks without diversification.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>19. Survivorship Bias</h2>
+            <p>
+                Focusing only on successful examples while ignoring failures.
+            </p>
+        </div>
+
+        <div class="card fade-in">
+            <h2>20. Authority Bias</h2>
+            <p>
+                Trusting experts or celebrities too much.
+            </p>
+            <p>
+                <span class="highlight">Example:</span>
+                Buying stocks just because a famous investor recommended them.
+            </p>
+        </div>
+
+    </div>
+
+    <h2 class="section-title">How to Reduce Financial Biases</h2>
+
+    <div class="methods">
+
+        <div class="method">
+            <h3>Use Written Rules</h3>
+            <p>Create clear investment principles before making decisions.</p>
+        </div>
+
+        <div class="method">
+            <h3>Think Statistically</h3>
+            <p>Focus on long-term probability rather than emotions.</p>
+        </div>
+
+        <div class="method">
+            <h3>Seek Opposing Views</h3>
+            <p>Challenge your assumptions and avoid echo chambers.</p>
+        </div>
+
+        <div class="method">
+            <h3>Delay Big Decisions</h3>
+            <p>Avoid emotional investing and impulsive purchases.</p>
+        </div>
+
+        <div class="method">
+            <h3>Automate Investing</h3>
+            <p>SIPs and automatic savings reduce emotional reactions.</p>
+        </div>
+
+        <div class="method">
+            <h3>Review Mistakes</h3>
+            <p>Maintain a financial journal and learn objectively.</p>
+        </div>
+
+    </div>
+
+    <h2 class="section-title">Simple Summary</h2>
+
+    <table class="summary-table">
+        <tr>
+            <th>Bias</th>
+            <th>Main Problem</th>
+        </tr>
+
+        <tr>
+            <td>Overconfidence</td>
+            <td>“I know everything.”</td>
+        </tr>
+
+        <tr>
+            <td>Loss Aversion</td>
+            <td>Fear of losses</td>
+        </tr>
+
+        <tr>
+            <td>Herd Mentality</td>
+            <td>Following crowds</td>
+        </tr>
+
+        <tr>
+            <td>Anchoring</td>
+            <td>Stuck on first information</td>
+        </tr>
+
+        <tr>
+            <td>Confirmation Bias</td>
+            <td>Ignoring opposing evidence</td>
+        </tr>
+
+        <tr>
+            <td>Present Bias</td>
+            <td>Choosing short-term pleasure</td>
+        </tr>
+
+        <tr>
+            <td>Sunk Cost Fallacy</td>
+            <td>Chasing past losses</td>
+        </tr>
+
+        <tr>
+            <td>Optimism Bias</td>
+            <td>Underestimating risks</td>
+        </tr>
+
+    </table>
+
+</div>
+
+<footer>
+    Behavioral finance studies these biases to understand why real people
+    often behave differently from traditional economic theory.
+</footer>
+
+</body>
+</html>

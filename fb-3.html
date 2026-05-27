@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Financial Trading Biases</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#050816;
+      color:#fff;
+      overflow-x:hidden;
+      line-height:1.7;
+    }
+
+    body::before{
+      content:'';
+      position:fixed;
+      width:500px;
+      height:500px;
+      background:radial-gradient(circle,#6c63ff55,transparent 70%);
+      top:-100px;
+      left:-100px;
+      z-index:-1;
+      animation:float 8s ease-in-out infinite;
+    }
+
+    body::after{
+      content:'';
+      position:fixed;
+      width:400px;
+      height:400px;
+      background:radial-gradient(circle,#00d4ff44,transparent 70%);
+      bottom:-100px;
+      right:-100px;
+      z-index:-1;
+      animation:float2 10s ease-in-out infinite;
+    }
+
+    @keyframes float{
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(40px);}
+    }
+
+    @keyframes float2{
+      0%,100%{transform:translateX(0);}
+      50%{transform:translateX(-40px);}
+    }
+
+    header{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      text-align:center;
+      padding:40px;
+      background:
+      linear-gradient(rgba(5,8,22,.8),rgba(5,8,22,.9)),
+      url('https://images.unsplash.com/photo-1642543492481-44e81e3914a7?q=80&w=1400&auto=format&fit=crop') center/cover;
+    }
+
+    header h1{
+      font-size:4rem;
+      background:linear-gradient(90deg,#00d4ff,#7d5fff,#ff4ecd);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation:glow 3s infinite alternate;
+    }
+
+    @keyframes glow{
+      from{
+        filter:drop-shadow(0 0 5px #00d4ff);
+      }
+      to{
+        filter:drop-shadow(0 0 20px #7d5fff);
+      }
+    }
+
+    header p{
+      max-width:900px;
+      margin-top:25px;
+      font-size:1.2rem;
+      color:#d7d7d7;
+    }
+
+    .container{
+      width:90%;
+      max-width:1300px;
+      margin:auto;
+      padding:80px 0;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:70px;
+    }
+
+    .section-title h2{
+      font-size:3rem;
+      margin-bottom:15px;
+      background:linear-gradient(90deg,#00d4ff,#ff4ecd);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .bias-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:30px;
+    }
+
+    .card{
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:22px;
+      padding:30px;
+      backdrop-filter:blur(10px);
+      transition:0.5s;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card::before{
+      content:'';
+      position:absolute;
+      width:200%;
+      height:200%;
+      background:linear-gradient(45deg,transparent,#ffffff11,transparent);
+      transform:rotate(45deg);
+      top:-120%;
+      left:-120%;
+      transition:1s;
+    }
+
+    .card:hover::before{
+      top:100%;
+      left:100%;
+    }
+
+    .card:hover{
+      transform:translateY(-12px) scale(1.02);
+      box-shadow:0 15px 35px rgba(0,212,255,.25);
+      border-color:#00d4ff66;
+    }
+
+    .card h3{
+      margin-bottom:18px;
+      font-size:1.5rem;
+      color:#00d4ff;
+    }
+
+    .card p{
+      color:#d6d6d6;
+      margin-bottom:12px;
+    }
+
+    .card ul{
+      margin-left:20px;
+      margin-top:10px;
+    }
+
+    .card ul li{
+      margin-bottom:8px;
+      color:#ccc;
+    }
+
+    .highlight{
+      color:#ffb347;
+      font-weight:600;
+    }
+
+    .table-section{
+      margin-top:120px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      overflow:hidden;
+      border-radius:20px;
+      background:rgba(255,255,255,0.05);
+      backdrop-filter:blur(10px);
+    }
+
+    th{
+      background:linear-gradient(90deg,#7d5fff,#00d4ff);
+      padding:18px;
+      text-align:left;
+      color:white;
+      font-size:1rem;
+    }
+
+    td{
+      padding:18px;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      color:#ddd;
+      transition:0.3s;
+    }
+
+    tr:hover td{
+      background:rgba(255,255,255,0.04);
+    }
+
+    .insight{
+      margin-top:120px;
+      text-align:center;
+      padding:70px;
+      border-radius:30px;
+      background:linear-gradient(135deg,#111633,#1f2b5e);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .insight::before{
+      content:'';
+      position:absolute;
+      width:300px;
+      height:300px;
+      background:radial-gradient(circle,#00d4ff44,transparent 70%);
+      top:-100px;
+      right:-100px;
+    }
+
+    .insight h2{
+      font-size:3rem;
+      margin-bottom:25px;
+      background:linear-gradient(90deg,#00d4ff,#ff4ecd);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .insight p{
+      max-width:900px;
+      margin:auto;
+      font-size:1.2rem;
+      color:#ddd;
+    }
+
+    footer{
+      text-align:center;
+      padding:40px;
+      margin-top:80px;
+      background:#070b1e;
+      color:#999;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+
+    ::-webkit-scrollbar{
+      width:10px;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:linear-gradient(#00d4ff,#7d5fff);
+      border-radius:10px;
+    }
+
+    @media(max-width:768px){
+
+      header h1{
+        font-size:2.5rem;
+      }
+
+      .section-title h2,
+      .insight h2{
+        font-size:2rem;
+      }
+
+      .insight{
+        padding:40px 20px;
+      }
+
+      table{
+        display:block;
+        overflow-x:auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Financial Trading Biases</h1>
+  <p>
+    Behavioral finance explains how psychology, emotions, fear, greed,
+    and cognitive shortcuts influence financial markets and investment decisions.
+    These biases often lead investors to buy too high, sell too early,
+    hold losers too long, and panic during crashes.
+  </p>
+</header>
+
+<section class="container">
+
+  <div class="section-title">
+    <h2>Major Trading Biases</h2>
+    <p>Psychology drives markets as much as economics.</p>
+  </div>
+
+  <div class="bias-grid">
+
+    <div class="card">
+      <h3>1. Overconfidence Bias</h3>
+      <p>
+        Traders believe they are smarter than the market and overestimate
+        their prediction ability.
+      </p>
+      <ul>
+        <li>Excessive trading</li>
+        <li>Ignoring risk management</li>
+        <li>Oversized positions</li>
+      </ul>
+      <p><span class="highlight">Example:</span> A trader profits during a bull market and starts using leverage aggressively.</p>
+    </div>
+
+    <div class="card">
+      <h3>2. Loss Aversion</h3>
+      <p>
+        Losses feel emotionally stronger than gains of equal size.
+      </p>
+      <ul>
+        <li>Holding losers too long</li>
+        <li>Selling winners too early</li>
+      </ul>
+      <p><span class="highlight">Example:</span> Refusing to sell a stock after it falls from ₹500 to ₹350.</p>
+    </div>
+
+    <div class="card">
+      <h3>3. Herd Mentality</h3>
+      <p>
+        Following the crowd instead of independent analysis.
+      </p>
+      <ul>
+        <li>FOMO investing</li>
+        <li>Bubble creation</li>
+        <li>Panic crashes</li>
+      </ul>
+      <p><span class="highlight">Example:</span> Buying meme stocks because everyone online is buying them.</p>
+    </div>
+
+    <div class="card">
+      <h3>4. Confirmation Bias</h3>
+      <p>
+        Seeking information that supports existing beliefs while ignoring risks.
+      </p>
+      <p><span class="highlight">Example:</span> Watching only bullish YouTube videos about a stock already owned.</p>
+    </div>
+
+    <div class="card">
+      <h3>5. Anchoring Bias</h3>
+      <p>
+        Relying too heavily on initial information such as purchase price.
+      </p>
+      <p><span class="highlight">Example:</span> “I’ll sell once the stock returns to ₹1,000.”</p>
+    </div>
+
+    <div class="card">
+      <h3>6. Recency Bias</h3>
+      <p>
+        Assuming recent market behavior will continue forever.
+      </p>
+      <p><span class="highlight">Example:</span> Believing markets always recover quickly after several months of gains.</p>
+    </div>
+
+    <div class="card">
+      <h3>7. Availability Bias</h3>
+      <p>
+        Decisions are based on information easiest to recall.
+      </p>
+      <p><span class="highlight">Example:</span> Assuming all AI stocks are great investments because they dominate headlines.</p>
+    </div>
+
+    <div class="card">
+      <h3>8. Fear of Missing Out (FOMO)</h3>
+      <p>
+        Buying because others are making money.
+      </p>
+      <p><span class="highlight">Example:</span> Entering a stock after an 80% rally near the top.</p>
+    </div>
+
+    <div class="card">
+      <h3>9. Regret Aversion</h3>
+      <p>
+        Avoiding decisions due to fear of future regret.
+      </p>
+      <p><span class="highlight">Example:</span> Not buying a strong company because “what if it falls?”</p>
+    </div>
+
+    <div class="card">
+      <h3>10. Endowment Bias</h3>
+      <p>
+        Overvaluing assets simply because you own them.
+      </p>
+      <p><span class="highlight">Example:</span> Refusing to sell inherited shares despite weak fundamentals.</p>
+    </div>
+
+    <div class="card">
+      <h3>11. Mental Accounting</h3>
+      <p>
+        Treating money differently depending on its source.
+      </p>
+      <p><span class="highlight">Example:</span> Using trading profits for reckless bets.</p>
+    </div>
+
+    <div class="card">
+      <h3>12. Gambler’s Fallacy</h3>
+      <p>
+        Believing random events influence future outcomes.
+      </p>
+      <p><span class="highlight">Example:</span> “This stock fell 7 days straight, so tomorrow it must rise.”</p>
+    </div>
+
+    <div class="card">
+      <h3>13. Self-Attribution Bias</h3>
+      <p>
+        Taking credit for success while blaming failures externally.
+      </p>
+      <p><span class="highlight">Example:</span> Profits = skill, losses = manipulation.</p>
+    </div>
+
+    <div class="card">
+      <h3>14. Status Quo Bias</h3>
+      <p>
+        Preferring things to remain unchanged.
+      </p>
+      <p><span class="highlight">Example:</span> Holding outdated companies because changing feels uncomfortable.</p>
+    </div>
+
+    <div class="card">
+      <h3>15. Hindsight Bias</h3>
+      <p>
+        Believing events were predictable after they happened.
+      </p>
+      <p><span class="highlight">Example:</span> “I knew the crash would happen.”</p>
+    </div>
+
+    <div class="card">
+      <h3>16. Sunk Cost Fallacy</h3>
+      <p>
+        Continuing because money has already been invested.
+      </p>
+      <p><span class="highlight">Example:</span> Averaging down endlessly into a failing company.</p>
+    </div>
+
+    <div class="card">
+      <h3>17. Optimism Bias</h3>
+      <p>
+        Assuming positive outcomes are more likely than reality.
+      </p>
+      <p><span class="highlight">Example:</span> Believing markets always recover rapidly.</p>
+    </div>
+
+    <div class="card">
+      <h3>18. Panic Selling</h3>
+      <p>
+        Emotionally selling during crashes.
+      </p>
+      <p><span class="highlight">Example:</span> Selling during the COVID crash near the bottom.</p>
+    </div>
+
+    <div class="card">
+      <h3>19. Survivorship Bias</h3>
+      <p>
+        Focusing only on successful examples.
+      </p>
+      <p><span class="highlight">Example:</span> Seeing only successful traders on social media.</p>
+    </div>
+
+    <div class="card">
+      <h3>20. Authority Bias</h3>
+      <p>
+        Blindly trusting famous investors or influencers.
+      </p>
+      <p><span class="highlight">Example:</span> Buying a stock because a celebrity mentioned it.</p>
+    </div>
+
+  </div>
+
+  <div class="table-section">
+
+    <div class="section-title">
+      <h2>Bias Summary Table</h2>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Bias</th>
+          <th>Meaning</th>
+          <th>Impact</th>
+          <th>How To Reduce</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>Overconfidence</td>
+          <td>Believing you can beat markets consistently</td>
+          <td>Excessive trading losses</td>
+          <td>Use data-driven investing</td>
+        </tr>
+
+        <tr>
+          <td>Confirmation Bias</td>
+          <td>Seeking supporting information only</td>
+          <td>Ignoring warning signs</td>
+          <td>Read opposing views</td>
+        </tr>
+
+        <tr>
+          <td>Loss Aversion</td>
+          <td>Fear of realizing losses</td>
+          <td>Holding losers too long</td>
+          <td>Set stop-loss rules</td>
+        </tr>
+
+        <tr>
+          <td>Herd Mentality</td>
+          <td>Following the crowd</td>
+          <td>Bubbles and panic crashes</td>
+          <td>Independent analysis</td>
+        </tr>
+
+        <tr>
+          <td>Anchoring</td>
+          <td>Fixating on purchase price</td>
+          <td>Poor portfolio decisions</td>
+          <td>Focus on current fundamentals</td>
+        </tr>
+
+        <tr>
+          <td>Optimism Bias</td>
+          <td>Expecting unrealistic outcomes</td>
+          <td>Underestimating risks</td>
+          <td>Use conservative projections</td>
+        </tr>
+
+        <tr>
+          <td>Sunk Cost Fallacy</td>
+          <td>Refusing to quit losing investments</td>
+          <td>Escalating losses</td>
+          <td>Focus on future value</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="insight">
+    <h2>Why These Biases Matter</h2>
+
+    <p>
+      Most investing mistakes are not caused by lack of intelligence.
+      They happen because emotions, ego, fear, greed, and psychological shortcuts
+      interfere with rational decision-making.
+      Successful investing is often more about discipline, systems,
+      and emotional control than prediction.
+    </p>
+  </div>
+
+</section>
+
+<footer>
+  © 2026 Behavioral Finance & Trading Psychology | Designed with Glassmorphism, Gradients & Animations
+</footer>
+
+</body>
+</html>
