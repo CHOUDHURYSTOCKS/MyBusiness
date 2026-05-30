@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moving Average Master Guide</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--primary:#00e5ff;
+--secondary:#7c4dff;
+--dark:#071426;
+--card:rgba(255,255,255,.08);
+--text:#e8f4ff;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:linear-gradient(-45deg,#020617,#0f172a,#312e81,#0891b2);
+background-size:400% 400%;
+animation:bgMove 15s ease infinite;
+color:white;
+overflow-x:hidden;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+.blob{
+position:fixed;
+width:400px;
+height:400px;
+border-radius:50%;
+filter:blur(120px);
+opacity:.3;
+z-index:-1;
+animation:float 10s infinite ease-in-out;
+}
+
+.blob1{
+background:#00e5ff;
+top:-100px;
+left:-100px;
+}
+
+.blob2{
+background:#7c4dff;
+right:-100px;
+bottom:-100px;
+animation-delay:3s;
+}
+
+@keyframes float{
+50%{
+transform:translateY(-50px);
+}
+}
+
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+text-align:center;
+padding:30px;
+}
+
+.hero h1{
+font-size:4rem;
+font-weight:700;
+background:linear-gradient(90deg,#00e5ff,#ffffff,#7c4dff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+animation:pulse 4s infinite;
+}
+
+@keyframes pulse{
+50%{
+transform:scale(1.04);
+}
+}
+
+.hero p{
+max-width:900px;
+font-size:1.2rem;
+margin-top:25px;
+line-height:1.9;
+color:#cbd5e1;
+}
+
+.container{
+width:90%;
+max-width:1400px;
+margin:auto;
+}
+
+.section-title{
+text-align:center;
+font-size:2.5rem;
+margin:80px 0 50px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px;
+}
+
+.card{
+background:var(--card);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.1);
+padding:30px;
+border-radius:24px;
+transition:.4s;
+position:relative;
+overflow:hidden;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
+
+.card h2{
+color:var(--primary);
+margin-bottom:15px;
+}
+
+.card p{
+line-height:1.9;
+color:#dbeafe;
+}
+
+.details{
+margin-top:80px;
+display:flex;
+flex-direction:column;
+gap:50px;
+}
+
+.detail-box{
+background:rgba(255,255,255,.06);
+padding:40px;
+border-radius:25px;
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,.08);
+transition:.4s;
+}
+
+.detail-box:hover{
+transform:translateY(-8px);
+}
+
+.detail-box h2{
+font-size:2rem;
+color:#00e5ff;
+margin-bottom:20px;
+}
+
+.formula{
+background:#061a33;
+padding:15px;
+border-left:4px solid #00e5ff;
+margin:20px 0;
+border-radius:10px;
+font-family:monospace;
+overflow:auto;
+}
+
+ul{
+padding-left:20px;
+}
+
+li{
+margin:10px 0;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:40px;
+background:rgba(255,255,255,.06);
+backdrop-filter:blur(20px);
+overflow:hidden;
+border-radius:20px;
+}
+
+th{
+background:rgba(255,255,255,.12);
+padding:18px;
+}
+
+td{
+padding:18px;
+text-align:center;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+tr:hover{
+background:rgba(255,255,255,.05);
+}
+
+footer{
+text-align:center;
+padding:80px 20px;
+color:#94a3b8;
+}
+
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+
+<section class="hero">
+<h1>SMA vs EMA vs WMA vs SMMA vs ALMA</h1>
+
+<p>
+A complete guide to understanding the most popular Moving Averages used in
+technical analysis and algorithmic trading. Learn how each indicator works,
+its strengths, weaknesses, and best use cases.
+</p>
+</section>
+
+<div class="container">
+
+<h2 class="section-title">Quick Overview</h2>
+
+<div class="cards">
+
+<div class="card">
+<h2>SMA</h2>
+<p>Simple average of closing prices over a selected period.</p>
+</div>
+
+<div class="card">
+<h2>EMA</h2>
+<p>Gives greater weight to recent price action.</p>
+</div>
+
+<div class="card">
+<h2>WMA</h2>
+<p>Weighted average where recent prices have larger influence.</p>
+</div>
+
+<div class="card">
+<h2>SMMA</h2>
+<p>Extra smooth moving average that minimizes market noise.</p>
+</div>
+
+<div class="card">
+<h2>ALMA</h2>
+<p>Modern low-lag moving average using Gaussian distribution.</p>
+</div>
+
+</div>
+
+<div class="details">
+
+<!-- SMA -->
+<div class="detail-box">
+<h2>1. SMA — Simple Moving Average</h2>
+
+<p>
+SMA is the most basic and widely used moving average.
+It calculates the arithmetic mean of prices over a specific period.
+Every price contributes equally to the final value.
+</p>
+
+<div class="formula">
+SMA = (P1 + P2 + P3 + ... + Pn) / n
+</div>
+
+<h3>Advantages</h3>
+<ul>
+<li>Easy to calculate and understand.</li>
+<li>Excellent for long-term trend identification.</li>
+<li>Reduces random market noise.</li>
+</ul>
+
+<h3>Disadvantages</h3>
+<ul>
+<li>Responds slowly to trend changes.</li>
+<li>Produces delayed signals.</li>
+</ul>
+</div>
+
+<!-- EMA -->
+<div class="detail-box">
+<h2>2. EMA — Exponential Moving Average</h2>
+
+<p>
+EMA gives more weight to recent prices.
+As a result, it reacts much faster to market movements than SMA.
+Many traders prefer EMA for short-term trend analysis.
+</p>
+
+<div class="formula">
+EMA = Price × Multiplier + Previous EMA × (1 − Multiplier)
+</div>
+
+<h3>Advantages</h3>
+<ul>
+<li>Fast reaction to trend changes.</li>
+<li>Popular for swing and intraday trading.</li>
+<li>Works well in momentum strategies.</li>
+</ul>
+
+<h3>Disadvantages</h3>
+<ul>
+<li>Can generate false signals.</li>
+<li>More sensitive to market noise.</li>
+</ul>
+</div>
+
+<!-- WMA -->
+<div class="detail-box">
+<h2>3. WMA — Weighted Moving Average</h2>
+
+<p>
+Weighted Moving Average assigns different weights
+to each price. Recent prices receive larger weights
+than older prices.
+</p>
+
+<div class="formula">
+WMA = Σ(Price × Weight) / ΣWeights
+</div>
+
+<h3>Advantages</h3>
+<ul>
+<li>More responsive than SMA.</li>
+<li>Balances speed and smoothness.</li>
+<li>Useful for trend-following systems.</li>
+</ul>
+
+<h3>Disadvantages</h3>
+<ul>
+<li>More complex calculation.</li>
+<li>Can still react to noise.</li>
+</ul>
+</div>
+
+<!-- SMMA -->
+<div class="detail-box">
+<h2>4. SMMA — Smoothed Moving Average</h2>
+
+<p>
+SMMA includes historical data continuously,
+creating a very smooth curve. It is designed to
+remove short-term fluctuations.
+</p>
+
+<div class="formula">
+SMMA = (Previous SMMA × (N−1) + Current Price) / N
+</div>
+
+<h3>Advantages</h3>
+<ul>
+<li>Excellent noise reduction.</li>
+<li>Smooth trend visualization.</li>
+<li>Good for long-term trend traders.</li>
+</ul>
+
+<h3>Disadvantages</h3>
+<ul>
+<li>Very high lag.</li>
+<li>Slow entry and exit signals.</li>
+</ul>
+</div>
+
+<!-- ALMA -->
+<div class="detail-box">
+<h2>5. ALMA — Arnaud Legoux Moving Average</h2>
+
+<p>
+ALMA was developed to solve the lag problem found
+in traditional moving averages.
+It uses a Gaussian distribution to provide smoothness
+while remaining highly responsive.
+</p>
+
+<div class="formula">
+ALMA = Gaussian Weighted Price Average
+</div>
+
+<h3>Advantages</h3>
+<ul>
+<li>Very low lag.</li>
+<li>Smooth and responsive.</li>
+<li>Excellent for algorithmic trading.</li>
+<li>Reduces false signals.</li>
+</ul>
+
+<h3>Disadvantages</h3>
+<ul>
+<li>More complex mathematics.</li>
+<li>Not available on all platforms.</li>
+</ul>
+</div>
+
+</div>
+
+<h2 class="section-title">Comparison Matrix</h2>
+
+<table>
+<tr>
+<th>Type</th>
+<th>Lag</th>
+<th>Speed</th>
+<th>Smoothness</th>
+<th>Best For</th>
+</tr>
+
+<tr>
+<td>SMA</td>
+<td>High</td>
+<td>Slow</td>
+<td>High</td>
+<td>Long-Term Trends</td>
+</tr>
+
+<tr>
+<td>EMA</td>
+<td>Low</td>
+<td>Fast</td>
+<td>Medium</td>
+<td>Momentum Trading</td>
+</tr>
+
+<tr>
+<td>WMA</td>
+<td>Low-Medium</td>
+<td>Fast</td>
+<td>Medium</td>
+<td>Trend Following</td>
+</tr>
+
+<tr>
+<td>SMMA</td>
+<td>Very High</td>
+<td>Very Slow</td>
+<td>Very High</td>
+<td>Noise Reduction</td>
+</tr>
+
+<tr>
+<td>ALMA</td>
+<td>Very Low</td>
+<td>Fast</td>
+<td>High</td>
+<td>Algorithmic Trading</td>
+</tr>
+
+</table>
+
+</div>
+
+<footer>
+<h2>Which One Should You Use?</h2>
+<p>
+SMA for stability • EMA for quick signals • WMA for balance •
+SMMA for maximum smoothing • ALMA for modern low-lag precision.
+</p>
+</footer>
+
+</body>
+</html>
