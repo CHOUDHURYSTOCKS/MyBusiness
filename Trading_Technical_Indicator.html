@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical Indicators Guide</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --primary:#2563eb;
+    --secondary:#1e293b;
+    --accent:#06b6d4;
+    --light:#f8fafc;
+    --card:#ffffff;
+    --success:#10b981;
+    --shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#eef6ff,#ffffff);
+    color:#334155;
+    line-height:1.7;
+}
+
+.hero{
+    background:linear-gradient(135deg,#2563eb,#06b6d4);
+    color:white;
+    padding:80px 10%;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:3rem;
+    margin-bottom:15px;
+}
+
+.hero p{
+    max-width:850px;
+    margin:auto;
+    opacity:.95;
+    font-size:1.1rem;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    padding:60px 0;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    font-size:2.2rem;
+    color:var(--secondary);
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:var(--card);
+    border-radius:18px;
+    padding:30px;
+    box-shadow:var(--shadow);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card h3{
+    color:var(--primary);
+    margin-bottom:15px;
+    font-size:1.5rem;
+}
+
+.formula{
+    background:#eff6ff;
+    border-left:5px solid var(--primary);
+    padding:15px;
+    margin:15px 0;
+    border-radius:8px;
+    font-weight:600;
+}
+
+ul{
+    padding-left:20px;
+}
+
+li{
+    margin-bottom:8px;
+}
+
+.highlight{
+    color:var(--success);
+    font-weight:600;
+}
+
+.footer{
+    background:var(--secondary);
+    color:white;
+    text-align:center;
+    padding:25px;
+    margin-top:60px;
+}
+
+.note{
+    background:#ecfeff;
+    border:1px solid #a5f3fc;
+    padding:20px;
+    border-radius:12px;
+    margin-top:40px;
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+    <h1>Technical Indicators Explained</h1>
+    <p>
+        Technical indicators help traders analyze market trends, momentum,
+        price direction, and trading activity. This guide explains six
+        commonly used indicators: Volume, SMA (20), EMA (20), WMA (20),
+        Momentum (10), and ROC (10).
+    </p>
+</section>
+
+<div class="container">
+
+    <div class="section-title">
+        <h2>Key Technical Indicators</h2>
+    </div>
+
+    <div class="cards">
+
+        <!-- Volume -->
+        <div class="card">
+            <h3>1. Volume</h3>
+
+            <p>
+                Volume represents the total number of shares, contracts,
+                or units traded during a specific period. It measures
+                market participation and trader interest.
+            </p>
+
+            <div class="formula">
+                Volume = Total Quantity Traded
+            </div>
+
+            <h4>Why It Matters</h4>
+            <ul>
+                <li>Confirms price movements.</li>
+                <li>Indicates market strength.</li>
+                <li>Helps identify breakouts and reversals.</li>
+            </ul>
+
+            <h4>Interpretation</h4>
+            <ul>
+                <li><span class="highlight">High Volume + Rising Price</span> = Strong bullish trend.</li>
+                <li><span class="highlight">High Volume + Falling Price</span> = Strong bearish trend.</li>
+                <li>Low volume often signals weak conviction.</li>
+            </ul>
+        </div>
+
+        <!-- SMA -->
+        <div class="card">
+            <h3>2. SMA (20)</h3>
+
+            <p>
+                The Simple Moving Average (SMA) calculates the average closing
+                price over the last 20 periods. It smooths out short-term
+                fluctuations and helps identify the overall trend.
+            </p>
+
+            <div class="formula">
+                SMA(20) = Sum of Last 20 Closing Prices ÷ 20
+            </div>
+
+            <h4>Uses</h4>
+            <ul>
+                <li>Trend identification.</li>
+                <li>Support and resistance levels.</li>
+                <li>Moving average crossover strategies.</li>
+            </ul>
+
+            <h4>Interpretation</h4>
+            <ul>
+                <li>Price above SMA = Bullish sentiment.</li>
+                <li>Price below SMA = Bearish sentiment.</li>
+                <li>Flat SMA = Sideways market.</li>
+            </ul>
+        </div>
+
+        <!-- EMA -->
+        <div class="card">
+            <h3>3. EMA (20)</h3>
+
+            <p>
+                The Exponential Moving Average gives greater weight to
+                recent prices, making it more responsive than SMA.
+            </p>
+
+            <div class="formula">
+                EMA = (Price × Multiplier) + Previous EMA × (1 − Multiplier)
+            </div>
+
+            <p>
+                Multiplier = 2 ÷ (20 + 1)
+            </p>
+
+            <h4>Advantages</h4>
+            <ul>
+                <li>Faster reaction to price changes.</li>
+                <li>Better for short-term trading.</li>
+                <li>Useful in trending markets.</li>
+            </ul>
+
+            <h4>Interpretation</h4>
+            <ul>
+                <li>Price crossing above EMA may indicate buying strength.</li>
+                <li>Price crossing below EMA may indicate selling pressure.</li>
+            </ul>
+        </div>
+
+        <!-- WMA -->
+        <div class="card">
+            <h3>4. WMA (20)</h3>
+
+            <p>
+                Weighted Moving Average assigns larger weights to recent
+                prices and smaller weights to older prices.
+            </p>
+
+            <div class="formula">
+                WMA = Σ(Price × Weight) ÷ ΣWeights
+            </div>
+
+            <h4>Benefits</h4>
+            <ul>
+                <li>More responsive than SMA.</li>
+                <li>Highlights recent market activity.</li>
+                <li>Useful for identifying trend shifts.</li>
+            </ul>
+
+            <h4>Interpretation</h4>
+            <ul>
+                <li>Rising WMA suggests strengthening momentum.</li>
+                <li>Falling WMA indicates weakening price action.</li>
+                <li>Often preferred by active traders.</li>
+            </ul>
+        </div>
+
+        <!-- Momentum -->
+        <div class="card">
+            <h3>5. Momentum (10)</h3>
+
+            <p>
+                Momentum measures the rate of change in price over the last
+                10 periods. It indicates how quickly prices are moving.
+            </p>
+
+            <div class="formula">
+                Momentum(10) = Current Close − Close 10 Periods Ago
+            </div>
+
+            <h4>Purpose</h4>
+            <ul>
+                <li>Measures trend strength.</li>
+                <li>Identifies acceleration or deceleration.</li>
+                <li>Detects possible reversals.</li>
+            </ul>
+
+            <h4>Interpretation</h4>
+            <ul>
+                <li>Positive value = Bullish momentum.</li>
+                <li>Negative value = Bearish momentum.</li>
+                <li>Increasing values indicate strengthening trends.</li>
+            </ul>
+        </div>
+
+        <!-- ROC -->
+        <div class="card">
+            <h3>6. ROC (10)</h3>
+
+            <p>
+                Rate of Change (ROC) measures percentage price change over
+                the previous 10 periods. It is a momentum oscillator that
+                highlights speed and direction of price movement.
+            </p>
+
+            <div class="formula">
+                ROC(10) = [(Current Price − Price 10 Periods Ago) ÷ Price 10 Periods Ago] × 100
+            </div>
+
+            <h4>Why Traders Use ROC</h4>
+            <ul>
+                <li>Measures percentage momentum.</li>
+                <li>Identifies overbought and oversold conditions.</li>
+                <li>Detects trend reversals.</li>
+            </ul>
+
+            <h4>Interpretation</h4>
+            <ul>
+                <li>ROC above 0 = Upward momentum.</li>
+                <li>ROC below 0 = Downward momentum.</li>
+                <li>Large positive values indicate strong bullish strength.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="note">
+        <h3>Quick Comparison</h3>
+        <p>
+            <strong>Volume</strong> measures participation,
+            <strong>SMA</strong> provides smooth trend analysis,
+            <strong>EMA</strong> reacts faster to price changes,
+            <strong>WMA</strong> emphasizes recent prices,
+            <strong>Momentum</strong> measures absolute price change,
+            and <strong>ROC</strong> measures percentage price change.
+            Combining these indicators often provides a more complete
+            understanding of market conditions.
+        </p>
+    </div>
+
+</div>
+
+<footer class="footer">
+    <p>Technical Indicators Learning Guide • Volume • SMA • EMA • WMA • Momentum • ROC</p>
+</footer>
+
+</body>
+</html>
