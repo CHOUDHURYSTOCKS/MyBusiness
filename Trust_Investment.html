@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Indian REITs & InvITs Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+            --accent-blue: #38bdf8;
+            --accent-green: #34d399;
+            --accent-purple: #c084fc;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Metric Highlights */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .metric-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+        }
+
+        .metric-card.reit::before { background-color: var(--accent-blue); }
+        .metric-card.invit::before { background-color: var(--accent-green); }
+
+        .metric-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-card .yield-tag {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .metric-card.reit .yield-tag { color: var(--accent-blue); }
+        .metric-card.invit .yield-tag { color: var(--accent-green); }
+
+        .metric-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Section Headings */
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--accent-blue);
+            padding-left: 0.75rem;
+        }
+
+        /* Filter Buttons & Search */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-blue);
+            color: #000;
+            border-color: var(--accent-blue);
+        }
+
+        .search-box {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            background: var(--card-bg);
+            color: var(--text-main);
+            outline: none;
+            width: 250px;
+        }
+
+        /* Table Design */
+        .table-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            overflow-x: auto;
+            margin-bottom: 3rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 1.2rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.03);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-reit { background-color: rgba(56, 189, 248, 0.15); color: var(--accent-blue); }
+        .badge-invit { background-color: rgba(52, 211, 153, 0.15); color: var(--accent-green); }
+
+        .yield-highlight {
+            font-weight: 600;
+            color: #f59e0b;
+        }
+
+        /* Interactive Calculator */
+        .calc-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .calc-input {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .calc-input label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .calc-input input, .calc-input select {
+            padding: 0.6rem;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            background: var(--bg-color);
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .calc-output {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .calc-output-val {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        /* Footer / Disclaimer */
+        blockquote {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 4px solid var(--accent-purple);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .controls { flex-direction: column; align-items: stretch; }
+            .search-box { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>REITs & InvITs Investment Outlook</h1>
+        <p>Comparative analysis of leading listed trusts for yield and long-term value</p>
+    </header>
+
+    <!-- Overview Highlights -->
+    <div class="metrics-grid">
+        <div class="metric-card reit">
+            <h3>Real Estate Investment Trusts (REITs)</h3>
+            <div class="yield-tag">6.0% – 8.5%</div>
+            <p><strong>Primary Driver:</strong> Capital Appreciation & Inflation-indexed lease escalations in prime commercial/retail hubs.</p>
+        </div>
+        <div class="metric-card invit">
+            <h3>Infrastructure Investment Trusts (InvITs)</h3>
+            <div class="yield-tag">6.5% – 10.0%</div>
+            <p><strong>Primary Driver:</strong> Stable, long-term contractual payouts (power grid tariffs, highway toll collection, HAM annuities).</p>
+        </div>
+    </div>
+
+    <!-- Data Table Section -->
+    <h2 class="section-title">Top Listed Trusts Comparison</h2>
+    
+    <div class="controls">
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCategory('all', this)">All Trusts</button>
+            <button class="filter-btn" onclick="filterCategory('REIT', this)">REITs Only</button>
+            <button class="filter-btn" onclick="filterCategory('InvIT', this)">InvITs Only</button>
+        </div>
+        <input type="text" id="searchInput" class="search-box" placeholder="Search asset, category, strength..." onkeyup="searchTable()">
+    </div>
+
+    <div class="table-container">
+        <table id="trustsTable">
+            <thead>
+                <tr>
+                    <th>Trust Name</th>
+                    <th>Category</th>
+                    <th>Key Assets & Reach</th>
+                    <th>Indicative Yield</th>
+                    <th>Strengths & Future Prospects</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-category="REIT">
+                    <td><strong>Embassy Office Parks REIT</strong></td>
+                    <td><span class="badge badge-reit">REIT</span> Commercial Office</td>
+                    <td>Prime office parks in Bengaluru, Mumbai, Pune, NCR</td>
+                    <td class="yield-highlight">~6.5% – 7.5%</td>
+                    <td>Market leader with blue-chip corporate tenants; strong lease lock-in periods (high WALE).</td>
+                </tr>
+                <tr data-category="REIT">
+                    <td><strong>Mindspace Business Parks REIT</strong></td>
+                    <td><span class="badge badge-reit">REIT</span> Commercial Office</td>
+                    <td>Grade-A office parks in Mumbai, Hyderabad, Pune, Chennai</td>
+                    <td class="yield-highlight">~7.0% – 8.0%</td>
+                    <td>High occupancy rates (~94%) with steady Distribution Per Unit (DPU) growth.</td>
+                </tr>
+                <tr data-category="REIT">
+                    <td><strong>Nexus Select Trust</strong></td>
+                    <td><span class="badge badge-reit">REIT</span> Retail Malls</td>
+                    <td>17+ urban retail shopping malls across major Indian cities</td>
+                    <td class="yield-highlight">~7.5% – 8.5%</td>
+                    <td>Directly benefits from expanding domestic consumer spending and retail footfalls.</td>
+                </tr>
+                <tr data-category="InvIT">
+                    <td><strong>PowerGrid InvIT (PGInvIT)</strong></td>
+                    <td><span class="badge badge-invit">InvIT</span> Power Transmission</td>
+                    <td>Interstate power transmission lines</td>
+                    <td class="yield-highlight">~6.5% – 7.5%</td>
+                    <td>Backed by PowerGrid Corporation (Maharatna PSU); lowest risk profile among InvITs.</td>
+                </tr>
+                <tr data-category="InvIT">
+                    <td><strong>India Grid Trust (IndiGrid)</strong></td>
+                    <td><span class="badge badge-invit">InvIT</span> Power & Energy</td>
+                    <td>Transmission lines & renewable energy power plants</td>
+                    <td class="yield-highlight">~9.0% – 10.0%</td>
+                    <td>Strong institutional backing (KKR) with an aggressive asset acquisition pipeline.</td>
+                </tr>
+                <tr data-category="InvIT">
+                    <td><strong>NHAI InvIT / Highway InvITs</strong></td>
+                    <td><span class="badge badge-invit">InvIT</span> Roads & Highways</td>
+                    <td>Toll roads & Hybrid Annuity Model (HAM) concessions</td>
+                    <td class="yield-highlight">~8.5% – 9.5%</td>
+                    <td>Predictable cash flows supported by national highway infrastructure spending.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Quick Dividend Calculator -->
+    <div class="calc-card">
+        <h2 class="section-title" style="margin-bottom:0.5rem; border:none; padding:0;">Estimated Annual Cash Flow Calculator</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Estimate your annual distribution payout based on target yield.</p>
+        
+        <div class="calc-grid">
+            <div class="calc-input">
+                <label for="calcAmount">Investment Amount (₹)</label>
+                <input type="number" id="calcAmount" value="500000" step="10000" oninput="calculateYield()">
+            </div>
+            <div class="calc-input">
+                <label for="calcYield">Expected Distribution Yield (%)</label>
+                <input type="number" id="calcYield" value="8.0" step="0.1" oninput="calculateYield()">
+            </div>
+            <div class="calc-output">
+                <div style="font-size:0.8rem; color: var(--text-muted);">Est. Annual Distribution</div>
+                <div class="calc-output-val" id="annualPayout">₹40,000</div>
+            </div>
+            <div class="calc-output">
+                <div style="font-size:0.8rem; color: var(--text-muted);">Est. Quarterly Payout</div>
+                <div class="calc-output-val" id="quarterlyPayout" style="color: var(--accent-blue);">₹10,000</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assumptions & Regulatory Note -->
+    <blockquote>
+        <strong>Key Assumptions & Regulatory Context:</strong> SEBI regulations compel all REITs and InvITs to distribute at least 90% of their net distributable cash flows quarterly or bi-annually. Yields presented are indicative market distributions. Returns depend on underlying property occupancy, contractual escalation rates, and the individual taxability of distribution components (Interest, Dividend, Return of Capital).
+    </blockquote>
+</div>
+
+<script>
+    // Filter Table by Category
+    function filterCategory(category, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const rows = document.querySelectorAll('#trustsTable tbody tr');
+        rows.forEach(row => {
+            if (category === 'all' || row.dataset.category === category) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    // Search Filter
+    function searchTable() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const rows = document.querySelectorAll('#trustsTable tbody tr');
+
+        rows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(query) ? '' : 'none';
+        });
+    }
+
+    // Interactive Yield Calculator
+    function calculateYield() {
+        const amount = parseFloat(document.getElementById('calcAmount').value) || 0;
+        const yieldPct = parseFloat(document.getElementById('calcYield').value) || 0;
+
+        const annual = amount * (yieldPct / 100);
+        const quarterly = annual / 4;
+
+        document.getElementById('annualPayout').innerText = '₹' + Math.round(annual).toLocaleString('en-IN');
+        document.getElementById('quarterlyPayout').innerText = '₹' + Math.round(quarterly).toLocaleString('en-IN');
+    }
+
+    // Initialize Calculator on load
+    calculateYield();
+</script>
+
+</body>
+</html>

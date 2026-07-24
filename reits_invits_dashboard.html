@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India REITs & InvITs Investment Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-reit: #38bdf8;
+            --accent-invit: #34d399;
+            --accent-amber: #fbbf24;
+            --accent-purple: #c084fc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Header Header */
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--accent-reit), var(--accent-invit));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            position: relative;
+        }
+
+        .stat-card h4 {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-card .val {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 0.4rem;
+        }
+
+        .stat-card.reit-theme .val { color: var(--accent-reit); }
+        .stat-card.invit-theme .val { color: var(--accent-invit); }
+        .stat-card.amber-theme .val { color: var(--accent-amber); }
+
+        /* Controls Section */
+        .controls-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-filter {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-filter.active, .btn-filter:hover {
+            background: var(--accent-reit);
+            color: #0f172a;
+            border-color: var(--accent-reit);
+            font-weight: 600;
+        }
+
+        .search-box {
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            outline: none;
+            width: 280px;
+        }
+
+        .search-box:focus {
+            border-color: var(--accent-reit);
+        }
+
+        /* Data Table */
+        .table-wrap {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow-x: auto;
+            margin-bottom: 3rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-reit { background: rgba(56, 189, 248, 0.15); color: var(--accent-reit); }
+        .badge-invit { background: rgba(52, 211, 153, 0.15); color: var(--accent-invit); }
+
+        .yield-badge {
+            font-weight: 600;
+            color: var(--accent-amber);
+        }
+
+        /* Section Headings */
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--accent-reit);
+            padding-left: 0.75rem;
+        }
+
+        /* Analysis Cards Grid */
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .report-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .report-header h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .report-header .symbol {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-family: monospace;
+        }
+
+        .report-metrics {
+            display: flex;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .metric-item {
+            flex: 1;
+        }
+
+        .metric-item span {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .metric-item strong {
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .report-body p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: var(--text-secondary);
+        }
+
+        /* Disclaimer Footer */
+        blockquote {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 4px solid var(--accent-purple);
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .controls-container { flex-direction: column; align-items: stretch; }
+            .search-box { width: 100%; }
+            .reports-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Indian REITs & InvITs Directory</h1>
+        <p>Complete listed market performance, market cap, distribution returns, and detailed asset reports (NSE & BSE)</p>
+    </header>
+
+    <!-- Overview Metrics -->
+    <div class="stats-grid">
+        <div class="stat-card reit-theme">
+            <h4>Listed REITs</h4>
+            <div class="val">6 Trusts</div>
+            <p style="font-size:0.8rem; color: var(--text-secondary);">Commercial & Retail Asset Coverage</p>
+        </div>
+        <div class="stat-card invit-theme">
+            <h4>Listed InvITs</h4>
+            <div class="val">12+ Trusts</div>
+            <p style="font-size:0.8rem; color: var(--text-secondary);">Power, Highways & Utility Infra</p>
+        </div>
+        <div class="stat-card amber-theme">
+            <h4>Avg Distribution Yield</h4>
+            <div class="val">7.0% – 12.0%</div>
+            <p style="font-size:0.8rem; color: var(--text-secondary);">Tax-efficient distribution payouts</p>
+        </div>
+    </div>
+
+    <!-- Filter Controls -->
+    <div class="controls-container">
+        <div class="filter-group">
+            <button class="btn-filter active" onclick="filterData('all', this)">All Trusts</button>
+            <button class="btn-filter" onclick="filterData('REIT', this)">REITs Only</button>
+            <button class="btn-filter" onclick="filterData('InvIT', this)">InvITs Only</button>
+        </div>
+        <input type="text" id="searchInput" class="search-box" placeholder="Search symbol, name, sector..." onkeyup="searchTable()">
+    </div>
+
+    <!-- Data Table -->
+    <div class="table-wrap">
+        <table id="trustsTable">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Trust Name</th>
+                    <th>Category</th>
+                    <th>Underlying Assets</th>
+                    <th>Market Cap (₹ Cr)</th>
+                    <th>Est. Yield / 1-Yr Return</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- REITs -->
+                <tr data-category="REIT">
+                    <td><code>EMBASSY</code></td>
+                    <td><strong>Embassy Office Parks REIT</strong></td>
+                    <td><span class="badge badge-reit">REIT</span></td>
+                    <td>Commercial Office Parks (Bengaluru, Mumbai, Pune, NCR)</td>
+                    <td>₹42,240 Cr</td>
+                    <td><span class="yield-badge">~6.5% – 7.5%</span> (12.6% 1-Yr)</td>
+                </tr>
+                <tr data-category="REIT">
+                    <td><code>MINDSPACE</code></td>
+                    <td><strong>Mindspace Business Parks REIT</strong></td>
+                    <td><span class="badge badge-reit">REIT</span></td>
+                    <td>Grade-A Commercial IT Parks (Mumbai, Hyd, Pune)</td>
+                    <td>₹32,900 Cr</td>
+                    <td><span class="yield-badge">~7.0% – 8.0%</span> (17.2% 1-Yr)</td>
+                </tr>
+                <tr data-category="REIT">
+                    <td><code>BIRET</code></td>
+                    <td><strong>Brookfield India Real Estate Trust</strong></td>
+                    <td><span class="badge badge-reit">REIT</span></td>
+                    <td>Commercial Campus Offices (NCR, Mumbai, Kolkata)</td>
+                    <td>₹28,300 Cr</td>
+                    <td><span class="yield-badge">~6.5% – 7.5%</span> (9.7% 1-Yr)</td>
+                </tr>
+                <tr data-category="REIT">
+                    <td><code>NXST</code></td>
+                    <td><strong>Nexus Select Trust</strong></td>
+                    <td><span class="badge badge-reit">REIT</span></td>
+                    <td>17 Shopping Malls / Retail Spaces (14 Cities)</td>
+                    <td>₹25,400 Cr</td>
+                    <td><span class="yield-badge">~7.5% – 8.5%</span> (43.9% 1-Yr)</td>
+                </tr>
+                <tr data-category="REIT">
+                    <td><code>KRT</code></td>
+                    <td><strong>Knowledge Realty Trust</strong></td>
+                    <td><span class="badge badge-reit">REIT</span></td>
+                    <td>Commercial Real Estate / Tech Parks</td>
+                    <td>₹51,400 Cr</td>
+                    <td><span class="yield-badge">~6.5% – 7.5%</span></td>
+                </tr>
+                <tr data-category="REIT">
+                    <td><code>BAGMANE</code></td>
+                    <td><strong>Bagmane Prime Office REIT</strong></td>
+                    <td><span class="badge badge-reit">REIT</span></td>
+                    <td>Commercial Tech Parks (Bengaluru Corridors)</td>
+                    <td>₹35,670 Cr</td>
+                    <td><span class="yield-badge">~6.0% – 7.0%</span></td>
+                </tr>
+
+                <!-- InvITs -->
+                <tr data-category="InvIT">
+                    <td><code>NHIT</code></td>
+                    <td><strong>National Highways Infra Trust</strong></td>
+                    <td><span class="badge badge-invit">InvIT</span></td>
+                    <td>National Highway Toll Corridors (Sovereign Sponsor)</td>
+                    <td>₹32,780 Cr</td>
+                    <td><span class="yield-badge">~8.5% – 9.5%</span></td>
+                </tr>
+                <tr data-category="InvIT">
+                    <td><code>VERTIS</code></td>
+                    <td><strong>Vertis Infrastructure Trust</strong></td>
+                    <td><span class="badge badge-invit">InvIT</span></td>
+                    <td>Highway Concessions & Road Transport</td>
+                    <td>₹17,060 Cr</td>
+                    <td><span class="yield-badge">~8.5% – 9.5%</span></td>
+                </tr>
+                <tr data-category="InvIT">
+                    <td><code>INDIGRID</code></td>
+                    <td><strong>India Grid Trust</strong></td>
+                    <td><span class="badge badge-invit">InvIT</span></td>
+                    <td>Power Transmission Lines & Solar Assets (KKR Backed)</td>
+                    <td>₹14,500 Cr</td>
+                    <td><span class="yield-badge">~9.0% – 10.0%</span> (15.0% 1-Yr)</td>
+                </tr>
+                <tr data-category="InvIT">
+                    <td><code>PGINVIT</code></td>
+                    <td><strong>PowerGrid Infra Investment Trust</strong></td>
+                    <td><span class="badge badge-invit">InvIT</span></td>
+                    <td>Interstate Power Lines (Maharatna PSU Sponsor)</td>
+                    <td>₹9,100 Cr</td>
+                    <td><span class="yield-badge">~6.5% – 7.5%</span></td>
+                </tr>
+                <tr data-category="InvIT">
+                    <td><code>INDUSINVIT</code></td>
+                    <td><strong>Indus Infra Trust</strong></td>
+                    <td><span class="badge badge-invit">InvIT</span></td>
+                    <td>Energy & Utility Infrastructure Networks</td>
+                    <td>₹7,980 Cr</td>
+                    <td><span class="yield-badge">~11.5% – 12.5%</span></td>
+                </tr>
+                <tr data-category="InvIT">
+                    <td><code>IRBINVIT</code></td>
+                    <td><strong>IRB InvIT Fund</strong></td>
+                    <td><span class="badge badge-invit">InvIT</span></td>
+                    <td>7 Toll Highway Projects across major states</td>
+                    <td>₹4,970 Cr</td>
+                    <td><span class="yield-badge">~10.5% – 12.5%</span></td>
+                </tr>
+                <tr data-category="InvIT">
+                    <td><code>CAPINVIT</code></td>
+                    <td><strong>Capital Infra Trust</strong></td>
+                    <td><span class="badge badge-invit">InvIT</span></td>
+                    <td>Civil Construction & Road Infrastructure</td>
+                    <td>₹3,660 Cr</td>
+                    <td><span class="yield-badge">~8.0% – 9.0%</span></td>
+                </tr>
+                <tr data-category="InvIT">
+                    <td><code>ANANTAM</code></td>
+                    <td><strong>Anantam Highways Trust</strong></td>
+                    <td><span class="badge badge-invit">InvIT</span></td>
+                    <td>Hybrid Annuity Model (HAM) & Toll Roads</td>
+                    <td>₹2,290 Cr</td>
+                    <td><span class="yield-badge">~8.5% – 9.5%</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Analysis Reports Grid -->
+    <h2 class="section-title">Individual Asset Analysis Reports</h2>
+
+    <div class="reports-grid" id="reportsGrid">
+        
+        <!-- Embassy -->
+        <div class="report-card" data-category="REIT" data-name="embassy office parks">
+            <div>
+                <div class="report-header">
+                    <div>
+                        <h3>Embassy Office Parks REIT</h3>
+                        <span class="symbol">NSE: EMBASSY</span>
+                    </div>
+                    <span class="badge badge-reit">REIT</span>
+                </div>
+                <div class="report-metrics">
+                    <div class="metric-item">
+                        <span>Market Cap</span>
+                        <strong>₹42,240 Cr</strong>
+                    </div>
+                    <div class="metric-item">
+                        <span>Target Yield</span>
+                        <strong>~7.0%</strong>
+                    </div>
+                </div>
+                <div class="report-body">
+                    <p><strong>Overview:</strong> Asia's largest office REIT by area. Controls prime Grade-A commercial office parks in top IT hubs including Bengaluru, Mumbai, Pune, and NCR.</p>
+                    <p><strong>Strengths:</strong> Anchored by Fortune 500 corporate tenants with long lease lock-in periods (high WALE). High proportion of Global Capability Centers (GCCs).</p>
+                    <p><strong>Outlook:</strong> Excellent long-term compounder supported by rental escalations and ongoing asset pipeline development.</p>
+                </div>
+            </div>
+            <div class="tag-list">
+                <span class="tag">Commercial Office</span>
+                <span class="tag">GCC Anchor</span>
+                <span class="tag">High Liquidity</span>
+            </div>
+        </div>
+
+        <!-- Mindspace -->
+        <div class="report-card" data-category="REIT" data-name="mindspace business parks">
+            <div>
+                <div class="report-header">
+                    <div>
+                        <h3>Mindspace Business Parks REIT</h3>
+                        <span class="symbol">NSE: MINDSPACE</span>
+                    </div>
+                    <span class="badge badge-reit">REIT</span>
+                </div>
+                <div class="report-metrics">
+                    <div class="metric-item">
+                        <span>Market Cap</span>
+                        <strong>₹32,900 Cr</strong>
+                    </div>
+                    <div class="metric-item">
+                        <span>Target Yield</span>
+                        <strong>~7.5%</strong>
+                    </div>
+                </div>
+                <div class="report-body">
+                    <p><strong>Overview:</strong> Sponsored by K Raheja Corp. Portfolio comprises modern office parks across Mumbai Metropolitan Region, Pune, Hyderabad, and Chennai.</p>
+                    <p><strong>Strengths:</strong> Consistently maintains strong operational occupancy (~94%). Low balance sheet leverage provides head-room for accretive acquisitions.</p>
+                    <p><strong>Outlook:</strong> Stable distribution growth with exposure to high-growth South Indian IT corridors.</p>
+                </div>
+            </div>
+            <div class="tag-list">
+                <span class="tag">Grade-A IT Parks</span>
+                <span class="tag">Low Debt</span>
+                <span class="tag">Quarterly Distribution</span>
+            </div>
+        </div>
+
+        <!-- Nexus -->
+        <div class="report-card" data-category="REIT" data-name="nexus select trust">
+            <div>
+                <div class="report-header">
+                    <div>
+                        <h3>Nexus Select Trust</h3>
+                        <span class="symbol">NSE: NXST</span>
+                    </div>
+                    <span class="badge badge-reit">REIT</span>
+                </div>
+                <div class="report-metrics">
+                    <div class="metric-item">
+                        <span>Market Cap</span>
+                        <strong>₹25,400 Cr</strong>
+                    </div>
+                    <div class="metric-item">
+                        <span>Target Yield</span>
+                        <strong>~8.0%</strong>
+                    </div>
+                </div>
+                <div class="report-body">
+                    <p><strong>Overview:</strong> India's first pure-play urban retail REIT, backed by Blackstone. Owns 17 flagship shopping malls across 14 major metropolitan markets.</p>
+                    <p><strong>Strengths:</strong> Directly captures Indian retail consumption expansion. Rental contracts feature minimum guaranteed rent plus revenue-share upside.</p>
+                    <p><strong>Outlook:</strong> Superior revenue tailwinds driven by rising discretionary consumer spend and high retail footfalls.</p>
+                </div>
+            </div>
+            <div class="tag-list">
+                <span class="tag">Retail Malls</span>
+                <span class="tag">Consumption Play</span>
+                <span class="tag">High Return</span>
+            </div>
+        </div>
+
+        <!-- IndiGrid -->
+        <div class="report-card" data-category="InvIT" data-name="india grid trust">
+            <div>
+                <div class="report-header">
+                    <div>
+                        <h3>India Grid Trust</h3>
+                        <span class="symbol">NSE: INDIGRID</span>
+                    </div>
+                    <span class="badge badge-invit">InvIT</span>
+                </div>
+                <div class="report-metrics">
+                    <div class="metric-item">
+                        <span>Market Cap</span>
+                        <strong>₹14,500 Cr</strong>
+                    </div>
+                    <div class="metric-item">
+                        <span>Target Yield</span>
+                        <strong>~9.5%</strong>
+                    </div>
+                </div>
+                <div class="report-body">
+                    <p><strong>Overview:</strong> Institutional InvIT sponsored by KKR. Primary asset base consists of power transmission lines and utility-scale solar power generation assets.</p>
+                    <p><strong>Strengths:</strong> Tariff revenue is fixed under long-term TBSA contracts regardless of actual electricity volume, eliminating market demand volatility.</p>
+                    <p><strong>Outlook:</strong> Top choice for income-seeking investors requiring consistent, high payout yields.</p>
+                </div>
+            </div>
+            <div class="tag-list">
+                <span class="tag">Power Transmission</span>
+                <span class="tag">KKR Backed</span>
+                <span class="tag">High Distribution Yield</span>
+            </div>
+        </div>
+
+        <!-- PowerGrid -->
+        <div class="report-card" data-category="InvIT" data-name="powergrid infra investment trust">
+            <div>
+                <div class="report-header">
+                    <div>
+                        <h3>PowerGrid InvIT (PGInvIT)</h3>
+                        <span class="symbol">NSE: PGINVIT</span>
+                    </div>
+                    <span class="badge badge-invit">InvIT</span>
+                </div>
+                <div class="report-metrics">
+                    <div class="metric-item">
+                        <span>Market Cap</span>
+                        <strong>₹9,100 Cr</strong>
+                    </div>
+                    <div class="metric-item">
+                        <span>Target Yield</span>
+                        <strong>~7.0%</strong>
+                    </div>
+                </div>
+                <div class="report-body">
+                    <p><strong>Overview:</strong> Sponsored by Power Grid Corporation of India (Maharatna PSU). Holds vital interstate power transmission lines with AAA credit ratings.</p>
+                    <p><strong>Strengths:</strong> Strongest sovereign backdrop and lowest operational risk profile among Indian InvITs.</p>
+                    <p><strong>Outlook:</strong> Acts as an excellent, bond-like substitute offering predictable quarterly distributions.</p>
+                </div>
+            </div>
+            <div class="tag-list">
+                <span class="tag">PSU Sponsored</span>
+                <span class="tag">AAA Rated</span>
+                <span class="tag">Low Volatility</span>
+            </div>
+        </div>
+
+        <!-- NHAI InvIT -->
+        <div class="report-card" data-category="InvIT" data-name="national highways infra trust nhit">
+            <div>
+                <div class="report-header">
+                    <div>
+                        <h3>National Highways Infra Trust</h3>
+                        <span class="symbol">NSE: NHIT</span>
+                    </div>
+                    <span class="badge badge-invit">InvIT</span>
+                </div>
+                <div class="report-metrics">
+                    <div class="metric-item">
+                        <span>Market Cap</span>
+                        <strong>₹32,780 Cr</strong>
+                    </div>
+                    <div class="metric-item">
+                        <span>Target Yield</span>
+                        <strong>~9.0%</strong>
+                    </div>
+                </div>
+                <div class="report-body">
+                    <p><strong>Overview:</strong> Sponsored by the National Highways Authority of India (NHAI). Manages major national toll road corridors under long-term concessions.</p>
+                    <p><strong>Strengths:</strong> Backed directly by government infrastructure monetization initiatives; steady toll collections linked to national freight growth.</p>
+                    <p><strong>Outlook:</strong> Long-term steady annuity cash flows ideal for institutional and conservative individual portfolios.</p>
+                </div>
+            </div>
+            <div class="tag-list">
+                <span class="tag">Toll Roads</span>
+                <span class="tag">NHAI Sponsor</span>
+                <span class="tag">Sovereign Backing</span>
+            </div>
+        </div>
+
+    </div>
+    <blockquote>
+        <button><a href="Trust_Investment.html" target="_blank" style="text-decoration: none;">Investment In REITs & InvITs</a></button>
+    </blockquote>
+
+    <!-- Regulatory Footnote -->
+    <blockquote>
+        <strong>Taxation & Regulatory Note:</strong> Under SEBI regulations, REITs and InvITs must distribute at least 90% of Net Distributable Cash Flows (NDCF) to unitholders. Distributions are typically split into <em>Dividend, Interest, Repayment of Debt, and Other Income</em>. Tax treatment depends on the SPV tax regime chosen by the sponsor and the unitholder's applicable income tax slab.
+    </blockquote>
+</div>
+
+<script>
+    // Category Filtering Function
+    function filterData(category, button) {
+        document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        // Filter Table Rows
+        const rows = document.querySelectorAll('#trustsTable tbody tr');
+        rows.forEach(row => {
+            if (category === 'all' || row.dataset.category === category) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        // Filter Analysis Cards
+        const cards = document.querySelectorAll('#reportsGrid .report-card');
+        cards.forEach(card => {
+            if (category === 'all' || card.dataset.category === category) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Dynamic Search Function
+    function searchTable() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        
+        // Table Search
+        const rows = document.querySelectorAll('#trustsTable tbody tr');
+        rows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(query) ? '' : 'none';
+        });
+
+        // Cards Search
+        const cards = document.querySelectorAll('#reportsGrid .report-card');
+        cards.forEach(card => {
+            const text = card.innerText.toLowerCase();
+            card.style.display = text.includes(query) ? '' : 'none';
+        });
+    }
+</script>
+
+</body>
+</html>
