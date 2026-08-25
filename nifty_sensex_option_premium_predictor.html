@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIFTY 50 & SENSEX Option Premium Predictor</title>
+<style>
+:root{
+  --bg:#07111f; --card:#0d1b2e; --card2:#10243d; --text:#eaf4ff;
+  --muted:#9db1c8; --accent:#39d5ff; --accent2:#8b5cf6;
+  --green:#22c55e; --red:#ef4444; --yellow:#f59e0b; --border:#1c3552;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:
+radial-gradient(circle at 10% 0%,#12365c 0,transparent 32%),
+radial-gradient(circle at 90% 10%,#29144d 0,transparent 28%),var(--bg);
+color:var(--text);line-height:1.65}
+.container{max-width:1200px;margin:auto;padding:24px}
+.hero{padding:70px 20px 50px;text-align:center}
+.badge{display:inline-block;padding:7px 13px;border:1px solid #285579;border-radius:999px;color:var(--accent);background:#0b1d31}
+h1{font-size:clamp(2.2rem,5vw,4.4rem);line-height:1.05;margin:18px 0}
+.hero p{max-width:850px;margin:0 auto;color:var(--muted);font-size:1.1rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{background:linear-gradient(145deg,var(--card),#091626);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:0 10px 35px #0005}
+.card h3{margin-top:0;color:#fff}
+section{margin:35px 0}
+h2{font-size:2rem;margin-bottom:10px}
+h2 span{color:var(--accent)}
+.small{color:var(--muted);font-size:.92rem}
+.kpi{font-size:2rem;font-weight:800;margin:8px 0}
+.green{color:var(--green)}.red{color:var(--red)}.yellow{color:var(--yellow)}
+table{width:100%;border-collapse:collapse}
+th,td{padding:12px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+th{color:var(--accent)}
+.form{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+label{display:block;color:var(--muted);font-size:.9rem;margin-bottom:5px}
+input,select{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:#081727;color:#fff}
+button{cursor:pointer;border:0;border-radius:10px;padding:12px 17px;background:linear-gradient(90deg,var(--accent2),var(--accent));color:white;font-weight:700}
+.result{margin-top:18px;padding:18px;border-radius:14px;background:#081a2b;border:1px solid var(--border)}
+.score{font-size:2.5rem;font-weight:900}
+.bar{height:12px;background:#172b42;border-radius:20px;overflow:hidden;margin:10px 0}
+.fill{height:100%;width:50%;background:linear-gradient(90deg,var(--red),var(--yellow),var(--green));transition:.4s}
+.pill{display:inline-block;padding:4px 9px;border-radius:999px;background:#132b45;color:#b9d8f4;margin:3px;font-size:.82rem}
+.warning{border-left:4px solid var(--yellow);padding:15px;background:#211b0d;border-radius:8px}
+.footer{text-align:center;color:var(--muted);padding:35px 0}
+@media(max-width:800px){.grid,.grid2,.form{grid-template-columns:1fr} .container{padding:16px} .hero{padding-top:40px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="badge">OPTIONS EDUCATION • NIFTY 50 • SENSEX</div>
+  <h1>Will the Option Premium<br><span style="color:var(--accent)">Rise or Fall?</span></h1>
+  <p>A practical framework for estimating whether a NIFTY 50 or SENSEX Call/Put premium is likely to increase or decrease — using price action, option Greeks, implied volatility, open interest, volume and time decay.</p>
+</header>
+
+<main class="container">
+
+<section>
+<h2>The first principle: <span>premium is not the index</span></h2>
+<div class="grid">
+<div class="card"><h3>CALL Premium</h3><p>Generally benefits when the underlying index rises. It can still fall despite a rising index if <b>time decay</b> and/or <b>IV contraction</b> outweigh the benefit from the index move.</p></div>
+<div class="card"><h3>PUT Premium</h3><p>Generally benefits when the underlying index falls. It can still fall during a small index decline if theta and IV changes work against the position.</p></div>
+<div class="card"><h3>Key idea</h3><p><b>Direction alone is insufficient.</b> Premium is driven by the interaction of spot price, strike, expiry, volatility and interest rates.</p></div>
+</div>
+</section>
+
+<section>
+<h2>What actually moves an option premium?</h2>
+<table>
+<thead><tr><th>Factor</th><th>Effect on CALL</th><th>Effect on PUT</th><th>What to watch</th></tr></thead>
+<tbody>
+<tr><td>Underlying price ↑</td><td class="green">Usually ↑</td><td class="red">Usually ↓</td><td>Spot/futures trend, support/resistance</td></tr>
+<tr><td>Underlying price ↓</td><td class="red">Usually ↓</td><td class="green">Usually ↑</td><td>Breakdowns, momentum</td></tr>
+<tr><td>IV ↑</td><td class="green">↑</td><td class="green">↑</td><td>IV rank, event risk, volatility expansion</td></tr>
+<tr><td>IV ↓</td><td class="red">↓</td><td class="red">↓</td><td>Post-event IV crush</td></tr>
+<tr><td>Time passes</td><td class="red">↓</td><td class="red">↓</td><td>Theta, especially near expiry</td></tr>
+<tr><tr><td>Interest rate ↑</td><td>Generally ↑</td><td>Generally ↓</td><td>Usually a smaller effect than delta/IV/theta for short-dated index options</td></tr>
+</tbody>
+</table>
+</section>
+
+<section>
+<h2>The <span>5-factor premium prediction framework</span></h2>
+<div class="grid">
+<div class="card"><h3>① Direction</h3><p>Is NIFTY/SENSEX trending up, down or sideways? Use higher highs/lows, VWAP, moving averages, market structure and important levels.</p></div>
+<div class="card"><h3>② Delta</h3><p>Delta estimates how much the option premium changes for a 1-point change in the underlying, all else equal. Higher absolute delta means stronger directional sensitivity.</p></div>
+<div class="card"><h3>③ IV</h3><p>Implied volatility represents the market's expected variability. A volatility increase can lift both Calls and Puts; a volatility collapse can hurt both.</p></div>
+<div class="card"><h3>④ Theta</h3><p>Every passing day generally reduces extrinsic value. Near expiry, theta can become extremely aggressive, especially for near-the-money options.</p></div>
+<div class="card"><h3>⑤ OI + Volume</h3><p>Open interest and volume help identify where market participants are concentrated. Combine them with price action rather than treating OI changes as a standalone signal.</p></div>
+<div class="card"><h3>Bonus: Gamma</h3><p>Gamma measures how quickly delta changes. Near-the-money options close to expiry can have high gamma, making premium changes much faster when the index moves.</p></div>
+</div>
+</section>
+
+<section>
+<h2>How to read <span>Option Chain + OI</span></h2>
+<div class="grid2">
+<div class="card">
+<h3>Potential bullish clues</h3>
+<ul>
+<li>Index holds support and forms higher highs/higher lows.</li>
+<li>Call-side resistance is absorbed/broken with strong price action.</li>
+<li>Put writing/support appears at relevant strikes.</li>
+<li>Futures/spot momentum confirms the move.</li>
+<li>Call IV and premium expand together during an upside move.</li>
+</ul>
+</div>
+<div class="card">
+<h3>Potential bearish clues</h3>
+<ul>
+<li>Index rejects resistance and forms lower highs.</li>
+<li>Important support breaks with volume.</li>
+<li>Put-side support weakens or Put unwinding occurs around key strikes.</li>
+<li>Futures/spot momentum confirms downside.</li>
+<li>Put premium expands while downside momentum and/or IV support the move.</li>
+</ul>
+</div>
+</div>
+<p class="small">Important: “Call writing = bearish” or “Put writing = bullish” is a useful shorthand, not a guaranteed rule. OI can be created for hedging, spreads and other multi-leg strategies.</p>
+</section>
+
+<section>
+<h2>Premium prediction using <span>Greeks</span></h2>
+<div class="card">
+<p>A useful approximation for a small move is:</p>
+<div class="result"><b>Change in option premium ≈ Δ × Change in underlying + Vega × Change in IV − Theta × Time passed + Gamma effect</b></div>
+<p class="small">This is an approximation, not an exact pricing formula. Gamma becomes increasingly important when the underlying moves significantly or the option is close to expiry.</p>
+</div>
+</section>
+
+<section>
+<h2>Worked example: <span>NIFTY Call</span></h2>
+<div class="card">
+<p>Suppose a NIFTY Call has:</p>
+<p><span class="pill">Premium ₹120</span><span class="pill">Delta 0.50</span><span class="pill">Theta ₹4/day</span><span class="pill">Vega ₹2 per 1 IV point</span></p>
+<p>If NIFTY rises 100 points, IV rises 1 point and one day passes:</p>
+<p><b>Approximate change ≈ (0.50 × 100) + (2 × 1) − 4 = ₹48</b></p>
+<p>So the premium could move roughly from ₹120 toward ₹168, <b>before considering the full nonlinear gamma effect and other pricing inputs</b>.</p>
+<p class="warning">This is an educational illustration, not a prediction of an actual market premium. Real option prices depend on the live option chain and continuously changing variables.</p>
+</div>
+</section>
+
+<section>
+<h2>Interactive <span>Premium Direction Score</span></h2>
+<div class="card">
+<p class="small">Enter your assessment. This tool does not forecast the market; it converts several observations into a structured checklist score.</p>
+<div class="form">
+<div><label>Underlying direction</label><select id="direction"><option value="2">Strong Bullish</option><option value="1">Bullish</option><option value="0">Sideways</option><option value="-1">Bearish</option><option value="-2">Strong Bearish</option></select></div>
+<div><label>IV outlook</label><select id="iv"><option value="2">Strong expansion</option><option value="1">Expansion</option><option value="0">Neutral</option><option value="-1">Contraction</option><option value="-2">Strong contraction</option></select></div>
+<div><label>Time to expiry</label><select id="expiry"><option value="1">Far from expiry</option><option value="0">Moderate</option><option value="-1">Near expiry</option><option value="-2">Expiry very close</option></select></div>
+<div><label>Option type</label><select id="type"><option value="call">CALL</option><option value="put">PUT</option></select></div>
+<div><label>OI / structure confirmation</label><select id="oi"><option value="2">Strong confirmation</option><option value="1">Moderate confirmation</option><option value="0">Mixed</option><option value="-1">Against view</option><option value="-2">Strongly against view</option></select></div>
+<div><label>Momentum / volume</label><select id="momentum"><option value="2">Strong confirmation</option><option value="1">Moderate confirmation</option><option value="0">Neutral</option><option value="-1">Weak/against</option><option value="-2">Strongly against</option></select></div>
+</div>
+<br><button onclick="score()">Calculate structured score</button>
+<div class="result" id="output">Choose the inputs and click the button.</div>
+</div>
+</section>
+
+<section>
+<h2>CALL vs PUT: quick decision matrix</h2>
+<table>
+<tr><th>Market view</th><th>IV view</th><th>CALL premium</th><th>PUT premium</th></tr>
+<tr><td>Strong ↑</td><td>IV ↑</td><td class="green">Strong bullish bias</td><td class="red">Usually pressured</td></tr>
+<tr><td>Strong ↑</td><td>IV ↓</td><td class="yellow">Can rise, but IV crush may reduce gains</td><td class="red">Usually pressured strongly</td></tr>
+<tr><td>Strong ↓</td><td>IV ↑</td><td class="red">Usually pressured</td><td class="green">Strong bullish bias</td></tr>
+<tr><td>Strong ↓</td><td>IV ↓</td><td class="red">Usually pressured</td><td class="yellow">Can rise, but IV crush may reduce gains</td></tr>
+<tr><td>Sideways</td><td>IV ↓</td><td class="red">Theta/IV crush risk</td><td class="red">Theta/IV crush risk</td></tr>
+<tr><td>Sideways</td><td>IV ↑</td><td class="green">Both can gain from volatility expansion</td><td class="green">Both can gain from volatility expansion</td></tr>
+</table>
+</section>
+
+<section>
+<h2>A practical <span>15-minute pre-trade routine</span></h2>
+<div class="card">
+<ol>
+<li>Mark previous day high/low, major support/resistance and current VWAP.</li>
+<li>Check NIFTY/SENSEX spot and futures structure.</li>
+<li>Review the option chain around ATM and nearby strikes.</li>
+<li>Compare Call/Put OI, OI change, volume and premium movement.</li>
+<li>Check ATM IV and whether volatility is expanding or contracting.</li>
+<li>Estimate Delta, Theta, Vega and Gamma for the selected strike.</li>
+<li>Estimate the index move required to reach your target premium.</li>
+<li>Ask: “What happens if the index moves sideways for the next hour/day?”</li>
+<li>Define stop-loss based on premium, underlying level, or strategy risk before entering.</li>
+</ol>
+</div>
+</section>
+
+<section>
+<h2>Common mistakes to avoid</h2>
+<div class="grid">
+<div class="card"><h3>❌ “Index up = Call must rise”</h3><p>Not necessarily. A small move can be overwhelmed by theta or IV contraction.</p></div>
+<div class="card"><h3>❌ Buying cheap OTM options</h3><p>Low premium does not mean low risk. OTM options can lose most or all of their extrinsic value.</p></div>
+<div class="card"><h3>❌ Ignoring IV</h3><p>Buying options immediately before a volatility event can expose you to IV crush afterward.</p></div>
+<div class="card"><h3>❌ Treating OI as certainty</h3><p>OI does not reveal the complete strategy of market participants. Always combine it with price and volume.</p></div>
+</div>
+</section>
+
+<section>
+<h2>The core formula to remember</h2>
+<div class="card" style="text-align:center">
+<div class="kpi">Premium Direction = f(Spot Move, IV, Time, Delta, Gamma, Vega, Theta, Market Structure)</div>
+<p class="small">The best probability assessment comes from combining multiple independent signals rather than relying on one indicator.</p>
+</div>
+</section>
+
+</main>
+<footer class="footer container">
+Educational content only. Options involve substantial risk. NIFTY and SENSEX option premiums can move rapidly and may lose value quickly, especially near expiry. This page is not investment advice or a guarantee of future results.
+</footer>
+
+<script>
+function score(){
+  const d=Number(document.getElementById('direction').value);
+  const iv=Number(document.getElementById('iv').value);
+  const ex=Number(document.getElementById('expiry').value);
+  const oi=Number(document.getElementById('oi').value);
+  const mom=Number(document.getElementById('momentum').value);
+  const type=document.getElementById('type').value;
+
+  // Direction is reversed for PUTs because downside underlying movement benefits puts.
+  let directional = type==='call' ? d : -d;
+  let total = directional*2 + iv + ex + oi + mom;
+  let max=12;
+  let pct=Math.max(0,Math.min(100,(total+max)/(2*max)*100));
+
+  let label, cls;
+  if(total>=7){label='Strong probability bias: PREMIUM RISE';cls='green'}
+  else if(total>=3){label='Moderate probability bias: PREMIUM RISE';cls='green'}
+  else if(total<=-7){label='Strong probability bias: PREMIUM FALL';cls='red'}
+  else if(total<=-3){label='Moderate probability bias: PREMIUM FALL';cls='red'}
+  else {label='Mixed / uncertain conditions';cls='yellow'}
+
+  document.getElementById('output').innerHTML =
+    `<div class="score ${cls}">${total>0?'+':''}${total}</div>
+     <h3 class="${cls}">${label}</h3>
+     <div class="bar"><div class="fill" style="width:${pct}%"></div></div>
+     <p>Score is a structured decision aid, not a probability forecast. Validate the thesis against live price, option chain, IV and Greeks.</p>`;
+}
+</script>
+</body>
+</html>
