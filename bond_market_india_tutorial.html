@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Bond Market in India — a responsive beginner-to-advanced tutorial covering bonds, debentures, terminology, bond types, price-yield relationship, risks and official references.">
+<title>Bond Market in India — Complete Tutorial</title>
+<style>
+:root{
+  --bg:#07111f; --panel:#0d1b2d; --panel2:#10243a; --text:#eaf3ff; --muted:#a9bbcf;
+  --line:#213a55; --accent:#35d0ff; --accent2:#8b7cff; --good:#43e6a0; --warn:#ffd166;
+  --danger:#ff6b7a; --shadow:0 20px 60px rgba(0,0,0,.28); --radius:18px;
+}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 15% 5%,#12335a 0,#07111f 32%,#050b14 100%);
+font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);line-height:1.65}
+a{color:inherit}.container{width:min(1180px,92%);margin:auto}
+header{position:sticky;top:0;z-index:50;background:rgba(5,12,22,.84);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-weight:900;letter-spacing:.4px}.brand span{color:var(--accent)}
+nav{display:flex;gap:8px;flex-wrap:wrap}nav a{padding:8px 12px;text-decoration:none;color:var(--muted);border-radius:10px;font-size:.9rem}nav a:hover{background:var(--panel2);color:#fff}
+.hero{padding:78px 0 54px;display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:center}
+.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid #28506d;background:#0c2034;color:#a9edff;padding:7px 11px;border-radius:999px;font-size:.82rem}
+h1{font-size:clamp(2.5rem,6vw,5rem);line-height:1.03;margin:18px 0 18px;letter-spacing:-2px}
+h2{font-size:clamp(1.7rem,3vw,2.5rem);margin:0 0 12px}.hero p{font-size:1.12rem;color:var(--muted);max-width:720px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.btn{display:inline-block;text-decoration:none;border:1px solid var(--line);padding:11px 16px;border-radius:12px;background:var(--panel);font-weight:800}.btn.primary{background:linear-gradient(135deg,var(--accent),#5978ff);color:#03101c;border:0}
+.hero-card{background:linear-gradient(145deg,rgba(53,208,255,.12),rgba(139,124,255,.12));border:1px solid var(--line);border-radius:24px;padding:26px;box-shadow:var(--shadow)}
+.flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px}.node{padding:12px 14px;background:#0a1829;border:1px solid #274761;border-radius:12px}.arrow{color:var(--accent);font-size:1.3rem}
+section{padding:54px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:24px}.section-head p{color:var(--muted);max-width:720px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{background:linear-gradient(180deg,rgba(16,36,58,.9),rgba(10,24,40,.9));border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 12px 35px rgba(0,0,0,.14)}
+.card h3{margin-top:0}.muted{color:var(--muted)}.accent{color:var(--accent)}.good{color:var(--good)}.warn{color:var(--warn)}.danger{color:var(--danger)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}.kpi{padding:17px;border:1px solid var(--line);border-radius:14px;background:#091827}.kpi b{display:block;font-size:1.45rem;color:var(--accent)}
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.step{position:relative;padding:18px;border:1px solid var(--line);border-radius:14px;background:#091827}.step strong{display:block;color:var(--accent);margin-bottom:5px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px}.table{width:100%;border-collapse:collapse;min-width:760px}.table th,.table td{text-align:left;padding:14px;border-bottom:1px solid var(--line);vertical-align:top}.table th{background:#10263e}.table tr:last-child td{border-bottom:0}
+.searchbar{display:flex;gap:10px;margin:16px 0}.searchbar input{flex:1;background:#071421;border:1px solid var(--line);color:#fff;padding:14px;border-radius:12px;font-size:1rem}.searchbar button{background:var(--accent);border:0;padding:0 18px;border-radius:12px;font-weight:900;cursor:pointer}
+.term-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.term{padding:17px;border:1px solid var(--line);border-radius:14px;background:#091827}.term b{color:#9defff}.term.hide{display:none}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px}.choice{border:1px solid var(--line);border-radius:16px;padding:18px;background:#091827}.choice.active{outline:2px solid var(--accent)}.toggle{display:flex;gap:8px;margin-bottom:14px}.toggle button{cursor:pointer;border:1px solid var(--line);background:#0b1a2a;color:#bcd0e5;padding:9px 13px;border-radius:10px}.toggle button.active{background:var(--accent);color:#04111b}
+.bond-card{display:flex;flex-direction:column;min-height:100%}.bond-card .tag{display:inline-block;font-size:.72rem;padding:4px 8px;border-radius:999px;background:#17334b;color:#9defff;margin-bottom:10px}.bond-card .example{margin-top:auto;padding-top:14px;border-top:1px dashed #2a4862;color:#c5d5e5}
+.chart{background:#081522;border:1px solid var(--line);border-radius:18px;padding:18px}.chart svg{width:100%;height:auto;display:block}.chart-note{display:flex;justify-content:space-between;color:var(--muted);font-size:.9rem}
+.checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.check{display:flex;gap:12px;align-items:flex-start;padding:14px;border:1px solid var(--line);border-radius:12px;background:#091827}.check input{accent-color:var(--accent);margin-top:5px}
+details{border:1px solid var(--line);border-radius:12px;padding:13px 16px;background:#091827}details+details{margin-top:10px}summary{cursor:pointer;font-weight:800}
+footer{border-top:1px solid var(--line);padding:35px 0 55px;color:var(--muted)}.refs a{color:#9defff;text-decoration:none}.refs a:hover{text-decoration:underline}
+.notice{padding:16px;border-left:4px solid var(--warn);background:rgba(255,209,102,.08);border-radius:10px;color:#dce6f0}
+.progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:100;width:0}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.grid,.term-grid{grid-template-columns:repeat(2,1fr)}.timeline{grid-template-columns:1fr 1fr}.kpis{grid-template-columns:repeat(2,1fr)}nav{display:none}}
+@media(max-width:620px){.grid,.grid2,.compare,.term-grid,.checklist{grid-template-columns:1fr}.timeline{grid-template-columns:1fr}.hero{padding-top:48px}section{padding:38px 0}.kpis{grid-template-columns:1fr 1fr}.section-head{display:block}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<header>
+  <div class="container nav">
+    <div class="brand">BOND<span>INDIA</span> • Tutorial</div>
+    <nav>
+      <a href="#market">Market</a><a href="#terms">Glossary</a><a href="#compare">Bonds vs Debentures</a><a href="#types">Types</a><a href="#risks">Risks</a><a href="#refs">References</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div>
+    <span class="badge">🇮🇳 India • Beginner → Advanced</span>
+    <h1>Bond Market<br><span class="accent">in India</span></h1>
+    <p>A practical, interactive guide to how bonds work, who issues them, how prices and yields move, Indian bond terminology, bond types, debentures and the risks an investor should understand.</p>
+    <div class="cta"><a class="btn primary" href="#market">Start learning ↓</a><a class="btn" href="#terms">Search glossary</a></div>
+  </div>
+  <div class="hero-card">
+    <h3>One simple idea</h3>
+    <p class="muted">A bond is a debt instrument: the investor lends money to an issuer for defined terms, generally receiving interest and principal repayment according to the instrument's terms.</p>
+    <div class="flow"><span class="node">Investor</span><span class="arrow">→ lends →</span><span class="node">Issuer</span><span class="arrow">→ pays →</span><span class="node">Interest + Principal</span></div>
+  </div>
+</section>
+
+<section id="market">
+<div class="container">
+  <div class="section-head"><div><h2>1. Bond Market in India</h2><p>The Indian bond market connects borrowers that need long-term funding with investors seeking fixed-income exposure.</p></div></div>
+  <div class="grid">
+    <article class="card"><h3>🏛️ Government securities</h3><p>Central Government securities include Treasury Bills for short maturities and dated G-Secs for longer maturities. State Governments issue State Development Loans (SDLs).</p><small class="muted">RBI describes G-Secs as tradeable instruments acknowledging government debt.</small></article>
+    <article class="card"><h3>🏢 Corporate debt</h3><p>Companies and financial institutions can raise debt through bonds, debentures and other debt securities. Credit quality, security, covenants, maturity and liquidity matter.</p><small class="muted">Higher perceived credit risk generally requires higher expected yield.</small></article>
+    <article class="card"><h3>🔄 Primary + secondary market</h3><p><b>Primary:</b> securities are issued to raise funds. <b>Secondary:</b> existing securities are traded. A bond's market price can move even when its coupon is fixed.</p></article>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>Face Value</b>Reference amount for coupon/redemption</div>
+    <div class="kpi"><b>Coupon</b>Contractual interest rate/payment</div>
+    <div class="kpi"><b>Yield</b>Return implied by price & cash flows</div>
+    <div class="kpi"><b>Maturity</b>Contractual repayment date</div>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h3>How a bond transaction works</h3>
+    <div class="timeline">
+      <div class="step"><strong>01 • Issuance</strong>Issuer sets terms and raises funds.</div>
+      <div class="step"><strong>02 • Allocation</strong>Investors receive securities.</div>
+      <div class="step"><strong>03 • Holding</strong>Coupon/other contractual cash flows occur.</div>
+      <div class="step"><strong>04 • Trading</strong>Investor may sell before maturity at market price, subject to liquidity.</div>
+      <div class="step"><strong>05 • Maturity</strong>Issuer repays principal according to the terms.</div>
+    </div>
+  </div>
+  <div class="grid2" style="margin-top:18px">
+    <div class="card"><h3>Why bond markets matter</h3><ul><li>Finance government expenditure and infrastructure.</li><li>Provide companies with an alternative to bank borrowing/equity.</li><li>Give investors a range of fixed-income risk/return choices.</li><li>Provide market signals about interest rates and credit risk.</li></ul></div>
+    <div class="card"><h3>Advanced lens: the yield curve</h3><p>The yield curve plots yields against maturities for comparable debt. Its shape can reflect expectations, term premium, liquidity and supply-demand conditions.</p><p class="muted">Do not interpret curve shape as a standalone buy/sell signal.</p></div>
+  </div>
+</div>
+</section>
+
+<section id="terms">
+<div class="container">
+  <div class="section-head"><div><h2>2. Indian Bond Terminology — Interactive Glossary</h2><p>Search terms such as coupon, YTM, accrued interest, G-Sec, SDL, NCD, duration, credit spread and more.</p></div></div>
+  <div class="searchbar"><input id="termSearch" placeholder="Search: coupon, YTM, duration, NCD..." aria-label="Search bond terminology"><button onclick="clearSearch()">Clear</button></div>
+  <div class="term-grid" id="termsGrid">
+    <div class="term"><b>Face / Par Value</b><br>The nominal amount used for contractual calculations such as coupon and redemption.</div>
+    <div class="term"><b>Coupon Rate</b><br>The stated interest rate on face value. Coupon and market yield are not the same thing.</div>
+    <div class="term"><b>Yield</b><br>A return measure that relates bond cash flows to its current price; the exact meaning depends on the yield measure.</div>
+    <div class="term"><b>YTM</b><br>Yield to Maturity: an annualized return measure assuming stated cash flows and holding to maturity, subject to the calculation's assumptions.</div>
+    <div class="term"><b>Current Yield</b><br>Annual coupon divided by the market price; it ignores some price effects and time value.</div>
+    <div class="term"><b>Accrued Interest</b><br>Interest accumulated since the last coupon date, relevant to clean/dirty price conventions.</div>
+    <div class="term"><b>Clean Price</b><br>Quoted bond price excluding accrued interest in markets using clean-price convention.</div>
+    <div class="term"><b>Dirty Price</b><br>Clean price plus accrued interest, representing the settlement value under that convention.</div>
+    <div class="term"><b>Maturity</b><br>Date on which principal is contractually due, subject to the security's terms and issuer performance.</div>
+    <div class="term"><b>Duration</b><br>A measure related to the sensitivity of a bond's price to changes in yield; modified duration is commonly used as a price-sensitivity approximation.</div>
+    <div class="term"><b>Credit Rating</b><br>An external opinion about credit risk. It is useful but not a guarantee of repayment.</div>
+    <div class="term"><b>Credit Spread</b><br>Yield difference between a credit-risky bond and a reference/benchmark of similar characteristics.</div>
+    <div class="term"><b>G-Sec</b><br>Government Security issued by the Central or State Government; RBI identifies T-Bills and dated securities as key government-security categories.</div>
+    <div class="term"><b>SDL</b><br>State Development Loan: State Government dated securities.</div>
+    <div class="term"><b>T-Bill</b><br>Short-term Government of India security with original maturity below one year.</div>
+    <div class="term"><b>NCD</b><br>Non-Convertible Debenture: a corporate debt instrument that does not convert into equity under its terms.</div>
+    <div class="term"><b>Secured Debt</b><br>Debt supported by specified security/charge, subject to the legal documentation and enforcement framework.</div>
+    <div class="term"><b>Unsecured Debt</b><br>Debt without specified collateral security; recovery can be more exposed to issuer credit risk.</div>
+    <div class="term"><b>Callable Bond</b><br>A bond that the issuer may redeem before scheduled maturity under specified terms.</div>
+    <div class="term"><b>Puttable Bond</b><br>A bond giving the investor a contractual right to sell/redeem early under specified terms.</div>
+    <div class="term"><b>Zero-Coupon Bond</b><br>No periodic coupon; issued/purchased below redemption value in structures where the return comes from the price difference.</div>
+    <div class="term"><b>Primary Market</b><br>Market where new securities are issued.</div>
+    <div class="term"><b>Secondary Market</b><br>Market where already-issued securities are bought and sold.</div>
+    <div class="term"><b>Liquidity Risk</b><br>Risk that an investor cannot sell promptly at a fair market price.</div>
+    <div class="term"><b>Interest-Rate Risk</b><br>Risk that market-rate changes cause the bond's price to move against the investor.</div>
+    <div class="term"><b>Default Risk</b><br>Risk that the issuer fails to meet contractual interest or principal obligations.</div>
+    <div class="term"><b>Reinvestment Risk</b><br>Risk that future coupon cash flows cannot be reinvested at the expected rate.</div>
+    <div class="term"><b>Tax / Post-Tax Return</b><br>Return after applicable taxes; compare investments on a consistent post-tax basis.</div>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="container">
+  <div class="section-head"><div><h2>Bond Price ↔ Interest Rate Relationship</h2><p>For an existing fixed-coupon bond, market price generally moves inversely to market yields, all else equal.</p></div></div>
+  <div class="grid2">
+    <div class="chart">
+      <svg viewBox="0 0 700 360" role="img" aria-label="Bond price falls as market yield rises">
+        <line x1="70" y1="300" x2="650" y2="300" stroke="#46647d" stroke-width="2"/>
+        <line x1="70" y1="40" x2="70" y2="300" stroke="#46647d" stroke-width="2"/>
+        <path d="M95 70 C210 95, 270 130, 350 165 C445 210, 520 255, 630 285" fill="none" stroke="#35d0ff" stroke-width="6"/>
+        <text x="300" y="345" fill="#a9bbcf">Market yield / interest rate →</text>
+        <text x="8" y="180" fill="#a9bbcf" transform="rotate(-90 20 180)">Bond price →</text>
+        <text x="100" y="62" fill="#eaf3ff">Higher price</text>
+        <text x="535" y="300" fill="#eaf3ff">Lower price</text>
+      </svg>
+      <div class="chart-note"><span>Yield ↓ → Price ↑</span><span>Yield ↑ → Price ↓</span></div>
+    </div>
+    <div class="card">
+      <h3>Simple numerical intuition</h3>
+      <p>Suppose a bond has face value ₹1,000 and a fixed 8% annual coupon, so it pays ₹80 per year.</p>
+      <ul>
+        <li>If comparable market yields fall below 8%, that ₹80 cash flow becomes relatively attractive → price can rise above ₹1,000.</li>
+        <li>If comparable market yields rise above 8%, the ₹80 cash flow becomes relatively less attractive → price can fall below ₹1,000.</li>
+      </ul>
+      <div class="notice">The actual price depends on all contractual cash flows, time to maturity, yield, credit quality, liquidity and other market factors.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="compare">
+<div class="container">
+  <div class="section-head"><div><h2>3. Bonds vs. Debentures</h2><p>In common Indian usage the terms overlap, but the legal form, issuer, security, convertibility and documentation can differ.</p></div></div>
+  <div class="table-wrap">
+    <table class="table">
+      <thead><tr><th>Feature</th><th>Bond</th><th>Debenture</th></tr></thead>
+      <tbody>
+        <tr><td>Core idea</td><td>Debt instrument evidencing borrowing.</td><td>Corporate debt instrument; in Indian educational usage, often associated with company-issued debt.</td></tr>
+        <tr><td>Typical issuer</td><td>Government, public-sector entity, financial institution or company depending on instrument.</td><td>Typically a corporate issuer.</td></tr>
+        <tr><td>Security</td><td>May be secured or unsecured depending on issue terms.</td><td>May be secured or unsecured; never assume “debenture” automatically means unsecured.</td></tr>
+        <tr><td>Convertibility</td><td>Can be convertible or non-convertible depending on terms.</td><td>May be NCD, PCD or FCD structures depending on issue terms.</td></tr>
+        <tr><td>Investor return</td><td>Coupon/other contractual payments + possible price gain/loss.</td><td>Interest/other contractual payments + possible price gain/loss.</td></tr>
+        <tr><td>Main risk</td><td>Interest-rate, credit, liquidity, reinvestment and other risks.</td><td>Especially issuer credit, security/enforcement, liquidity and interest-rate risks.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="notice" style="margin-top:16px"><b>Important:</b> “Bond” and “debenture” are not perfectly interchangeable legal labels. Always read the offer document/issue terms, security details, covenants, ranking and redemption conditions.</div>
+</div>
+</section>
+
+<section id="types">
+<div class="container">
+  <div class="section-head"><div><h2>4. Types of Bonds — With Indian Examples</h2><p>Use the type to understand the cash-flow and risk structure—not as a guarantee of safety or return.</p></div></div>
+  <div class="grid">
+    <article class="card bond-card"><span class="tag">SOVEREIGN</span><h3>Government Bonds / Dated G-Secs</h3><p>Debt issued by the Government of India with defined coupon and maturity terms. Market prices can still fluctuate before maturity.</p><div class="example"><b>Example:</b> A 10-year Government of India security paying a fixed coupon.</div></article>
+    <article class="card bond-card"><span class="tag">SHORT TERM</span><h3>Treasury Bills</h3><p>Short-term Government of India securities with original maturity below one year. They are commonly issued at a discount and redeemed at face value.</p><div class="example"><b>Example:</b> A 91-day T-Bill bought below ₹100 and redeemed at ₹100.</div></article>
+    <article class="card bond-card"><span class="tag">STATE</span><h3>State Development Loans</h3><p>Dated securities issued by State Governments. They form part of India's government securities market.</p><div class="example"><b>Example:</b> An SDL issued by a State Government with a stated coupon and maturity.</div></article>
+    <article class="card bond-card"><span class="tag">CORPORATE</span><h3>Corporate Bonds</h3><p>Debt issued by companies or financial institutions. Credit spread, rating, covenants and liquidity are central considerations.</p><div class="example"><b>Example:</b> A listed company issues a 5-year bond at a fixed coupon.</div></article>
+    <article class="card bond-card"><span class="tag">NON-CONVERTIBLE</span><h3>NCDs</h3><p>Non-convertible debentures pay according to their contractual terms and do not convert into equity under the instrument's terms.</p><div class="example"><b>Example:</b> A company issues a 3-year secured NCD with a stated coupon.</div></article>
+    <article class="card bond-card"><span class="tag">CONVERTIBLE</span><h3>Convertible Bonds / Debentures</h3><p>Debt that can convert into equity according to predefined conditions. Conversion can change the investor's risk and return profile.</p><div class="example"><b>Example:</b> A corporate instrument allowing conversion into equity at a specified price/ratio.</div></article>
+    <article class="card bond-card"><span class="tag">ZERO COUPON</span><h3>Zero-Coupon Bonds</h3><p>No periodic coupon. The investor's return arises from the difference between purchase/issue price and redemption value, subject to terms.</p><div class="example"><b>Example:</b> Buy for ₹900 and receive ₹1,000 at maturity, ignoring taxes and other costs.</div></article>
+    <article class="card bond-card"><span class="tag">INFLATION LINKED</span><h3>Inflation-Linked Structures</h3><p>Designed so some component of cash flows or principal references inflation. Structure-specific terms determine the actual protection.</p><div class="example"><b>Example:</b> An inflation-linked government security where eligible cash flows are adjusted under its rules.</div></article>
+    <article class="card bond-card"><span class="tag">OPTIONALITY</span><h3>Callable / Puttable Bonds</h3><p>Callable instruments can be redeemed early by the issuer; puttable instruments can provide investors an early-exit right under specified conditions.</p><div class="example"><b>Example:</b> A 7-year bond with an issuer call option after year 3.</div></article>
+    <article class="card bond-card"><span class="tag">TAX / PURPOSE</span><h3>Tax-Advantaged / Special-Purpose Bonds</h3><p>Some issues may have tax or eligibility features established by specific laws/rules. Never assume a bond is tax-free without checking the current issue terms and tax rules.</p><div class="example"><b>Example:</b> A specifically notified tax-benefit bond, where applicable.</div></article>
+    <article class="card bond-card"><span class="tag">GOLD-LINKED</span><h3>Sovereign Gold Bonds</h3><p>A government security linked to the price of gold rather than a conventional fixed-coupon bond. Availability and tax treatment depend on current rules.</p><div class="example"><b>Example:</b> An SGB unit representing a specified quantity of gold, with interest under its scheme terms.</div></article>
+    <article class="card bond-card"><span class="tag">STRUCTURED</span><h3>Structured Debt</h3><p>Debt whose payoff can depend on specified reference assets, rates or formulas. Complexity makes document review particularly important.</p><div class="example"><b>Example:</b> A debt security whose redemption/coupon references a predefined market variable.</div></article>
+  </div>
+</div>
+</section>
+
+<section id="risks">
+<div class="container">
+  <div class="section-head"><div><h2>Risk Checklist</h2><p>A high coupon is not automatically a high-quality investment. Evaluate the whole instrument.</p></div></div>
+  <div class="checklist">
+    <label class="check"><input type="checkbox"> <span><b>Issuer credit</b><br><span class="muted">Can the issuer meet interest and principal obligations?</span></span></label>
+    <label class="check"><input type="checkbox"> <span><b>Interest-rate sensitivity</b><br><span class="muted">How much could price move if yields change?</span></span></label>
+    <label class="check"><input type="checkbox"> <span><b>Liquidity</b><br><span class="muted">Can you exit at a reasonable price when needed?</span></span></label>
+    <label class="check"><input type="checkbox"> <span><b>Security & ranking</b><br><span class="muted">What collateral, seniority and recovery rights apply?</span></span></label>
+    <label class="check"><input type="checkbox"> <span><b>Call / put / conversion</b><br><span class="muted">Can cash flows or maturity change?</span></span></label>
+    <label class="check"><input type="checkbox"> <span><b>Tax</b><br><span class="muted">What is the post-tax return under current rules?</span></span></label>
+    <label class="check"><input type="checkbox"> <span><b>Cash-flow structure</b><br><span class="muted">Coupon frequency, amortisation, maturity and reset terms.</span></span></label>
+    <label class="check"><input type="checkbox"> <span><b>Documentation</b><br><span class="muted">Read the offer document, rating rationale and key disclosures.</span></span></label>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h3>Learning Summary</h3>
+    <div class="grid2">
+      <ul><li>Bond = lending money to an issuer under defined terms.</li><li>Coupon is contractual; yield is market-return related.</li><li>Fixed-coupon bond prices generally move opposite to market yields.</li><li>Holding to maturity does not remove issuer/default risk.</li></ul>
+      <ul><li>Government securities can still have market-price volatility before maturity.</li><li>Corporate debt requires credit and liquidity analysis.</li><li>“High rating” is not a guarantee.</li><li>Compare investments using risk, liquidity, tax and post-tax return—not coupon alone.</li></ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="container">
+  <div class="section-head"><div><h2>Quick Self-Test</h2><p>Click each question to reveal the answer.</p></div></div>
+  <details><summary>Why can a bond with an 8% coupon trade below ₹1,000?</summary><p>Because its market yield may have risen above the bond's coupon rate, making its fixed cash flows less attractive relative to newly available yields.</p></details>
+  <details><summary>Does a high coupon mean low risk?</summary><p>No. A high coupon may compensate investors for higher credit, liquidity, structural or other risks.</p></details>
+  <details><summary>Is a government bond price always ₹1,000?</summary><p>No. Face value and market price are different concepts. A bond can trade above or below face value before maturity.</p></details>
+  <details><summary>What should I check before buying a corporate bond?</summary><p>Issuer financial strength, rating and rating rationale, security/ranking, maturity, yield, liquidity, covenants, call/put features, tax treatment and the offer document.</p></details>
+</div>
+</section>
+
+<section id="refs">
+<div class="container">
+  <div class="section-head"><div><h2>Official References</h2><p>Use primary regulatory sources for definitions, scheme rules and current investor guidance.</p></div></div>
+  <div class="grid2 refs">
+    <div class="card">
+      <h3>SEBI Investor</h3>
+      <p><a href="https://investor.sebi.gov.in/hindi/understanding_bonds.html" target="_blank" rel="noopener">Understanding Bonds</a> — bond basics, coupon, ratings and key risks.</p>
+      <p><a href="https://investor.sebi.gov.in/inv_aware_edu_videos.html" target="_blank" rel="noopener">SEBI Investor Video Learning Modules</a> — bonds, coupon vs yield, secured vs unsecured and corporate bonds.</p>
+      <p><a href="https://investor.sebi.gov.in/iematerial.html" target="_blank" rel="noopener">SEBI Investor Education Materials</a> — broader securities-market learning resources.</p>
+    </div>
+    <div class="card">
+      <h3>Reserve Bank of India</h3>
+      <p><a href="https://m.rbi.org.in/commonman/english/scripts/FAQs.aspx?Id=711" target="_blank" rel="noopener">Government Securities Market in India — A Primer</a> — G-Secs, T-Bills, dated securities and SDLs.</p>
+      <p><a href="https://www.rbi.org.in/scripts/faqview.aspx/faqview.aspx/scripts/FAQView.aspx?Id=145" target="_blank" rel="noopener">RBI Retail Direct FAQ</a> — retail access to eligible government securities.</p>
+      <p><a href="https://www.rbi.org.in/commonperson/english/Scripts/FAQs.aspx" target="_blank" rel="noopener">RBI FAQs</a> — official banking and government-securities FAQ repository.</p>
+    </div>
+  </div>
+  <div class="notice" style="margin-top:18px"><b>Educational disclaimer:</b> This tutorial is for education and awareness only. It is not investment, tax or legal advice, and it does not recommend any security, issuer or strategy. Bond terms, taxation, regulations, eligibility and market conditions can change. Verify the latest official documents and consult a SEBI-registered investment adviser or other qualified professional where appropriate.</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container">
+  <b>BondIndia Tutorial</b> — Learn the structure before considering the return.
+  <p>Content prepared as an educational overview using official SEBI and RBI investor-education materials. Always read the specific security's offer document and current applicable rules.</p>
+</div>
+</footer>
+
+<script>
+const search = document.getElementById('termSearch');
+const cards = [...document.querySelectorAll('.term')];
+search.addEventListener('input', () => {
+  const q = search.value.toLowerCase().trim();
+  cards.forEach(c => c.classList.toggle('hide', q && !c.textContent.toLowerCase().includes(q)));
+});
+function clearSearch(){search.value=''; cards.forEach(c=>c.classList.remove('hide')); search.focus();}
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+  document.getElementById('progress').style.width=pct+'%';
+});
+</script>
+</body>
+</html>
