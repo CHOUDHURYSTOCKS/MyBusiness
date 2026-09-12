@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Income Universe | Sources of Earning & Wealth Creation</title>
+
+<style>
+:root{
+    --bg:#07111f;
+    --bg2:#0b1830;
+    --card:rgba(255,255,255,.075);
+    --card2:rgba(255,255,255,.045);
+    --text:#eef5ff;
+    --muted:#a9b8cf;
+    --cyan:#22d3ee;
+    --blue:#60a5fa;
+    --green:#34d399;
+    --yellow:#fbbf24;
+    --orange:#fb923c;
+    --red:#fb7185;
+    --purple:#a78bfa;
+    --border:rgba(255,255,255,.12);
+    --shadow:0 20px 50px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+    background:
+      radial-gradient(circle at 10% 10%,rgba(34,211,238,.12),transparent 30%),
+      radial-gradient(circle at 90% 20%,rgba(167,139,250,.12),transparent 30%),
+      linear-gradient(135deg,var(--bg),var(--bg2));
+    color:var(--text);
+    line-height:1.7;
+}
+
+a{color:inherit;text-decoration:none}
+
+.container{
+    width:min(1200px,92%);
+    margin:auto;
+}
+
+/* NAVIGATION */
+nav{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(5,12,24,.82);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+}
+
+.nav-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    min-height:70px;
+}
+
+.logo{
+    font-size:1.25rem;
+    font-weight:800;
+    letter-spacing:.5px;
+}
+
+.logo span{color:var(--cyan)}
+
+.nav-links{
+    display:flex;
+    gap:20px;
+    font-size:.9rem;
+    color:var(--muted);
+}
+
+.nav-links a:hover{color:white}
+
+/* HERO */
+.hero{
+    min-height:680px;
+    display:flex;
+    align-items:center;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero:before{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:500px;
+    border:1px solid rgba(34,211,238,.15);
+    border-radius:50%;
+    left:-180px;
+    top:100px;
+}
+
+.hero:after{
+    content:"";
+    position:absolute;
+    width:650px;
+    height:650px;
+    border:1px solid rgba(167,139,250,.12);
+    border-radius:50%;
+    right:-250px;
+    top:40px;
+}
+
+.hero-content{
+    width:min(950px,100%);
+    margin:auto;
+    position:relative;
+    z-index:2;
+}
+
+.badge{
+    display:inline-block;
+    padding:7px 16px;
+    border:1px solid rgba(34,211,238,.35);
+    border-radius:30px;
+    color:var(--cyan);
+    background:rgba(34,211,238,.07);
+    font-size:.82rem;
+    margin-bottom:20px;
+}
+
+h1{
+    font-size:clamp(2.5rem,6vw,5rem);
+    line-height:1.05;
+    margin-bottom:25px;
+    background:linear-gradient(90deg,#fff,var(--cyan),var(--purple));
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    max-width:800px;
+    margin:auto;
+    color:var(--muted);
+    font-size:1.15rem;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:35px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:13px 23px;
+    border-radius:12px;
+    font-weight:700;
+    transition:.3s;
+}
+
+.btn-primary{
+    background:linear-gradient(90deg,var(--cyan),var(--blue));
+    color:#03101c;
+}
+
+.btn-secondary{
+    border:1px solid var(--border);
+    background:var(--card);
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+/* SECTIONS */
+section{
+    padding:90px 0;
+}
+
+.section-heading{
+    text-align:center;
+    max-width:850px;
+    margin:0 auto 50px;
+}
+
+.section-heading h2{
+    font-size:clamp(2rem,4vw,3rem);
+    margin-bottom:12px;
+}
+
+.section-heading p{
+    color:var(--muted);
+}
+
+/* SOURCE CARDS */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:25px;
+    box-shadow:var(--shadow);
+    transition:.35s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(34,211,238,.4);
+}
+
+.icon{
+    font-size:2rem;
+    margin-bottom:12px;
+}
+
+.card h3{
+    margin-bottom:8px;
+}
+
+.card p{
+    color:var(--muted);
+    font-size:.92rem;
+}
+
+.tag{
+    display:inline-block;
+    padding:4px 9px;
+    border-radius:20px;
+    margin-top:14px;
+    font-size:.72rem;
+    font-weight:700;
+}
+
+.low{background:rgba(52,211,153,.12);color:var(--green)}
+.medium{background:rgba(251,191,36,.12);color:var(--yellow)}
+.high{background:rgba(251,113,133,.12);color:var(--red)}
+.veryhigh{background:rgba(167,139,250,.14);color:var(--purple)}
+
+/* SOURCE DETAILS */
+.source-section{
+    border-top:1px solid rgba(255,255,255,.06);
+}
+
+.detail-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+.detail-card{
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:28px;
+}
+
+.detail-card h3{
+    color:var(--cyan);
+    margin-bottom:15px;
+}
+
+.detail-card ul{
+    padding-left:20px;
+}
+
+.detail-card li{
+    margin:8px 0;
+    color:#d8e2f0;
+}
+
+.formula{
+    margin-top:18px;
+    padding:15px;
+    border-left:3px solid var(--cyan);
+    background:rgba(34,211,238,.06);
+    font-family:monospace;
+    color:#d8faff;
+}
+
+/* TABLE */
+.table-wrap{
+    overflow-x:auto;
+    border-radius:18px;
+    border:1px solid var(--border);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:800px;
+    background:rgba(255,255,255,.035);
+}
+
+th,td{
+    padding:16px;
+    text-align:left;
+    border-bottom:1px solid var(--border);
+}
+
+th{
+    background:rgba(34,211,238,.08);
+    color:var(--cyan);
+}
+
+td{color:#d7e0ed}
+
+/* RISK */
+.risk-meter{
+    display:flex;
+    gap:5px;
+    margin:12px 0;
+}
+
+.risk-meter span{
+    height:8px;
+    flex:1;
+    border-radius:20px;
+    background:#26344a;
+}
+
+.risk-meter span.active{
+    background:var(--red);
+}
+
+/* PYRAMID */
+.pyramid{
+    max-width:750px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.level{
+    padding:20px;
+    margin:4px;
+    text-align:center;
+    border-radius:12px;
+    font-weight:700;
+    border:1px solid var(--border);
+}
+
+.level1{width:35%;background:rgba(52,211,153,.12)}
+.level2{width:50%;background:rgba(34,211,238,.10)}
+.level3{width:65%;background:rgba(96,165,250,.10)}
+.level4{width:80%;background:rgba(251,191,36,.10)}
+.level5{width:95%;background:rgba(251,113,133,.10)}
+
+/* TABS */
+.tabs{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-bottom:30px;
+}
+
+.tab{
+    cursor:pointer;
+    padding:10px 17px;
+    border-radius:30px;
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--muted);
+}
+
+.tab.active{
+    color:#03101c;
+    background:var(--cyan);
+    font-weight:700;
+}
+
+.tab-content{
+    display:none;
+}
+
+.tab-content.active{
+    display:block;
+}
+
+/* CALCULATOR */
+.calculator{
+    max-width:700px;
+    margin:auto;
+    background:var(--card);
+    padding:30px;
+    border-radius:22px;
+    border:1px solid var(--border);
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:7px;
+    color:var(--muted);
+}
+
+.input-group input,
+.input-group select{
+    width:100%;
+    padding:13px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:#081323;
+    color:white;
+    outline:none;
+}
+
+.result{
+    margin-top:25px;
+    padding:20px;
+    text-align:center;
+    border-radius:15px;
+    background:rgba(52,211,153,.09);
+    border:1px solid rgba(52,211,153,.25);
+}
+
+.result strong{
+    font-size:2rem;
+    color:var(--green);
+}
+
+/* WARNING */
+.warning{
+    padding:22px;
+    border-radius:18px;
+    background:rgba(251,113,133,.08);
+    border:1px solid rgba(251,113,133,.25);
+    margin-top:30px;
+}
+
+.warning h3{
+    color:var(--red);
+    margin-bottom:8px;
+}
+
+/* FOOTER */
+footer{
+    padding:50px 0;
+    border-top:1px solid var(--border);
+    text-align:center;
+    color:var(--muted);
+}
+
+footer strong{color:white}
+
+@media(max-width:950px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:650px){
+    .grid,
+    .detail-grid{
+        grid-template-columns:1fr;
+    }
+
+    .nav-links{display:none}
+
+    section{padding:65px 0}
+
+    .level1{width:55%}
+    .level2{width:65%}
+    .level3{width:75%}
+    .level4{width:85%}
+    .level5{width:95%}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="container nav-inner">
+    <div class="logo">FIN<span>WEALTH</span></div>
+
+    <div class="nav-links">
+        <a href="#sources">Sources</a>
+        <a href="#bank">Bank</a>
+        <a href="#mutual">Mutual Funds</a>
+        <a href="#stocks">Stocks</a>
+        <a href="#reit">REIT / InvIT</a>
+        <a href="#derivatives">Derivatives</a>
+        <a href="#crypto">Crypto</a>
+    </div>
+</div>
+</nav>
+
+<header class="hero">
+<div class="hero-content">
+
+<span class="badge">PERSONAL FINANCE • INVESTING • TRADING • WEALTH CREATION</span>
+
+<h1>
+Multiple Sources of<br>
+Financial Income
+</h1>
+
+<p>
+A practical framework for understanding how money can be earned,
+invested, compounded and withdrawn through banks, mutual funds,
+bonds, stocks, ETFs, REITs, InvITs, commodities, currencies and
+digital assets.
+</p>
+
+<div class="hero-buttons">
+<a href="#sources" class="btn btn-primary">Explore Income Sources</a>
+<a href="#roadmap" class="btn btn-secondary">Build a Wealth Roadmap</a>
+</div>
+
+</div>
+</header>
+
+
+<!-- OVERVIEW -->
+<section id="sources">
+
+<div class="container">
+
+<div class="section-heading">
+<h2>The Financial Income Universe</h2>
+<p>
+Different financial products generate returns in different ways.
+Some provide interest, some distributions, some capital appreciation,
+and some involve active trading profits.
+</p>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="icon">🏦</div>
+<h3>Bank Income</h3>
+<p>Savings interest, fixed deposits and recurring deposits.</p>
+<span class="tag low">Lower Risk</span>
+</div>
+
+<div class="card">
+<div class="icon">📈</div>
+<h3>Mutual Funds</h3>
+<p>Lumpsum, SIP and withdrawal-based strategies through active or passive funds.</p>
+<span class="tag medium">Market Linked</span>
+</div>
+
+<div class="card">
+<div class="icon">💵</div>
+<h3>Bonds & Debentures</h3>
+<p>Interest/coupon income plus possible capital appreciation or depreciation.</p>
+<span class="tag low">Low–Medium Risk</span>
+</div>
+
+<div class="card">
+<div class="icon">📊</div>
+<h3>Stocks & ETFs</h3>
+<p>Dividends, capital appreciation, trading and securities lending.</p>
+<span class="tag high">Medium–High Risk</span>
+</div>
+
+<div class="card">
+<div class="icon">🏢</div>
+<h3>REIT / InvIT</h3>
+<p>Potential distributions plus market-price movement.</p>
+<span class="tag medium">Market Linked</span>
+</div>
+
+<div class="card">
+<div class="icon">🪙</div>
+<h3>Commodities</h3>
+<p>Commodity futures and options linked to gold, silver, energy and other commodities.</p>
+<span class="tag high">High Risk</span>
+</div>
+
+<div class="card">
+<div class="icon">💱</div>
+<h3>Currency</h3>
+<p>Exchange-traded currency derivatives can be used for hedging or trading.</p>
+<span class="tag high">High Risk</span>
+</div>
+
+<div class="card">
+<div class="icon">₿</div>
+<h3>Crypto Assets</h3>
+<p>Investment and derivatives-based strategies with substantial volatility.</p>
+<span class="tag veryhigh">Very High Risk</span>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- BANK -->
+<section id="bank" class="source-section">
+
+<div class="container">
+
+<div class="section-heading">
+<h2>01 — Bank-Based Income</h2>
+<p>
+The traditional foundation of personal finance: preserving capital,
+maintaining liquidity and earning interest.
+</p>
+</div>
+
+<div class="detail-grid">
+
+<div class="detail-card">
+<h3>🏦 Savings Account</h3>
+
+<p>
+A savings account generally pays interest on eligible balances while
+keeping money relatively accessible.
+</p>
+
+<ul>
+<li>Suitable for emergency funds and liquidity.</li>
+<li>Interest income is generally lower than many investment alternatives.</li>
+<li>Useful for short-term financial needs.</li>
+<li>Do not confuse bank balance growth with wealth creation.</li>
+</ul>
+
+<div class="formula">
+Interest ≈ Eligible Balance × Applicable Interest Rate × Time
+</div>
+</div>
+
+<div class="detail-card">
+<h3>🔒 Fixed Deposit — FD</h3>
+
+<p>
+A fixed deposit locks money for a predetermined period at a stated
+interest rate, subject to the product's terms.
+</p>
+
+<ul>
+<li>Useful for predictable interest income.</li>
+<li>Tenure may range from short to several years.</li>
+<li>Premature withdrawal can involve conditions or penalties.</li>
+<li>Compare post-tax returns, not just headline interest rates.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>📅 Recurring Deposit — RD</h3>
+
+<p>
+An RD allows periodic deposits instead of investing the entire amount
+at once.
+</p>
+
+<ul>
+<li>Useful for disciplined saving.</li>
+<li>Interest is calculated according to the bank's RD methodology.</li>
+<li>Suitable when a person has regular monthly surplus.</li>
+<li>Useful bridge between savings and investing.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>💡 Bank Income Strategy</h3>
+
+<ul>
+<li>Emergency fund → savings / highly liquid instruments.</li>
+<li>Short-term goals → suitable deposits.</li>
+<li>Long-term wealth → consider diversified market-linked assets where appropriate.</li>
+<li>Always consider inflation and taxation.</li>
+</ul>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- MUTUAL FUNDS -->
+<section id="mutual" class="source-section">
+
+<div class="container">
+
+<div class="section-heading">
+<h2>02 — Mutual Fund Income & Wealth Creation</h2>
+<p>
+Mutual funds pool investors' money and invest according to a defined
+investment mandate. Returns are market-linked and are not guaranteed.
+</p>
+</div>
+
+<div class="detail-grid">
+
+<div class="detail-card">
+<h3>💰 Lumpsum Investment</h3>
+
+<p>
+A lumpsum means investing a larger amount at one or more points in time.
+</p>
+
+<ul>
+<li>Potential benefit from long-term compounding.</li>
+<li>Market timing risk exists when investing a large amount at once.</li>
+<li>Asset allocation is more important than simply chasing past returns.</li>
+</ul>
+
+<div class="formula">
+Future Value = Investment × (1 + Return)<sup>Years</sup>
+</div>
+</div>
+
+<div class="detail-card">
+<h3>📆 SIP — Systematic Investment Plan</h3>
+
+<p>
+A SIP invests a predetermined amount periodically, commonly monthly.
+</p>
+
+<ul>
+<li>Encourages financial discipline.</li>
+<li>Allows investments across different market levels.</li>
+<li>Does not guarantee profit.</li>
+<li>Useful for long-term goals.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>💸 SWP — Systematic Withdrawal Plan</h3>
+
+<p>
+SWP is better understood as a <strong>withdrawal mechanism</strong>,
+not as a guaranteed earning source.
+</p>
+
+<ul>
+<li>Investor withdraws a chosen amount periodically.</li>
+<li>Units may be redeemed to fund the withdrawal.</li>
+<li>Portfolio value can rise or fall.</li>
+<li>High withdrawals can deplete capital.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>⚖️ Active vs Passive Funds</h3>
+
+<ul>
+<li><strong>Active:</strong> fund manager attempts to outperform a benchmark.</li>
+<li><strong>Passive:</strong> attempts to track an index.</li>
+<li>Compare expense ratio, tracking difference/error, risk and mandate.</li>
+<li>Past performance does not guarantee future performance.</li>
+</ul>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- BONDS -->
+<section class="source-section">
+
+<div class="container">
+
+<div class="section-heading">
+<h2>03 — Bonds & Debentures</h2>
+<p>
+Debt instruments can provide coupon/interest income, while their market
+value may change as interest rates, credit conditions and market demand change.
+</p>
+</div>
+
+<div class="detail-grid">
+
+<div class="detail-card">
+<h3>💵 How Bond Income Works</h3>
+
+<ul>
+<li>Investor lends capital to an issuer.</li>
+<li>Issuer pays coupon/interest according to terms.</li>
+<li>Principal is normally repaid according to maturity terms, subject to issuer risk.</li>
+<li>Bond price can move before maturity.</li>
+</ul>
+
+<div class="formula">
+Total Return ≈ Coupon Income + Capital Gain/Loss
+</div>
+</div>
+
+<div class="detail-card">
+<h3>🏛 Government Securities</h3>
+
+<ul>
+<li>Issued by sovereign/government entities.</li>
+<li>Credit risk characteristics differ from corporate debt.</li>
+<li>Interest-rate risk remains relevant for tradable securities.</li>
+<li>Yield, maturity and duration should be evaluated.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>🏢 Corporate Bonds & Debentures</h3>
+
+<ul>
+<li>Potentially higher yield can accompany higher credit risk.</li>
+<li>Evaluate issuer financial strength.</li>
+<li>Check security/collateral where applicable.</li>
+<li>Review maturity, coupon, liquidity and rating.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>⭐ Credit Ratings</h3>
+
+<p>
+Credit ratings can help assess relative credit risk, but a rating is
+not a guarantee that an issuer will never default.
+</p>
+
+<ul>
+<li>Compare rating and outlook.</li>
+<li>Understand rating scale.</li>
+<li>Do not choose solely on highest coupon.</li>
+<li>Diversification matters.</li>
+</ul>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- STOCKS -->
+<section id="stocks" class="source-section">
+
+<div class="container">
+
+<div class="section-heading">
+<h2>04 — Stocks & Shares</h2>
+<p>
+Equities can produce returns through capital appreciation, dividends and,
+for eligible securities, securities lending.
+</p>
+</div>
+
+<div class="detail-grid">
+
+<div class="detail-card">
+<h3>⚡ Day Trading</h3>
+<ul>
+<li>Positions may be opened and closed within the trading session.</li>
+<li>Profit depends on price movement after costs.</li>
+<li>Requires strict risk management.</li>
+<li>Leverage can magnify losses.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>🌊 Swing Trading</h3>
+<ul>
+<li>Positions may be held for several days or weeks.</li>
+<li>Attempts to capture intermediate price movements.</li>
+<li>Technical and fundamental factors may both be considered.</li>
+<li>Overnight gaps create additional risk.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>🌳 Long-Term Stock Investing</h3>
+<ul>
+<li>Potential capital appreciation.</li>
+<li>Potential dividend income.</li>
+<li>Business growth can drive long-term value.</li>
+<li>Company-specific risk requires diversification.</li>
+</ul>
+
+<div class="formula">
+Equity Return ≈ Dividend Income + Change in Share Price
+</div>
+</div>
+
+<div class="detail-card">
+<h3>📦 ETF Investing</h3>
+<ul>
+<li>Exchange-traded funds can provide diversified exposure.</li>
+<li>Equity, debt, commodity and other ETF structures exist.</li>
+<li>Evaluate expense ratio and tracking difference.</li>
+<li>Market price can differ from intrinsic/net asset value depending on structure and liquidity.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>🤝 Securities Lending & Borrowing — SLBM</h3>
+<p>
+Eligible investors may lend securities through the securities lending
+and borrowing framework and receive a lending fee.
+</p>
+
+<ul>
+<li>Potential additional income from idle eligible holdings.</li>
+<li>Not every security is necessarily available.</li>
+<li>Tenure, settlement and corporate-action rules apply.</li>
+<li>Understand intermediary, collateral and counterparty framework.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>⚠️ Equity Derivatives</h3>
+<ul>
+<li>Index futures and options provide leveraged exposure.</li>
+<li>Useful for hedging as well as trading.</li>
+<li>Premium, margin, expiry and volatility affect outcomes.</li>
+<li>Losses can be substantial.</li>
+</ul>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- REIT -->
+<section id="reit" class="source-section">
+
+<div class="container">
+
+<div class="section-heading">
+<h2>05 — REITs & InvITs</h2>
+<p>
+Listed trusts can provide exposure to income-generating real estate or
+infrastructure assets without directly purchasing the underlying assets.
+</p>
+</div>
+
+<div class="detail-grid">
+
+<div class="detail-card">
+<h3>🏢 REIT — Real Estate Investment Trust</h3>
+
+<ul>
+<li>Provides exposure to income-generating real estate assets.</li>
+<li>Distributions can form part of the investor's return.</li>
+<li>Unit price can rise or fall.</li>
+<li>Distribution frequency and composition depend on the trust and applicable rules.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>🛣 InvIT — Infrastructure Investment Trust</h3>
+
+<ul>
+<li>Provides exposure to infrastructure assets.</li>
+<li>Potential cash distributions.</li>
+<li>Infrastructure, interest-rate, leverage and project risks matter.</li>
+<li>Unit price can fluctuate.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>💡 Important Correction</h3>
+
+<p>
+Do not treat REIT/InvIT distributions as equivalent to guaranteed
+bank interest. Distributions can vary and investors should examine
+the underlying assets, debt, occupancy/traffic, cash flows and
+distribution history.
+</p>
+</div>
+
+<div class="detail-card">
+<h3>📊 Return Components</h3>
+
+<div class="formula">
+Total Return =
+Distributions + Capital Appreciation / Depreciation
+</div>
+
+<p>
+The investment should therefore be evaluated on total return rather
+than distribution yield alone.
+</p>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- COMMODITIES -->
+<section id="derivatives" class="source-section">
+
+<div class="container">
+
+<div class="section-heading">
+<h2>06 — Commodity Trading</h2>
+<p>
+Commodity derivatives allow market participants to gain exposure to
+price movements in commodities and can also serve hedging purposes.
+</p>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="icon">🥇</div>
+<h3>Gold Futures</h3>
+<p>Trade price movements through futures contracts subject to margin and contract specifications.</p>
+<span class="tag high">High Risk</span>
+</div>
+
+<div class="card">
+<div class="icon">🥈</div>
+<h3>Silver Futures</h3>
+<p>Silver prices can be influenced by industrial demand, investment demand and global markets.</p>
+<span class="tag high">High Risk</span>
+</div>
+
+<div class="card">
+<div class="icon">🛢️</div>
+<h3>Crude Oil</h3>
+<p>Highly sensitive to global supply, demand, geopolitics and currency movements.</p>
+<span class="tag veryhigh">Very High Volatility</span>
+</div>
+
+<div class="card">
+<div class="icon">🔥</div>
+<h3>Natural Gas</h3>
+<p>Can experience substantial price movements because of weather, inventories and supply-demand changes.</p>
+<span class="tag veryhigh">Very High Volatility</span>
+</div>
+
+</div>
+
+<div class="warning">
+<h3>⚠ Commodity Derivatives Are Not Passive Income</h3>
+<p>
+Futures and options are trading instruments. Profit is not generated
+simply because a contract is held. Margin, leverage, volatility,
+expiry, liquidity and transaction costs can significantly affect the
+result.
+</p>
+</div>
+
+</div>
+</section>
+
+
+<!-- CURRENCY -->
+<section class="source-section">
+
+<div class="container">
+
+<div class="section-heading">
+<h2>07 — Currency Derivatives</h2>
+<p>
+Currency derivatives provide exposure to exchange-rate movements and
+can be used by businesses and investors for hedging or trading.
+</p>
+</div>
+
+<div class="detail-grid">
+
+<div class="detail-card">
+<h3>💱 Currency Futures</h3>
+<ul>
+<li>Standardised exchange-traded contracts.</li>
+<li>Used to hedge currency exposure or speculate on exchange rates.</li>
+<li>Margins and contract specifications apply.</li>
+<li>Currency movements are influenced by interest rates, inflation, economic data and global risk sentiment.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>🎯 Currency Options</h3>
+<ul>
+<li>Options provide asymmetric payoff characteristics.</li>
+<li>Premium is paid by the option buyer.</li>
+<li>Option sellers face potentially substantial risk depending on strategy.</li>
+<li>Volatility and time decay are important.</li>
+</ul>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- CRYPTO -->
+<section id="crypto" class="source-section">
+
+<div class="container">
+
+<div class="section-heading">
+<h2>08 — Cryptocurrency</h2>
+<p>
+Digital assets introduce a separate risk category characterized by
+high volatility, technological risk, platform risk and evolving regulation.
+</p>
+</div>
+
+<div class="detail-grid">
+
+<div class="detail-card">
+<h3>₿ Crypto Investment</h3>
+<ul>
+<li>Buy and hold digital assets.</li>
+<li>Potential for significant capital appreciation.</li>
+<li>Potential for significant capital loss.</li>
+<li>Custody and platform security are critical.</li>
+<li>Regulatory and tax treatment must be checked for the applicable jurisdiction.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>⚡ Crypto Futures / Perpetuals</h3>
+<ul>
+<li>Perpetual contracts generally do not have a conventional expiry.</li>
+<li>Funding mechanisms may affect positions.</li>
+<li>Leverage can rapidly magnify losses.</li>
+<li>Liquidation risk can be significant.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>🎯 Crypto Options</h3>
+<ul>
+<li>Can be used for directional, volatility or hedging strategies.</li>
+<li>Premium, implied volatility and time decay matter.</li>
+<li>Liquidity and exchange/counterparty risk must be evaluated.</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>⚠ Important Distinction</h3>
+<p>
+Crypto derivatives available on offshore/global platforms should not
+automatically be treated as equivalent to exchange-traded securities
+derivatives in India. Platform jurisdiction, regulatory status, tax
+treatment and investor protection can differ substantially.
+</p>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- COMPARISON -->
+<section>
+
+<div class="container">
+
+<div class="section-heading">
+<h2>Compare the Income Sources</h2>
+<p>
+No single asset class is best for every objective.
+</p>
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Source</th>
+<th>Main Return</th>
+<th>Capital Risk</th>
+<th>Liquidity</th>
+<th>Typical Objective</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>🏦 Savings</td>
+<td>Interest</td>
+<td>Low</td>
+<td>High</td>
+<td>Liquidity</td>
+</tr>
+
+<tr>
+<td>🔒 FD / RD</td>
+<td>Interest</td>
+<td>Low</td>
+<td>Medium</td>
+<td>Capital stability</td>
+</tr>
+
+<tr>
+<td>📈 Mutual Funds</td>
+<td>Capital growth / distributions</td>
+<td>Medium–High</td>
+<td>Medium–High</td>
+<td>Long-term wealth</td>
+</tr>
+
+<tr>
+<td>💵 Bonds</td>
+<td>Coupon + price movement</td>
+<td>Low–High</td>
+<td>Medium</td>
+<td>Income / diversification</td>
+</tr>
+
+<tr>
+<td>📊 Stocks</td>
+<td>Capital gain + dividend</td>
+<td>High</td>
+<td>High</td>
+<td>Wealth creation</td>
+</tr>
+
+<tr>
+<td>📦 ETFs</td>
+<td>Market return + distributions</td>
+<td>Medium–High</td>
+<td>High</td>
+<td>Diversification</td>
+</tr>
+
+<tr>
+<td>🏢 REIT / InvIT</td>
+<td>Distribution + price movement</td>
+<td>Medium–High</td>
+<td>High</td>
+<td>Income + diversification</td>
+</tr>
+
+<tr>
+<td>🪙 Commodities</td>
+<td>Trading gain/loss</td>
+<td>High</td>
+<td>High</td>
+<td>Trading / hedging</td>
+</tr>
+
+<tr>
+<td>💱 Currency</td>
+<td>Trading gain/loss</td>
+<td>High</td>
+<td>High</td>
+<td>Hedging / trading</td>
+</tr>
+
+<tr>
+<td>₿ Crypto</td>
+<td>Capital gain/loss</td>
+<td>Very High</td>
+<td>Variable</td>
+<td>Speculation / investment</td>
+</tr>
+
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+
+
+<!-- PYRAMID -->
+<section id="roadmap">
+
+<div class="container">
+
+<div class="section-heading">
+<h2>A Practical Wealth-Building Pyramid</h2>
+<p>
+A sensible financial plan generally starts with financial stability
+before moving toward higher-risk opportunities.
+</p>
+</div>
+
+<div class="pyramid">
+
+<div class="level level5">
+🚀 HIGH-RISK OPPORTUNITIES
+<br>
+Options • Futures • Commodity Trading • Crypto
+</div>
+
+<div class="level level4">
+📈 GROWTH ASSETS
+<br>
+Stocks • Equity Funds • ETFs
+</div>
+
+<div class="level level3">
+🏢 INCOME & DIVERSIFICATION
+<br>
+Bonds • REITs • InvITs
+</div>
+
+<div class="level level2">
+💰 LONG-TERM SAVING
+<br>
+Mutual Funds • SIP • Retirement Assets
+</div>
+
+<div class="level level1">
+🛡️ FINANCIAL FOUNDATION
+<br>
+Emergency Fund • Savings • Suitable Deposits
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- TABS -->
+<section>
+
+<div class="container">
+
+<div class="section-heading">
+<h2>How Different Strategies Make Money</h2>
+<p>Understand the actual source of return before investing.</p>
+</div>
+
+<div class="tabs">
+
+<div class="tab active" onclick="openTab(event,'interest')">
+Interest
+</div>
+
+<div class="tab" onclick="openTab(event,'growth')">
+Capital Growth
+</div>
+
+<div class="tab" onclick="openTab(event,'income')">
+Distribution
+</div>
+
+<div class="tab" onclick="openTab(event,'trading')">
+Trading
+</div>
+
+<div class="tab" onclick="openTab(event,'slbm')">
+SLBM
+</div>
+
+</div>
+
+
+<div id="interest" class="tab-content active detail-card">
+<h3>Interest / Coupon Income</h3>
+<p>
+You receive contractual interest according to the terms of the
+deposit or debt instrument, subject to issuer and product conditions.
+</p>
+<br>
+<strong>Examples:</strong> Savings account, FD, RD, bonds and debentures.
+</div>
+
+
+<div id="growth" class="tab-content detail-card">
+<h3>Capital Appreciation</h3>
+<p>
+An asset becomes more valuable and you realize a gain when you sell
+at a higher price, subject to costs and taxes.
+</p>
+<br>
+<strong>Examples:</strong> Stocks, ETFs, mutual funds, REITs and InvITs.
+</div>
+
+
+<div id="income" class="tab-content detail-card">
+<h3>Distributions / Dividends</h3>
+<p>
+Some investments may distribute cash to investors. The amount and
+frequency are not necessarily guaranteed.
+</p>
+<br>
+<strong>Examples:</strong> Stock dividends, mutual fund distributions,
+REIT and InvIT distributions.
+</div>
+
+
+<div id="trading" class="tab-content detail-card">
+<h3>Trading Profit</h3>
+<p>
+A trader attempts to profit from favourable price movements. However,
+every trade has the possibility of loss.
+</p>
+<br>
+<strong>Examples:</strong> Equity, index futures/options, commodity
+derivatives and currency derivatives.
+</div>
+
+
+<div id="slbm" class="tab-content detail-card">
+<h3>Securities Lending</h3>
+<p>
+An eligible investor lends securities and receives a lending fee under
+the applicable securities lending framework.
+</p>
+<br>
+<strong>Key idea:</strong> Earn from an otherwise idle eligible security,
+while understanding settlement, recall and corporate-action rules.
+</div>
+
+</div>
+</section>
+
+
+<!-- CALCULATOR -->
+<section>
+
+<div class="container">
+
+<div class="section-heading">
+<h2>Compounding Illustration</h2>
+<p>
+Use this simple calculator to understand how long-term compounding can
+affect an investment. This is an illustration, not a return prediction.
+</p>
+</div>
+
+<div class="calculator">
+
+<div class="input-group">
+<label>Initial Investment (₹)</label>
+<input id="principal" type="number" value="100000">
+</div>
+
+<div class="input-group">
+<label>Annual Return (%)</label>
+<input id="rate" type="number" value="12">
+</div>
+
+<div class="input-group">
+<label>Investment Period (Years)</label>
+<input id="years" type="number" value="10">
+</div>
+
+<button class="btn btn-primary" onclick="calculate()">
+Calculate Future Value
+</button>
+
+<div class="result">
+<p>Illustrative Future Value</p>
+<strong id="result">₹3,10,585</strong>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- RISK MANAGEMENT -->
+<section>
+
+<div class="container">
+
+<div class="section-heading">
+<h2>The Most Important Part: Risk Management</h2>
+<p>
+The objective is not simply to find more ways to earn money.
+The objective is to build a system that survives losses.
+</p>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="icon">🛡️</div>
+<h3>Capital Protection</h3>
+<p>Do not expose essential money to instruments that can cause unacceptable losses.</p>
+</div>
+
+<div class="card">
+<div class="icon">🎯</div>
+<h3>Position Sizing</h3>
+<p>Control how much capital is exposed to each investment or trade.</p>
+</div>
+
+<div class="card">
+<div class="icon">🔄</div>
+<h3>Diversification</h3>
+<p>Spread risk across assets, sectors, issuers and strategies where appropriate.</p>
+</div>
+
+<div class="card">
+<div class="icon">🧠</div>
+<h3>Trading Psychology</h3>
+<p>A good strategy can fail if fear, greed, revenge trading or overconfidence controls decisions.</p>
+</div>
+
+</div>
+
+<div class="warning">
+<h3>⚠ Income ≠ Guaranteed Profit</h3>
+<p>
+Financial markets always involve some combination of market risk,
+credit risk, liquidity risk, interest-rate risk, leverage risk,
+operational risk and regulatory/tax considerations. Higher expected
+return generally comes with higher uncertainty and/or risk.
+</p>
+</div>
+
+</div>
+</section>
+
+
+<!-- ROADMAP -->
+<section>
+
+<div class="container">
+
+<div class="section-heading">
+<h2>A Better Way to Think About Your Money</h2>
+</div>
+
+<div class="detail-grid">
+
+<div class="detail-card">
+<h3>Step 1 — Protect</h3>
+<ul>
+<li>Emergency reserve</li>
+<li>Insurance appropriate to your situation</li>
+<li>Manage expensive debt</li>
+<li>Maintain adequate liquidity</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>Step 2 — Stabilize</h3>
+<ul>
+<li>Savings</li>
+<li>Suitable deposits</li>
+<li>High-quality debt exposure</li>
+<li>Goal-based allocation</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>Step 3 — Grow</h3>
+<ul>
+<li>Equity mutual funds</li>
+<li>Stocks</li>
+<li>ETFs</li>
+<li>Long-term diversified investments</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>Step 4 — Diversify</h3>
+<ul>
+<li>Bonds</li>
+<li>REITs</li>
+<li>InvITs</li>
+<li>Other suitable asset classes</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>Step 5 — Trade Carefully</h3>
+<ul>
+<li>Equity trading</li>
+<li>Futures</li>
+<li>Options</li>
+<li>Commodity / currency derivatives</li>
+</ul>
+</div>
+
+<div class="detail-card">
+<h3>Step 6 — Review</h3>
+<ul>
+<li>Track total return</li>
+<li>Measure risk-adjusted performance</li>
+<li>Review taxation and costs</li>
+<li>Rebalance when appropriate</li>
+</ul>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<footer>
+
+<div class="container">
+
+<p>
+<strong>FINWEALTH — Multiple Sources of Financial Income</strong>
+</p>
+
+<p>
+Education only. This webpage is not investment, tax or financial advice.
+Returns are not guaranteed. Market-linked products can lose value.
+Always verify current rules, product documents, taxation and regulatory
+requirements before investing or trading.
+</p>
+
+<p style="margin-top:15px">
+© 2026 Financial Education Framework
+</p>
+
+</div>
+
+</footer>
+
+
+<script>
+
+function openTab(event,id){
+
+    document.querySelectorAll(".tab").forEach(tab=>{
+        tab.classList.remove("active");
+    });
+
+    document.querySelectorAll(".tab-content").forEach(content=>{
+        content.classList.remove("active");
+    });
+
+    event.currentTarget.classList.add("active");
+    document.getElementById(id).classList.add("active");
+}
+
+
+function calculate(){
+
+    const P = Number(document.getElementById("principal").value);
+    const r = Number(document.getElementById("rate").value)/100;
+    const n = Number(document.getElementById("years").value);
+
+    const future = P * Math.pow(1+r,n);
+
+    document.getElementById("result").textContent =
+        "₹" + future.toLocaleString("en-IN",{
+            maximumFractionDigits:0
+        });
+}
+
+calculate();
+
+</script>
+
+</body>
+</html>
